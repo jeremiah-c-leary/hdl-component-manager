@@ -10,7 +10,12 @@ Welcome to hdl-component-manager's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   overview.rst
+   installing.rst
 
+..   usage.rst
+   repository_setup.rst
+   examples.rst
 
 Indices and tables
 ==================
