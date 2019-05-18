@@ -21,11 +21,15 @@ def parse_command_line_arguments():
     subparsers = top_parser.add_subparsers()
 
     create_parser = subparsers.add_parser('create', help='creates a component repo')
+    install_parser = subparsers.add_parser('install', help='adds a component from the component repo')
     list_parser = subparsers.add_parser('list', help='lists components and their versions')
     publish_parser = subparsers.add_parser('publish', help='Adds components to the component repo')
     update_parser = subparsers.add_parser('update', help='Updates a component to the requested version')
 
     create_parser.add_argument('url', help='location to create the base component repo')
+
+    install_parser.add_argument('url', help='location of component in component repo')
+    install_parser.add_argument('--version', help='Major.Minor.Patch version of component to update to')
 
     publish_parser.add_argument('component', help='Component name to publish')
     publish_parser.add_argument('version', help='Major.Minor.Patch version to publish')

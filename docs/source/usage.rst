@@ -13,6 +13,7 @@ HCM can be invoked with:
     positional arguments:
       {create,list,publish,update}
         create              creates a component repo
+        install             adds a component from the component repo
         list                lists components and their versions
         publish             Adds components to the component repo
         update              Updates a component to the requested version
@@ -20,9 +21,13 @@ HCM can be invoked with:
     optional arguments:
       -h, --help            show this help message and exit
 
+HCM has five subcommands:  create, install, list, publish, and update.
 
 create
 ------
+
+The create subcommand is used when you want to create a new component repository.
+The arguments for the subcommand can be listed using the *-h* option:
 
 .. code-block:: bash
 
@@ -35,8 +40,29 @@ create
     optional arguments:
       -h, --help  show this help message and exit
 
+install
+-------
+
+The install subcommand is used when you want to add a component from the component repository.
+The arguments for the subcommand can be listed using the *-h* option:
+
+.. code-block:: bash
+
+    $ bin/hcm install -h
+    usage: hcm install [-h] [--version VERSION] url
+    
+    positional arguments:
+      url                location of component in component repo
+    
+    optional arguments:
+      -h, --help         show this help message and exit
+      --version VERSION  Major.Minor.Patch version of component to update to
+
 list
 ----
+
+The list subcommand is used when you want to check which versions of components you have installed.
+The arguments for the subcommand can be listed using the *-h* option:
 
 .. code-block:: bash
 
@@ -53,6 +79,9 @@ list
 publish
 -------
 
+The publish subcommand is used when you want to push a version of a component to the component repository.
+The arguments for the subcommand can be listed using the *-h* option:
+
 .. code-block:: bash
 
     $ hcm publish -h
@@ -68,6 +97,9 @@ publish
 
 update
 ------
+
+The update subcommand is used when you want to pull in a newer version of the current component.
+The arguments for the subcommand can be listed using the *-h* option:
 
 .. code-block:: bash
 
