@@ -38,7 +38,7 @@ setup(
   ],
   entry_points={
     'console_scripts': [
-      'vsg = vsg.__main__:main'
+      'hcm = hcm.__main__:main'
     ]
   }
 )
