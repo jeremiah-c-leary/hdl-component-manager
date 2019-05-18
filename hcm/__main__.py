@@ -30,7 +30,7 @@ def parse_command_line_arguments():
     publish_parser.add_argument('component', help='Component name to publish')
     publish_parser.add_argument('version', help='Major.Minor.Patch version to publish')
 
-    list_parser.add_argument('--upgrades', help='Lists possible upgrades for currently installed components')
+    list_parser.add_argument('--upgrades', help='Lists upgrades for currently installed components')
     list_parser.add_argument('--available', help='Lists available components stored in repo')
 
     update_parser.add_argument('component', help='Component name to update')

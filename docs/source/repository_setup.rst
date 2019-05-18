@@ -72,3 +72,4 @@ HCM supports multiple component repos and can pull from any of them.
     Publishing components not in your local repo requires manual effort.
     Hopefully this can be fixed as the program is developed.
 
+.. NOTE:: If the URL already exists, an error will be reported
