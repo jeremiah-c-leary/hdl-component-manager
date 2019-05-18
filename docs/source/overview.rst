@@ -2,36 +2,18 @@ Overview
 ========
 
 HDL Component Manager (HCM) is a tool to manage IP blocks in an SVN repository.
+It simplifies the sharing of hdl components between projects without having to perform merges.
+HCM sits between your working copy and the SVN repository.
+
+#. Add new components
+#. Switch between components
+#. Publish updates to existing components
+
 
 It follows a particular method for managing IP blocks.
 This method assumes all external IP is committed to your repo.
 Following this method ensures you will always have access to code for you project.
 
-Component Directory Structure
------------------------------
-
-The directory structure contains individual directories for each component.
-This top level directory can be anywhere in your repository.
-It is typically placed either at the root or under the tags directory.
-
-Under each component directory are releases in the form of a three dot number: <Major>.<Minor>.<Patch>
-
-.. code-block:: bash
-
-   components
-   |
-   +-- I2C_CONTROL
-   |   |
-   |   +-- 1.0.0
-   |   +-- 1.1.0
-   |   +-- 2.0.0
-   |
-   +-- SPI_CONTROL
-       |
-       +-- 1.0.0
-       +-- 2.0.0
-       +-- 2.1.0
-       +-- 3.0.0
 
 
 Publishing Components

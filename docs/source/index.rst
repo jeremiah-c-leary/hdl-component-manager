@@ -12,9 +12,9 @@ Welcome to hdl-component-manager's documentation!
 
    overview.rst
    installing.rst
+   repository_setup.rst
 
 ..   usage.rst
-   repository_setup.rst
    examples.rst
 
 Indices and tables
