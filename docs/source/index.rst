@@ -14,8 +14,10 @@ Welcome to hdl-component-manager's documentation!
    installing.rst
    usage.rst
    repository_setup.rst
-..   listing.rst
-   examples.rst
+   installing_subcommand.rst
+   list_subcommand.rst
+   publish_subcommand.rst
+   update_subcommand.rst
 
 Indices and tables
 ==================

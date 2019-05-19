@@ -113,3 +113,9 @@ The arguments for the subcommand can be listed using the *-h* option:
     optional arguments:
       -h, --help  show this help message and exit
 
+
+Environment Variables
+---------------------
+
+HCM requires the **HCM_URL_PATHS** environment variable is set before using the install, list, publish, or update subcommands.
+HCM uses the paths in the variable to know which component repos to interact with.
