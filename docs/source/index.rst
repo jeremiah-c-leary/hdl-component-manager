@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to hdl-component-manager's documentation!
-=================================================
+hdl-component-manager
+=====================
 
 .. toctree::
    :maxdepth: 2

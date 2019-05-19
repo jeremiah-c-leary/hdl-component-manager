@@ -1,7 +1,7 @@
 Usage
 =====
 
-HCM can be invoked with:
+HCM can be invoked by issuing **hcm** at the command line prompt:
 
 .. code-block:: bash
 
@@ -26,7 +26,7 @@ HCM has five subcommands:  create, install, list, publish, and update.
 create
 ------
 
-The create subcommand is used when you want to create a new component repository.
+Use the **create** subcommand to create a new component repository.
 The arguments for the subcommand can be listed using the *-h* option:
 
 .. code-block:: bash
@@ -43,7 +43,7 @@ The arguments for the subcommand can be listed using the *-h* option:
 install
 -------
 
-The install subcommand is used when you want to add a component from the component repository.
+Use the **install** subcommand to add or upgrade a componet from the component repository.
 The arguments for the subcommand can be listed using the *-h* option:
 
 .. code-block:: bash
@@ -61,7 +61,8 @@ The arguments for the subcommand can be listed using the *-h* option:
 list
 ----
 
-The list subcommand is used when you want to check which versions of components you have installed.
+Use the **list** subcommand to check the versions of components you have installed.
+Components in the component repo can also be listed.
 The arguments for the subcommand can be listed using the *-h* option:
 
 .. code-block:: bash
@@ -79,7 +80,7 @@ The arguments for the subcommand can be listed using the *-h* option:
 publish
 -------
 
-The publish subcommand is used when you want to push a version of a component to the component repository.
+Use the **publish** subcommand to push a version of a component to the component repository.
 The arguments for the subcommand can be listed using the *-h* option:
 
 .. code-block:: bash
@@ -95,23 +96,23 @@ The arguments for the subcommand can be listed using the *-h* option:
       -h, --help  show this help message and exit
 
 
-update
-------
-
-The update subcommand is used when you want to pull in a newer version of the current component.
-The arguments for the subcommand can be listed using the *-h* option:
-
-.. code-block:: bash
-
-    $ hcm update -h
-    usage: hcm update [-h] component version
-    
-    positional arguments:
-      component   Component name to update
-      version     Major.Minor.Patch version of component to update to
-    
-    optional arguments:
-      -h, --help  show this help message and exit
+#update
+#------
+#
+#The update subcommand is used when you want to pull in a newer version of the current component.
+#The arguments for the subcommand can be listed using the *-h* option:
+#
+#.. code-block:: bash
+#
+#    $ hcm update -h
+#    usage: hcm update [-h] component version
+#    
+#    positional arguments:
+#      component   Component name to update
+#      version     Major.Minor.Patch version of component to update to
+#    
+#    optional arguments:
+#      -h, --help  show this help message and exit
 
 
 Environment Variables

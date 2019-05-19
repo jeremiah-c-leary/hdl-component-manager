@@ -3,14 +3,22 @@ Overview
 
 HDL Component Manager (HCM) is a tool to manage IP blocks in an SVN repository.
 It simplifies the sharing of hdl components between projects without having to perform merges.
-HCM sits between your working copy and the SVN repository.
+
+With HCM you can:
 
 #. Add new components
-#. Switch between components
-#. Publish updates to existing components
+#. Easily switch between versions components
+#. Easily publish updates to existing components
 
 
-It follows a particular method for managing IP blocks.
-This method assumes all external IP is committed to your repo.
-Following this method ensures you will always have access to code for you project.
+Why HCM?
+--------
 
+Support for packaging of HDL languages lags software implementations.
+Software has many package managers, e.g. PIP, NPM, APT.
+HCM is an attempt to provide similar capabilities of those package managers for HDL development.
+
+Goals
+-----
+
+* Frictionless sharing of HDL IP components between projects
