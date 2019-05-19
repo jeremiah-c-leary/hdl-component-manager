@@ -17,7 +17,7 @@ def parse_command_line_arguments():
       description='''Provides configuration management for HDL components.
                    '''
     )
-    
+
     subparsers = top_parser.add_subparsers()
 
     create_parser = subparsers.add_parser('create', help='creates a component repo')
