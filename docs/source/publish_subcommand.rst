@@ -3,11 +3,14 @@ Publishing Components
 
 Use the **publish** subcommand to add components to the component repo.
 If there is only one path defined in the **HCM_URL_PATHS** environment variable, then the *--url* argument is optional.
-Otherwise HCM will indicate the *--url* argument is required, as it will not know which repo to store the 
+Otherwise HCM will indicate the *--url* argument is required, as it will not know which repo to store the component.
 
 .. code-block:: bash
 
-  > hcm publish I2C_CONTROL 2.1.0
+  > hcm publish i2c_control 2.1.0
+
+.. NOTE:: The component must be checked into SVN before it can be published.
+  This ensures a paper trail exists to the original code.
 
 Example:  Publishing a new component
 ------------------------------------
