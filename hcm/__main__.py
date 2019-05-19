@@ -2,8 +2,6 @@
 
 import argparse
 import sys
-import os
-import shutil
 import logging
 
 import subcommand
@@ -65,8 +63,7 @@ def main():
     logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
     if commandLineArguments.which == 'create':
-        subcommand.create(commandLineArguments)
-           
+        subcommand.create(commandLineArguments.url)
 
     sys.exit(0)
 

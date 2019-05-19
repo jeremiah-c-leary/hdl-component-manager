@@ -18,11 +18,10 @@ def svn_mkdir(sUrl):
         raise e
 
 
-def create(commandLineArguments):
+def create(sUrl):
 
-        sUrl = commandLineArguments.url
         logging.info('Creating component directory ' + sUrl)
-        lUrl = sUrl.split('/')
+
         if does_svn_directory_exist(sUrl):
             logging.error('Component directory ' + sUrl + ' already exists')
             exit()
