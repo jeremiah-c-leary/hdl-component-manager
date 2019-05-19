@@ -12,7 +12,7 @@ Use the **create** subcommand to create the reposistory location:
 
 .. code-block:: bash
 
-  $ hcm create repo <url>
+  $ hcm create <url>
 
 Where *<url>* is the path to the component directory:
 

@@ -4,7 +4,9 @@ import argparse
 import sys
 import os
 import shutil
-import yaml
+import logging
+
+import subcommand
 
 
 def parse_command_line_arguments():
@@ -26,20 +28,25 @@ def parse_command_line_arguments():
     publish_parser = subparsers.add_parser('publish', help='Adds components to the component repo')
     update_parser = subparsers.add_parser('update', help='Updates a component to the requested version')
 
-    create_parser.add_argument('url', help='location to create the base component repo')
+    create_parser.add_argument('url', help='location to create the base component directory')
+    create_parser.set_defaults(which='create')
 
     install_parser.add_argument('url', help='location of component in component repo')
     install_parser.add_argument('--version', help='Major.Minor.Patch version of component to update to')
+    install_parser.set_defaults(which='install')
 
     publish_parser.add_argument('component', help='Component name to publish')
     publish_parser.add_argument('version', help='Major.Minor.Patch version to publish')
     publish_parser.add_argument('--url', help='Base URL of the component repository')
+    publish_parser.set_defaults(which='publish')
 
     list_parser.add_argument('--upgrades', help='Lists upgrades for currently installed components')
     list_parser.add_argument('--available', help='Lists available components stored in repo')
+    list_parser.set_defaults(which='list')
 
     update_parser.add_argument('component', help='Component name to update')
     update_parser.add_argument('version', help='Major.Minor.Patch version of component to update to')
+    update_parser.set_defaults(which='update')
 
     if len(sys.argv) == 1:
         top_parser.print_help()
@@ -54,6 +61,12 @@ def main():
     '''
 
     commandLineArguments = parse_command_line_arguments()
+
+    logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
+
+    if commandLineArguments.which == 'create':
+        subcommand.create(commandLineArguments)
+           
 
     sys.exit(0)
 

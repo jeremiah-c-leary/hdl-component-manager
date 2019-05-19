@@ -15,7 +15,7 @@ Why HCM?
 --------
 
 Support for packaging of HDL languages lags software implementations.
-Software has many package managers, e.g. PIP, NPM, APT.
+Software has many package managers, e.g. PIP, APT, RPM, YUM.
 HCM is an attempt to provide similar capabilities of those package managers for HDL development.
 
 Goals

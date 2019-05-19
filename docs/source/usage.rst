@@ -96,24 +96,24 @@ The arguments for the subcommand can be listed using the *-h* option:
       -h, --help  show this help message and exit
 
 
-#update
-#------
-#
-#The update subcommand is used when you want to pull in a newer version of the current component.
-#The arguments for the subcommand can be listed using the *-h* option:
-#
-#.. code-block:: bash
-#
-#    $ hcm update -h
-#    usage: hcm update [-h] component version
-#    
-#    positional arguments:
-#      component   Component name to update
-#      version     Major.Minor.Patch version of component to update to
-#    
-#    optional arguments:
-#      -h, --help  show this help message and exit
-
+.. update
+.. ------
+.. 
+.. The update subcommand is used when you want to pull in a newer version of the current component.
+.. The arguments for the subcommand can be listed using the *-h* option:
+.. 
+.. .. code-block:: bash
+.. 
+..     $ hcm update -h
+..     usage: hcm update [-h] component version
+..     
+..     positional arguments:
+..       component   Component name to update
+..       version     Major.Minor.Patch version of component to update to
+..     
+..     optional arguments:
+..       -h, --help  show this help message and exit
+.. 
 
 Environment Variables
 ---------------------

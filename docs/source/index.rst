@@ -13,7 +13,7 @@ hdl-component-manager
    overview.rst
    installing.rst
    usage.rst
-   repository_setup.rst
+   create_subcommand.rst
    installing_subcommand.rst
    list_subcommand.rst
    publish_subcommand.rst
