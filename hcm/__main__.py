@@ -35,6 +35,7 @@ def parse_command_line_arguments():
 
     publish_parser.add_argument('component', help='Component name to publish')
     publish_parser.add_argument('version', help='Major.Minor.Patch version to publish')
+    publish_parser.add_argument('-m', required=True, help='Commit message')
     publish_parser.add_argument('--url', help='Base URL of the component repository')
     publish_parser.set_defaults(which='publish')
 
@@ -64,6 +65,8 @@ def main():
 
     if commandLineArguments.which == 'create':
         subcommand.create(commandLineArguments.url)
+    if commandLineArguments.which == 'publish':
+        subcommand.publish(commandLineArguments)
 
     sys.exit(0)
 
