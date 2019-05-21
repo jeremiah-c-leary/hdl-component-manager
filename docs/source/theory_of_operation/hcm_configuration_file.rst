@@ -4,17 +4,17 @@ HCM configuration file
 The HCM configuration is a JSON file which contains information about the component.
 There is a single HCM for each component and is updated with every version released.
 
-.. code-block:: bash
+.. code-block:: json
 
    {
-     'hcm' : {
-         'url' : 'http://svn/my_repo/components',
-         'name' : 'rook',
-         'source_url' : 'http://svn/my_repo/chess_project/components/rook@1276',
-         'version' : '1.0.0',
-         'manifest' : {
-             'rook/rtl/rook.vhd' : '93ffadcc3b73c6292de35564192a99b4',
-             'rook/lay/filelist.tcl' : '10019aef04979acfac88673bc5dc6133'
+     "hcm" : {
+         "url" : "http://svn/my_repo/components",
+         "name" : "rook",
+         "source_url" : "http://svn/my_repo/chess_project/components/rook@1276",
+         "version" : "1.0.0",
+         "manifest" : {
+             "rook/rtl/rook.vhd" : "93ffadcc3b73c6292de35564192a99b4",
+             "rook/lay/filelist.tcl" : "10019aef04979acfac88673bc5dc6133"
          }
       }
     }
