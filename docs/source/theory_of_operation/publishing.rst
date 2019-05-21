@@ -14,6 +14,6 @@ To publish within the same repo:
     b.  it must come back with a clean status
 
 2.  generate the hcm.json or hcm.yaml file
-3.  Add/Modify hcm.json or hcm.yaml file to the component directory
+3.  Add/Modify hcm.json file to the component directory
 4.  svn copy the local component directory to the published directory under the correct version
 
