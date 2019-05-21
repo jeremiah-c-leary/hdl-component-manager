@@ -1,0 +1,12 @@
+Theory of Operation
+===================
+
+HCM performs it's tasks according to certain rules.
+This section attempts to detail how HCM performs those tasks.
+
+.. include:: component_directory.rst
+.. include:: repositories.rst
+.. include:: publishing.rst
+.. include:: installing.rst
+.. include:: conclusion.rst
+
