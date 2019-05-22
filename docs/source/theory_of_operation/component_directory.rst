@@ -1,20 +1,21 @@
 Component Directory Structure
 -----------------------------
 
-HCM can create the component directory structure and place it in your repository.
+HCM can create the component directory and place it in your repository.
 It is commonly placed either at the root of the repository or under the tags directory.
 
 The component directory contains individual directories for each component.
 Under each individual component name are the releases for that component.
 Each release directory follows the form of a three dot number: <Major>.<Minor>.<Patch>
+The individual component directory and version directory are created during a publish task.
 
 The example below shows a component directory with three components: rook, king, and queen.
 
-The *rook* component has three releases: 1.0.0, 1.1.0, and 2.0.0.
+The **rook** component has three releases: 1.0.0, 1.1.0, and 2.0.0.
 
-The *king* component has four releases: 1.0.0, 2.0.0, 2.1.0, and 3.0.0.
+The **king** component has four releases: 1.0.0, 2.0.0, 2.1.0, and 3.0.0.
 
-The *queen* component has four releases: 1.0.0, 2.0.0, 2.1.0, and 3.0.0.
+The **queen** component has four releases: 1.0.0, 2.0.0, 2.1.0, and 3.0.0.
 
 .. code-block:: bash
 
@@ -41,4 +42,4 @@ The *queen* component has four releases: 1.0.0, 2.0.0, 2.1.0, and 3.0.0.
        +-- 3.0.0
 
 With this directory structure in the repository, differences between releases can be easily determined by comparing the two release URLs.
-You also have a complete history of all the releases visible.
+A complete history of all the releases visible.

@@ -1,8 +1,8 @@
 HCM configuration file
 ----------------------
 
-The HCM configuration is a JSON file which contains information about the component.
-There is a single HCM for each component and is updated with every version released.
+The HCM configuration file is a JSON file which contains information about the component.
+There is an HCM configuration file for each component and is updated with every version released.
 
 .. code-block:: json
 
@@ -19,8 +19,8 @@ There is a single HCM for each component and is updated with every version relea
       }
     }
 
-The JSON file starts with a single key hash named **hcm**.
-This uniquiely identifies the information as belonging to HCM.
+The JSON file starts with a single hash key named **hcm**.
+This uniquely identifies the information as belonging to HCM.
 It contains five other keys: url, name, version, source_url, and manifest.
 
 The **url** key is the location of the component directory where this component has been published.
@@ -33,8 +33,9 @@ This allows us to know the pedigree of the component across multiple repos.
 The **version** key indicates the version of the component that has been published.
 
 The **manifest** key holds a key value pair of every file that makes up the component.
-The key is the name of the file relative to the component directory.
+The key is the name of the file relative.
 The value is an md5sum hash of that file.
+
 The manifest provides a quick method to validate any component to see if anything has changed.
-It will also assist in transfering components between repos.
+It will also assist in transferring components between repos.
 
