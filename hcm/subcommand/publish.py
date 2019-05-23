@@ -133,6 +133,12 @@ def create_component_directory(sUrl):
             exit()
 
 
+def check_if_version_already_exists(dHcmConfig):
+    if svn.does_directory_exist(dHcmConfig['hcm']['url'] + '/' + dHcmConfig['hcm']['name'] + '/' + dHcmConfig['hcm']['version']):
+        logging.error('Version ' + dHcmConfig['hcm']['version'] + ' already exists')
+        exit()
+
+
 def publish(oCommandLineArguments):
 
         logging.info('Publishing component ' + oCommandLineArguments.component + ' as version ' + oCommandLineArguments.version)
@@ -141,11 +147,12 @@ def publish(oCommandLineArguments):
 
         sUrl = extract_url(oCommandLineArguments)
 
-        create_component_directory(sUrl + '/' + oCommandLineArguments.component)
-
         dHcmConfig = read_hcm_json_file(oCommandLineArguments.component)
         if not dHcmConfig:
             dHcmConfig = create_default_hcm_dictionary(oCommandLineArguments, sUrl)
+
+        create_component_directory(dHcmConfig['hcm']['url'] + '/' + oCommandLineArguments.component)
+        check_if_version_already_exists(dHcmConfig)
 
         update_version(dHcmConfig, oCommandLineArguments.version)
         update_source_url(dHcmConfig)
