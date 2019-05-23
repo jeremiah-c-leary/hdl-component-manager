@@ -14,7 +14,7 @@ hdl-component-manager
    installing.rst
    usage.rst
    create_subcommand.rst
-   installing_subcommand.rst
+   install_subcommand.rst
    list_subcommand.rst
    publish_subcommand.rst
    theory_of_operation/theory_of_operation.rst

@@ -28,8 +28,9 @@ def parse_command_line_arguments():
     create_parser.add_argument('url', help='location to create the base component directory')
     create_parser.set_defaults(which='create')
 
-    install_parser.add_argument('url', help='location of component in component repo')
-    install_parser.add_argument('--version', help='Major.Minor.Patch version of component to update to')
+    install_parser.add_argument('component', help='Component name to install')
+    install_parser.add_argument('version', help='Major.Minor.Patch version of component to install, or latest to grab the latest version.')
+    install_parser.add_argument('--url', help='location of component directory in repo')
     install_parser.set_defaults(which='install')
 
     publish_parser.add_argument('component', help='Component name to publish')

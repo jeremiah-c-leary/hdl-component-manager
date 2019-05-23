@@ -48,14 +48,16 @@ The arguments for the subcommand can be listed using the *-h* option:
 .. code-block:: bash
 
     $ bin/hcm install -h
-    usage: hcm install [-h] [--version VERSION] url
+    usage: hcm install [-h] [--url URL] component version
     
     positional arguments:
-      url                location of component in component repo
+      component   Component name to install
+      version     Major.Minor.Patch version of component to install, or latest to
+                  grab the latest version.
     
     optional arguments:
-      -h, --help         show this help message and exit
-      --version VERSION  Major.Minor.Patch version of component to update to
+      -h, --help  show this help message and exit
+      --url URL   location of component directory in repo
 
 list
 ----
