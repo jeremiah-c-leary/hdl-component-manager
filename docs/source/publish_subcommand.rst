@@ -29,12 +29,24 @@ The argument will override any paths in the **HCM_URL_PATH**.
 
 .. code-block:: bash
 
-   $ hcm publish temp_ctrl 1.0.0 --url http://svn/acme/project1/components -m "Initial release of temperature controller."
+   $ hcm publish bishop 1.0.0 --url http://svn/acme/chess/components -m "Initial release of bishop."
 
-   [jcl - need some output]
+   INFO:Publishing component bishop as version 1.0.0
+   INFO:Validating all files for component bishop are committed.
+   INFO:Validating component exists in component directory...
+   INFO:Creating component in component directory.
+   INFO:Searching for hcm.json file...
+   WARNING:Did not find hcm.json for component bishop.
+   INFO:Creating default hcm.json file...
+   INFO:Updating version...
+   INFO:Updating source URL...
+   INFO:Creating manifest...
+   INFO:Writing configuration file bishop/hcm.json
+   INFO:Adding configuration file to component directory
+   INFO:Component published
 
 HCM will create a configuration file named **hcm.json**.
-This file will contain information related to the component.
+This file contains information related to the component.
 
 After publishing the component, use the **install** subcommand to switch the local component to the published version.
 
@@ -47,32 +59,20 @@ HCM will use the information in the **hcm.json** file to determine where the com
 
 .. code-block:: bash
 
-   $ hcm publish temp_ctrl 1.1.0 -m "Fixing bug..."
+   $ hcm publish bishop 1.1.0 -m "Fixing movement bug."
 
-   [jcl - need some output]
+   INFO:Publishing component bishop as version 1.1.0
+   INFO:Validating all files for component bishop are committed.
+   INFO:Searching for hcm.json file...
+   INFO:Validating component exists in component directory...
+   INFO:Updating version...
+   INFO:Updating source URL...
+   INFO:Creating manifest...
+   INFO:Writing configuration file bishop/hcm.json
+   INFO:Adding configuration file to component directory
+   INFO:Component published
 
 HCM will update the **hcm.json** file with the new version before it is committed to the component directory.
 
 After publishing the component, use the **install** subcommand to switch the local component to the published version.
-
-hcm.json file
--------------
-
-The hcm.json file looks like this:
-
-.. code-block:: yaml
-
-   {
-     "hcm" : {
-       "url" : "http://svn/acme/project1/components",
-       "source_url" : :http://svn/acme/project1/trunk/components/temp_ctrl@2938",
-       "name" : "temp_ctrl",
-       "version" : "1.1.0",
-       "manifest" : {
-         "file1" : "<md5sum>",
-         "file2" : "<md5sum>",
-         "filen" : "<md5sum>"
-       }
-     }
-   }
 

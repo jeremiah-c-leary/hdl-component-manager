@@ -23,19 +23,22 @@ The JSON file starts with a single hash key named **hcm**.
 This uniquely identifies the information as belonging to HCM.
 It contains five other keys: url, name, version, source_url, and manifest.
 
-The **url** key is the location of the component directory where this component has been published.
-
-The **name** key is the name of the component.
-
-The **source_url** key is the current URL path and revision where the component was published from.
-This allows us to know the pedigree of the component across multiple repos.
-
-The **version** key indicates the version of the component that has been published.
-
-The **manifest** key holds a key value pair of every file that makes up the component.
-The key is the name of the file relative.
-The value is an md5sum hash of that file.
++---------------+------------------------------------------------------------------------------+
+| Key           |                                                                              |
++===============+==============================================================================+
+| url           | location of the component directory where this component has been published. |
++---------------+------------------------------------------------------------------------------+
+| name          | name of the component.                                                       |
++---------------+------------------------------------------------------------------------------+
+| source_url    | current URL path and revision where the component was published from.        |
++---------------+------------------------------------------------------------------------------+
+| version       | version of the component that has been published.                            |
++---------------+------------------------------------------------------------------------------+
+| manifest      | key value pair of every file that makes up the component.                    |
+|               | The key is the name of the file relative.                                    |
+|               | The value is an md5sum hash of that file.                                    |
++---------------+------------------------------------------------------------------------------+
 
 The manifest provides a quick method to validate any component to see if anything has changed.
-It will also assist in transferring components between repos.
+It can also assist in transferring components between repos.
 

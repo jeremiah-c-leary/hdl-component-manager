@@ -6,6 +6,11 @@ The diagram below shows the workflow assuming there are three repositories.
 
 .. image:: ../img/local_and_remote_repo_install_publish_diagram.png
 
+The workflow makes these assumptions:
+
+#. Publishing is restricted to within the local repo.
+#. Installing can be performed from either a local or remote repo.
+
 Ownership Considerations
 ~~~~~~~~~~~~~~~~~~~~~~~~
 

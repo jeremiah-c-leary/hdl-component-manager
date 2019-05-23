@@ -26,4 +26,7 @@ To publish manually you would follow these steps:
 
 5.  svn copy the local component directory to the published directory under the correct version
 
-HCM will perform steps 2 through 5.
+HCM will validate step 1 has been completed before performing steps 2 through 5.
+
+.. NOTE:: The hcm.json file has either been created or modified.
+   HCM does not commit the file to the local component directory.

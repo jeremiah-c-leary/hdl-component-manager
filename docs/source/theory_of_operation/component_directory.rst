@@ -7,7 +7,6 @@ It is commonly placed either at the root of the repository or under the tags dir
 The component directory contains individual directories for each component.
 Under each individual component name are the releases for that component.
 Each release directory follows the form of a three dot number: <Major>.<Minor>.<Patch>
-The individual component directory and version directory are created during a publish task.
 
 The example below shows a component directory with three components: rook, king, and queen.
 
@@ -41,5 +40,4 @@ The **queen** component has four releases: 1.0.0, 2.0.0, 2.1.0, and 3.0.0.
        +-- 2.1.0
        +-- 3.0.0
 
-With this directory structure in the repository, differences between releases can be easily determined by comparing the two release URLs.
-A complete history of all the releases visible.
+Differences between releases can be easily determined by comparing the two release URLs.

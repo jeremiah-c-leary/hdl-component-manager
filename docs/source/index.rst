@@ -17,7 +17,6 @@ hdl-component-manager
    installing_subcommand.rst
    list_subcommand.rst
    publish_subcommand.rst
-   update_subcommand.rst
    theory_of_operation/theory_of_operation.rst
 
 Indices and tables

@@ -6,22 +6,21 @@ HCM can be invoked by issuing **hcm** at the command line prompt:
 .. code-block:: bash
 
     $ hcm
-    usage: hcm [-h] {create,list,publish,update} ...
+    usage: hcm [-h] {create,install,list,publish} ...
     
     Provides configuration management for HDL components.
     
     positional arguments:
-      {create,list,publish,update}
+      {create,install,list,publish}
         create              creates a component repo
         install             adds a component from the component repo
         list                lists components and their versions
         publish             Adds components to the component repo
-        update              Updates a component to the requested version
     
     optional arguments:
       -h, --help            show this help message and exit
-
-HCM has five subcommands:  create, install, list, publish, and update.
+    
+HCM has four subcommands:  create, install, list, and publish.
 
 create
 ------
@@ -86,7 +85,7 @@ The arguments for the subcommand can be listed using the *-h* option:
 .. code-block:: bash
 
     $ hcm publish -h
-    usage: hcm publish [-h] component version
+    usage: hcm publish [-h] -m M [--url URL] component version
     
     positional arguments:
       component   Component name to publish
@@ -94,26 +93,8 @@ The arguments for the subcommand can be listed using the *-h* option:
     
     optional arguments:
       -h, --help  show this help message and exit
-
-
-.. update
-.. ------
-.. 
-.. The update subcommand is used when you want to pull in a newer version of the current component.
-.. The arguments for the subcommand can be listed using the *-h* option:
-.. 
-.. .. code-block:: bash
-.. 
-..     $ hcm update -h
-..     usage: hcm update [-h] component version
-..     
-..     positional arguments:
-..       component   Component name to update
-..       version     Major.Minor.Patch version of component to update to
-..     
-..     optional arguments:
-..       -h, --help  show this help message and exit
-.. 
+      -m M        Commit message
+      --url URL   Base URL of the component repository
 
 Environment Variables
 ---------------------
