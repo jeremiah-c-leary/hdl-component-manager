@@ -4,8 +4,8 @@ import os
 import subprocess
 import json
 
-import svn
-import utils
+import hcm.svn
+import hcm.utils
 
 
 def extract_url(oCommandLineArguments):

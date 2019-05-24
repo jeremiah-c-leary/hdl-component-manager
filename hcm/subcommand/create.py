@@ -2,7 +2,7 @@
 import logging
 import subprocess
 
-import svn
+import hcm.svn
 
 
 def create(sUrl):
