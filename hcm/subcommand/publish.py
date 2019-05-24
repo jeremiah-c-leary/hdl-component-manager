@@ -5,6 +5,7 @@ import subprocess
 import json
 
 import svn
+import utils
 
 
 def extract_url(oCommandLineArguments):
@@ -91,24 +92,25 @@ def calculate_md5sum(sFileName):
 
 
 def write_configuration_file(dHcmConfig):
-    logging.info('Writing configuration file ' + dHcmConfig['hcm']['name'] + '/hcm.json')
-    with open(dHcmConfig['hcm']['name'] + '/hcm.json', 'w') as outfile:
+    sHcmConfigPath = utils.get_hcm_config_path(dHcmConfig)
+    logging.info('Writing configuration file ' + sHcmConfigPath)
+    with open(sHcmConfigPath, 'w') as outfile:
         json.dump(dHcmConfig, outfile, indent=4, sort_keys=True)
 
 
 def add_hcm_config_file_to_component_directory(dHcmConfig):
     logging.info('Adding configuration file to component directory')
     try:
-        lOutput = subprocess.check_output(['svn', 'add', dHcmConfig['hcm']['name'] + '/hcm.json'], stderr=subprocess.STDOUT).split('\n')
+        subprocess.check_output(['svn', 'add', utils.get_component_name(dHcmConfig) + '/hcm.json'], stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError:
         # File is already added
         pass
 
 
 def copy_component_to_component_directory(dHcmConfig, oCommandLineArguments):
-    sComponentName = dHcmConfig['hcm']['name']
-    sUrl = dHcmConfig['hcm']['url'] + '/' + sComponentName + '/' + dHcmConfig['hcm']['version']
-    lOutput = subprocess.check_output(['svn', 'cp', sComponentName, sUrl, '-m "' + oCommandLineArguments.m + '"'], stderr=subprocess.STDOUT).split('\n')
+    sComponentName = utils.get_component_name(dHcmConfig)
+    sUrl = utils.get_version_path(dHcmConfig)
+    subprocess.check_output(['svn', 'cp', sComponentName, sUrl, '-m "' + oCommandLineArguments.m + '"'], stderr=subprocess.STDOUT)
     logging.info('Component published')
 
 
@@ -134,8 +136,8 @@ def create_component_directory(sUrl):
 
 
 def check_if_version_already_exists(dHcmConfig):
-    if svn.does_directory_exist(dHcmConfig['hcm']['url'] + '/' + dHcmConfig['hcm']['name'] + '/' + dHcmConfig['hcm']['version']):
-        logging.error('Version ' + dHcmConfig['hcm']['version'] + ' already exists')
+    if svn.does_directory_exist(utils.get_version_path(dHcmConfig)):
+        logging.error('Version ' + utils.get_version(dHcmConfig) + ' already exists')
         exit()
 
 
@@ -151,26 +153,13 @@ def publish(oCommandLineArguments):
         if not dHcmConfig:
             dHcmConfig = create_default_hcm_dictionary(oCommandLineArguments, sUrl)
 
-        create_component_directory(dHcmConfig['hcm']['url'] + '/' + oCommandLineArguments.component)
+        create_component_directory(utils.get_component_path(dHcmConfig))
         check_if_version_already_exists(dHcmConfig)
 
         update_version(dHcmConfig, oCommandLineArguments.version)
         update_source_url(dHcmConfig)
         update_manifest(dHcmConfig)
-  
+
         write_configuration_file(dHcmConfig)
         add_hcm_config_file_to_component_directory(dHcmConfig)
         copy_component_to_component_directory(dHcmConfig, oCommandLineArguments)
-
-
-
-#        if does_svn_directory_exist(sUrl):
-#            logging.error('Component directory ' + sUrl + ' already exists')
-#            exit()
-#        try:
-#            svn_mkdir(sUrl)
-#            logging.info('Add "' + sUrl + '" to the HCM_URL_PATHS environment variable.')
-#        except subprocess.CalledProcessError:
-#            logging.error('Could not create component directory ' + sUrl)
-#            logging.error('Validate base URL path to repository is correct.')
-#            exit()
