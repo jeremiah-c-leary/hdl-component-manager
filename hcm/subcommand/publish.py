@@ -4,9 +4,6 @@ import os
 import subprocess
 import json
 
-import hcm.svn
-import hcm.utils
-
 
 def extract_url(sUrl):
 
@@ -48,7 +45,7 @@ def create_default_hcm_dictionary(sName, sVersion, sUrl):
     dReturn['hcm'] = {}
     dReturn['hcm']['url'] = sUrl
     dReturn['hcm']['source_url'] = ''
-    dReturn['hcm']['name'] = sName 
+    dReturn['hcm']['name'] = sName
     dReturn['hcm']['version'] = sVersion
     dReturn['hcm']['manifest'] = {}
     return dReturn

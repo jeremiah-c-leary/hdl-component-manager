@@ -11,7 +11,7 @@ class testUtilsMethods(unittest.TestCase):
         self.dExpected['hcm']['url'] = 'http://my_repo/components'
         self.dExpected['hcm']['version'] = '1.0.0'
         self.dExpected['hcm']['name'] = 'rook'
-        
+
     def test_get_url(self):
         self.assertEqual(utils.get_url(self.dExpected), 'http://my_repo/components')
 
