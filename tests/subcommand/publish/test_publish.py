@@ -3,7 +3,6 @@ import unittest
 from unittest import mock
 import logging
 import json
-import os
 import copy
 
 from hcm.subcommand.publish import *
@@ -47,15 +46,6 @@ class testPublishSubcommand(unittest.TestCase):
 
       self.assertEqual(create_default_hcm_dictionary('component', '1.0.0', 'http://my_url'), dExpected)
 
-  def test_update_source_url(self):
-      dExpected = {}
-      dExpected['hcm'] = {}
-      dExpected['hcm']['url'] = ''
-      dExpected['hcm']['source_url'] = ''
-      dExpected['hcm']['name'] = 'component'
-      dExpected['hcm']['version'] = '1.0.0'
-      dExpected['hcm']['manifest'] = {}
-
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   def test_update_source_url(self, mocked_function):
       dExpected = {}
@@ -66,7 +56,7 @@ class testPublishSubcommand(unittest.TestCase):
       dExpected['hcm']['version'] = ''
       dExpected['hcm']['manifest'] = {}
 
-      dActual = copy.deepcopy(dExpected) 
+      dActual = copy.deepcopy(dExpected)
       dExpected['hcm']['source_url'] = 'http://svn/my_repo/trunk/project_chess/components/rook@21'
 
       update_source_url(dActual)
