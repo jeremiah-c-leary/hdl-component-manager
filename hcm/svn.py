@@ -13,5 +13,6 @@ def does_directory_exist(sUrl):
 def mkdir(sUrl):
     try:
         subprocess.check_output(['svn', 'mkdir', '--parents', sUrl, '-m HCM: Creating componet directory.'], stderr=subprocess.STDOUT)
+        return True
     except subprocess.CalledProcessError as e:
         raise e
