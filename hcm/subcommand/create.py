@@ -2,7 +2,7 @@
 import logging
 import subprocess
 
-import hcm.svn
+import hcm.svn as svn
 
 
 def create(sUrl):
@@ -15,6 +15,7 @@ def create(sUrl):
         try:
             svn.mkdir(sUrl)
             logging.info('Add "' + sUrl + '" to the HCM_URL_PATHS environment variable.')
+            return True
         except subprocess.CalledProcessError:
             logging.error('Could not create component directory ' + sUrl)
             logging.error('Validate base URL path to repository is correct.')

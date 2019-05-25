@@ -44,7 +44,7 @@ def parse_svn_list_command(sUrl, dSvnRepos):
                 break
 
     if not fFoundUrl:
-        raise subprocess.CalledProcessError
+        raise subprocess.CalledProcessError(0, 'svn list')
 
     if not fFoundDirectory:
         raise subprocess.CalledProcessError(0, 'svn list')
@@ -69,7 +69,7 @@ def parse_svn_mkdir_command(lList, dSvnRepos):
                 break
 
     if not fFoundUrl:
-        raise subprocess.CalledProcessError
+        raise subprocess.CalledProcessError(0, 'svn mkdir')
 
     if fFoundDirectory:
         raise subprocess.CalledProcessError(0, 'svn mkdir')

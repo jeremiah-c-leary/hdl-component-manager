@@ -26,3 +26,7 @@ class testSvnMethods(unittest.TestCase):
       self.assertFalse(svn.does_directory_exist('http://svn/my_repo/components/king'))
       self.assertFalse(svn.does_directory_exist('http://svn/my_repo/components/king/1.0.0'))
 
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  def test_wrong_repo_url(self, mocked_function):
+      self.assertRaises(subprocess.CalledProcessError, svn.mkdir, 'http://svn/repo/components')
+
