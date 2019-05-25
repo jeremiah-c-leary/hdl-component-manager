@@ -5,6 +5,7 @@ import subprocess
 import json
 
 import hcm.svn as svn
+import hcm.utils as utils
 
 
 def extract_url(sUrl):
@@ -105,7 +106,6 @@ def calculate_md5sum(sFileName):
 def update_version(dHcmConfig, sVersion):
     logging.info('Updating version...')
     dHcmConfig['hcm']['version'] = sVersion
-
 
 
 def write_configuration_file(dHcmConfig):

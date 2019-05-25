@@ -139,6 +139,39 @@ class testUpdateVersion(unittest.TestCase):
       update_version(dActual, '3.1.2')
       self.assertEqual(dExpected, dActual)
 
+class testWriteConfigurationFile(unittest.TestCase):
+
+  def setUp(self):
+      logging.disable(logging.CRITICAL)
+      try:
+          os.rename(sTestLocation + 'rook/hcm.json', sTestLocation + 'rook/hcm.json.bak')
+      except FileNotFoundError:
+          pass
+
+  def tearDown(self):
+      logging.disable(logging.NOTSET)
+      try:
+          os.remove(sTestLocation + 'rook/hcm.json')
+          os.rename(sTestLocation + 'rook/hcm.json.bak', sTestLocation + 'rook/hcm.json')
+      except FileNotFoundError:
+          pass
+
+  def test_write_configuration(self):
+      dExpected = {}
+      dExpected['hcm'] = {}
+      dExpected['hcm']['url'] = ''
+      dExpected['hcm']['source_url'] = ''
+      dExpected['hcm']['name'] = sTestLocation + 'rook'
+      dExpected['hcm']['version'] = '1.0.0'
+      dExpected['hcm']['manifest'] = {}
+
+      write_configuration_file(dExpected)
+
+      with open(sTestLocation + 'rook/hcm.json') as json_file:
+          dActual = json.load(json_file)
+
+      self.assertEqual(dExpected, dActual)
+
 #  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
 #  def test_creating_directory_that_does_not_exist(self, mocked_function):
 #      self.assertTrue(create('http://svn/my_repo/new_directory'))
