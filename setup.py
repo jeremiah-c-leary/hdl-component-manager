@@ -15,7 +15,6 @@ setup(
   classifiers=[
       'Development Status :: 2 - Pre-Alpha',
       'Environment :: Console',
-      'Programming Language :: Python :: 2.7',
       'Programming Language :: Python :: 3',
       'Intended Audience :: End Users/Desktop',
       'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
@@ -33,9 +32,6 @@ setup(
   test_suite='nose.collector',
   tests_require=['nose'],
   keywords=['vhdl', 'verilog', 'packager', 'configuration management'],
-  install_requires=[
-    'PyYAML'
-  ],
   entry_points={
     'console_scripts': [
       'hcm = hcm.__main__:main'
