@@ -4,6 +4,8 @@ import os
 import subprocess
 import json
 
+import hcm.svn as svn
+
 
 def extract_url(sUrl):
 
@@ -53,7 +55,7 @@ def create_default_hcm_dictionary(sName, sVersion, sUrl):
 
 def update_source_url(dHcmConfig):
     logging.info('Updating source URL...')
-    lOutput = subprocess.check_output(['svn', 'info', '-R', dHcmConfig['hcm']['name']], stderr=subprocess.STDOUT).split('\n')
+    lOutput = svn.issue_command(['svn', 'info', '-R', dHcmConfig['hcm']['name']]).split('\n')
     fSourceUrlFound = False
     iMaxRevision = 0
     for sLine in lOutput:

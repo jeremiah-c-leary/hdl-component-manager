@@ -2,9 +2,16 @@
 import subprocess
 
 
+def issue_command(lCommand):
+    try:
+        return subprocess.check_output(lCommand, stderr=subprocess.STDOUT)
+    except subprocess.CalledProcessError as e:
+        raise e
+
+
 def does_directory_exist(sUrl):
     try:
-        subprocess.check_output(['svn', 'list', sUrl], stderr=subprocess.STDOUT)
+        issue_command(['svn', 'list', sUrl])
         return True
     except subprocess.CalledProcessError:
         return False
@@ -12,7 +19,7 @@ def does_directory_exist(sUrl):
 
 def mkdir(sUrl):
     try:
-        subprocess.check_output(['svn', 'mkdir', '--parents', sUrl, '-m HCM: Creating componet directory.'], stderr=subprocess.STDOUT)
+        issue_command(['svn', 'mkdir', '--parents', sUrl, '-m HCM: Creating componet directory.'])
         return True
     except subprocess.CalledProcessError as e:
         raise e
