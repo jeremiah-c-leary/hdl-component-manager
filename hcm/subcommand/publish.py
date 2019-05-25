@@ -86,18 +86,26 @@ def update_manifest(dHcmConfig):
         for name in files:
             sFileName = os.path.join(root, name)
             dHcmConfig['hcm']['manifest'][sFileName] = calculate_md5sum(sFileName)
-            calculate_md5sum(sFileName)
-    dHcmConfig['hcm']['manifest'][dHcmConfig['hcm']['name'] + '/hcm.json'].pop()
+
+    remove_hcm_json_file_from_manifest(dHcmConfig)
+
+
+def remove_hcm_json_file_from_manifest(dHcmConfig):
+    try:
+        dHcmConfig['hcm']['manifest'].pop(dHcmConfig['hcm']['name'] + '/hcm.json')
+    except KeyError:
+        pass
+
+
+def calculate_md5sum(sFileName):
+    lOutput = subprocess.check_output(['md5sum', sFileName], stderr=subprocess.STDOUT).decode('ascii').split('\n')
+    return lOutput[0].split()[0]
 
 
 def update_version(dHcmConfig, sVersion):
     logging.info('Updating version...')
     dHcmConfig['hcm']['version'] = sVersion
 
-
-def calculate_md5sum(sFileName):
-    lOutput = subprocess.check_output(['md5sum', sFileName], stderr=subprocess.STDOUT).split('\n')
-    return lOutput[0].split()[0]
 
 
 def write_configuration_file(dHcmConfig):
