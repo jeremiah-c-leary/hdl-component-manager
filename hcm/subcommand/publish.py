@@ -8,10 +8,10 @@ import hcm.svn
 import hcm.utils
 
 
-def extract_url(oCommandLineArguments):
+def extract_url(sUrl):
 
-    if oCommandLineArguments.url:
-        return oCommandLineArguments.url
+    if sUrl:
+        return sUrl
 
     try:
         sHcmUrlPaths = os.environ['HCM_URL_PATHS']

@@ -1,0 +1,71 @@
+Path: rook
+Working Copy Root Path: /home/jeremiah/projects/hdl-component-manager/project_chess
+URL: file:///home/jeremiah/svn/my_repo/trunk/project_chess/components/rook
+Relative URL: ^/trunk/project_chess/components/rook
+Repository Root: file:///home/jeremiah/svn/my_repo
+Repository UUID: 321bcf6c-b4d1-4a84-b4b7-55c366bdaac7
+Revision: 8
+Node Kind: directory
+Schedule: normal
+Last Changed Author: jeremiah
+Last Changed Rev: 8
+Last Changed Date: 2019-05-19 18:42:49 -0500 (Sun, 19 May 2019)
+
+Path: rook/lay
+Working Copy Root Path: /home/jeremiah/projects/hdl-component-manager/project_chess
+URL: file:///home/jeremiah/svn/my_repo/trunk/project_chess/components/rook/lay
+Relative URL: ^/trunk/project_chess/components/rook/lay
+Repository Root: file:///home/jeremiah/svn/my_repo
+Repository UUID: 321bcf6c-b4d1-4a84-b4b7-55c366bdaac7
+Revision: 8
+Node Kind: directory
+Schedule: normal
+Last Changed Author: jeremiah
+Last Changed Rev: 8
+Last Changed Date: 2019-05-19 18:42:49 -0500 (Sun, 19 May 2019)
+
+Path: rook/lay/filelist.tcl
+Name: filelist.tcl
+Working Copy Root Path: /home/jeremiah/projects/hdl-component-manager/project_chess
+URL: file:///home/jeremiah/svn/my_repo/trunk/project_chess/components/rook/lay/filelist.tcl
+Relative URL: ^/trunk/project_chess/components/rook/lay/filelist.tcl
+Repository Root: file:///home/jeremiah/svn/my_repo
+Repository UUID: 321bcf6c-b4d1-4a84-b4b7-55c366bdaac7
+Revision: 8
+Node Kind: file
+Schedule: normal
+Last Changed Author: jeremiah
+Last Changed Rev: 8
+Last Changed Date: 2019-05-19 18:42:49 -0500 (Sun, 19 May 2019)
+Text Last Updated: 2019-05-19 18:04:46 -0500 (Sun, 19 May 2019)
+Checksum: 8ab4b37511ade8aa5f322015ba1881baa715842a
+
+Path: rook/rtl
+Working Copy Root Path: /home/jeremiah/projects/hdl-component-manager/project_chess
+URL: file:///home/jeremiah/svn/my_repo/trunk/project_chess/components/rook/rtl
+Relative URL: ^/trunk/project_chess/components/rook/rtl
+Repository Root: file:///home/jeremiah/svn/my_repo
+Repository UUID: 321bcf6c-b4d1-4a84-b4b7-55c366bdaac7
+Revision: 8
+Node Kind: directory
+Schedule: normal
+Last Changed Author: jeremiah
+Last Changed Rev: 8
+Last Changed Date: 2019-05-19 18:42:49 -0500 (Sun, 19 May 2019)
+
+Path: rook/rtl/rook.vhd
+Name: rook.vhd
+Working Copy Root Path: /home/jeremiah/projects/hdl-component-manager/project_chess
+URL: file:///home/jeremiah/svn/my_repo/trunk/project_chess/components/rook/rtl/rook.vhd
+Relative URL: ^/trunk/project_chess/components/rook/rtl/rook.vhd
+Repository Root: file:///home/jeremiah/svn/my_repo
+Repository UUID: 321bcf6c-b4d1-4a84-b4b7-55c366bdaac7
+Revision: 15
+Node Kind: file
+Schedule: normal
+Last Changed Author: jeremiah
+Last Changed Rev: 15
+Last Changed Date: 2019-05-20 21:54:20 -0500 (Mon, 20 May 2019)
+Text Last Updated: 2019-05-20 21:54:06 -0500 (Mon, 20 May 2019)
+Checksum: c2aeb8841cf4a7178d311e6cff353a31b00af89a
+
