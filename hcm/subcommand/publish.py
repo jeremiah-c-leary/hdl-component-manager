@@ -74,10 +74,9 @@ def update_manifest(dHcmConfig):
     for root, dirs, files in os.walk(dHcmConfig['hcm']['name'], topdown=True):
         for name in files:
             sFileName = os.path.join(root, name)
-            if sFileName.startswith(dHcmConfig['hcm']['name'] + '/hcm.json'):
-                continue
             dHcmConfig['hcm']['manifest'][sFileName] = calculate_md5sum(sFileName)
             calculate_md5sum(sFileName)
+    dHcmConfig['hcm']['manifest'][dHcmConfig['hcm']['name'] + '/hcm.json'].pop()
 
 
 def update_version(dHcmConfig, sVersion):
