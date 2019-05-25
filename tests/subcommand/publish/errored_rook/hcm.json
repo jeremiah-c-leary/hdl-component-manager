@@ -1,0 +1,12 @@
+{
+    "hcm": {
+        "manifest": {
+            "rook/lay/filelist.tcl": "10019aef04979acfac88673bc5dc6133", 
+            "rook/rtl/rook.vhd": "a461fa565f1f7822bcdbda0b450df476"
+        }, 
+        "name": "rook", 
+        "source_url": "file:///home/jeremiah/svn/my_repo/trunk/project_chess/components/rook@15", 
+        "url": "file:///home/jeremiah/svn/my_repo/comps"
+        "version": "1.6.0"
+    }
+}

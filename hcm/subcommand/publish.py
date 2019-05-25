@@ -42,14 +42,14 @@ def read_hcm_json_file(sComponentName):
         return None
 
 
-def create_default_hcm_dictionary(oCommandLineArguments, sUrl):
+def create_default_hcm_dictionary(sName, sVersion, sUrl):
     logging.info('Creating default hcm.json file...')
     dReturn = {}
     dReturn['hcm'] = {}
     dReturn['hcm']['url'] = sUrl
     dReturn['hcm']['source_url'] = ''
-    dReturn['hcm']['name'] = oCommandLineArguments.component
-    dReturn['hcm']['version'] = oCommandLineArguments.version
+    dReturn['hcm']['name'] = sName 
+    dReturn['hcm']['version'] = sVersion
     dReturn['hcm']['manifest'] = {}
     return dReturn
 
@@ -151,7 +151,7 @@ def publish(oCommandLineArguments):
 
         dHcmConfig = read_hcm_json_file(oCommandLineArguments.component)
         if not dHcmConfig:
-            dHcmConfig = create_default_hcm_dictionary(oCommandLineArguments, sUrl)
+            dHcmConfig = create_default_hcm_dictionary(oCommandLineArguments.name, oCommandLineArguments.version, sUrl)
 
         create_component_directory(utils.get_component_path(dHcmConfig))
         check_if_version_already_exists(dHcmConfig)
