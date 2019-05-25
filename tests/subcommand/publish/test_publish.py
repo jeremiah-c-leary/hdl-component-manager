@@ -110,6 +110,34 @@ class testUpdateManifest(unittest.TestCase):
       update_manifest(dActual)
       self.assertEqual(dExpected, dActual)
       
+class testUpdateVersion(unittest.TestCase):
+
+  def setUp(self):
+      logging.disable(logging.CRITICAL)
+
+  def tearDown(self):
+      logging.disable(logging.NOTSET)
+
+  def test_update_version(self):
+      dExpected = {}
+      dExpected['hcm'] = {}
+      dExpected['hcm']['url'] = ''
+      dExpected['hcm']['source_url'] = ''
+      dExpected['hcm']['name'] = sTestLocation + 'rook'
+      dExpected['hcm']['version'] = '1.0.0'
+      dExpected['hcm']['manifest'] = {}
+
+      dActual = copy.deepcopy(dExpected)
+
+      dExpected['hcm']['version'] = '2.0.0'
+
+      update_version(dActual, '2.0.0')
+      self.assertEqual(dExpected, dActual)
+
+      dExpected['hcm']['version'] = '3.1.2'
+
+      update_version(dActual, '3.1.2')
+      self.assertEqual(dExpected, dActual)
 
 #  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
 #  def test_creating_directory_that_does_not_exist(self, mocked_function):
