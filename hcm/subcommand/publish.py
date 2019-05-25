@@ -53,17 +53,28 @@ def create_default_hcm_dictionary(sName, sVersion, sUrl):
     return dReturn
 
 
+def search_for_source_url(sLine, sSourceUrl, fSourceUrlFound):
+    if sLine.startswith('URL:') and not fSourceUrlFound:
+        sSourceUrl = sLine.split()[1]
+        fSourceUrlFound = True
+    return sSourceUrl, fSourceUrlFound
+
+
+def search_for_maximum_revision(sLine, iMaxRevision):
+    if sLine.startswith('Last Changed Rev:'):
+        iMaxRevision = max(iMaxRevision, int(sLine.split()[-1]))
+    return iMaxRevision
+
+
 def update_source_url(dHcmConfig):
     logging.info('Updating source URL...')
     lOutput = svn.issue_command(['svn', 'info', '-R', dHcmConfig['hcm']['name']]).split('\n')
     fSourceUrlFound = False
     iMaxRevision = 0
+    sSourceUrl = None
     for sLine in lOutput:
-        if sLine.startswith('URL:') and not fSourceUrlFound:
-            sSourceUrl = sLine.split()[1]
-            fSourceUrlFound = True
-        if sLine.startswith('Last Changed Rev:'):
-            iMaxRevision = max(iMaxRevision, int(sLine.split()[-1]))
+        sSourceUrl, fSourceUrlFound = search_for_source_url(sLine, sSourceUrl, fSourceUrlFound)
+        iMaxRevision = search_for_maximum_revision(sLine, iMaxRevision)
     sSourceUrl += '@' + str(iMaxRevision)
     dHcmConfig['hcm']['source_url'] = sSourceUrl
 

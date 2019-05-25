@@ -163,6 +163,3 @@ texinfo_documents = [
      author, 'hdl-component-manager', 'One line description of project.',
      'Miscellaneous'),
 ]
-
-
-
