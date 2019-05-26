@@ -211,6 +211,31 @@ class testCheckSvnStatusIsClean(unittest.TestCase):
       self.assertRaises(SystemExit, check_svn_status_is_clean, 'knight')
       self.assertTrue(check_svn_status_is_clean('rook'))
 
+class testCheckIfVersionAlreadyExists(unittest.TestCase):
+
+  def setUp(self):
+      logging.disable(logging.CRITICAL)
+
+  def tearDown(self):
+      logging.disable(logging.NOTSET)
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  def test_if_version_exists(self, mocked_function):
+
+      dExpected = {}
+      dExpected['hcm'] = {}
+      dExpected['hcm']['url'] = 'http://svn/my_repo/components'
+      dExpected['hcm']['source_url'] = ''
+      dExpected['hcm']['name'] = 'rook'
+      dExpected['hcm']['version'] = '1.0.0'
+      dExpected['hcm']['manifest'] = {}
+
+      self.assertRaises(SystemExit, check_if_version_already_exists, dExpected)
+
+      dExpected['hcm']['version'] = '7.0.0'
+      self.assertFalse(check_if_version_already_exists(dExpected))
+
+
 #  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
 #  def test_creating_directory_that_does_not_exist(self, mocked_function):
 #      self.assertTrue(create('http://svn/my_repo/new_directory'))

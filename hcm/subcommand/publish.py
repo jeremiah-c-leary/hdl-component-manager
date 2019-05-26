@@ -157,6 +157,7 @@ def check_if_version_already_exists(dHcmConfig):
     if svn.does_directory_exist(utils.get_version_path(dHcmConfig)):
         logging.error('Version ' + utils.get_version(dHcmConfig) + ' already exists')
         exit()
+    return False
 
 
 def publish(oCommandLineArguments):
