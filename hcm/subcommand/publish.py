@@ -131,17 +131,6 @@ def copy_component_to_component_directory(dHcmConfig, oCommandLineArguments):
     logging.info('Component published')
 
 
-def check_svn_status_is_clean(sDirectory):
-    logging.info('Validating all files for component ' + sDirectory + ' are committed.')
-    lOutput = svn.issue_command(['svn', 'status', sDirectory]).split('\n')[:-1]
-    if len(lOutput) > 0:
-        logging.error('The following files must be committed or removed:')
-        for sOutput in lOutput:
-            print(sOutput)
-        exit()
-    return True
-
-
 def create_component_directory(sUrl):
     logging.info('Validating component exists in component directory...')
     if not svn.does_directory_exist(sUrl):
@@ -164,7 +153,7 @@ def publish(oCommandLineArguments):
 
         logging.info('Publishing component ' + oCommandLineArguments.component + ' as version ' + oCommandLineArguments.version)
 
-        check_svn_status_is_clean(oCommandLineArguments.component)
+        svn.is_directory_status_clean(oCommandLineArguments.component)
 
         sUrl = extract_url(oCommandLineArguments)
 

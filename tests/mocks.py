@@ -34,8 +34,21 @@ def parse_svn_command(lList):
             return parse_svn_add_command(lList[-1])
         if lList[0] == 'status':
             return parse_svn_status_command(lList[-1])
+        if lList[0] == 'delete':
+            return parse_svn_delete_command(lList[-1])
     except subprocess.CalledProcessError as e:
         raise e
+
+
+def parse_svn_delete_command(sDirectory):
+    if sDirectory == 'rook':
+        sReturn = 'D         rook\n'
+        sReturn += 'D         rook/hcm.json\n'
+        sReturn += 'D         rook/rtl\n'
+        sReturn += 'D         rook/rtl/rook.rtl\n'
+        return sReturn
+    else:
+        raise subprocess.CalledProcessError(0, 'svn delete')
 
 
 def parse_svn_status_command(sDirectory):
@@ -46,6 +59,7 @@ def parse_svn_status_command(sDirectory):
         sReturn += 'A   file.txt\n'
         sReturn += 'K   otherfile.xls\n'
         return sReturn
+
 
 def parse_svn_add_command(sFileName):
     return True
