@@ -3,18 +3,29 @@ import unittest
 from unittest import mock
 import subprocess
 import logging
+import os
 
 from hcm import svn
 from tests.mocks import mocked_subprocess_check_output
+
+sTestLocation = 'tests/svn/'
 
 
 class testSvnMethods(unittest.TestCase):
 
   def setUp(self):
       logging.disable(logging.CRITICAL)
+      try:
+          os.rmdir(sTestLocation + 'rook')
+      except FileNotFoundError:
+          pass
 
   def tearDown(self):
       logging.disable(logging.NOTSET)
+      try:
+          os.rmdir(sTestLocation + 'rook')
+      except FileNotFoundError:
+          pass
 
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   def test_making_new_repo_directory(self, mocked_function):
@@ -48,4 +59,15 @@ class testSvnMethods(unittest.TestCase):
 
       self.assertTrue(svn.delete('rook'))
       self.assertRaises(subprocess.CalledProcessError, svn.delete, 'knight')
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  def test_svn_copy(self, mocked_function):
+
+      self.assertFalse(os.path.isdir(sTestLocation + 'rook'))
+      svn.copy('rook', sTestLocation + 'rook')
+      self.assertTrue(os.path.isdir(sTestLocation + 'rook'))
+
+      self.assertFalse(os.path.isdir(sTestLocation + 'bishop'))
+      self.assertRaises(subprocess.CalledProcessError, svn.copy, 'bishop', sTestLocation + 'bishop')
+      self.assertFalse(os.path.isdir(sTestLocation + 'bishop'))
 

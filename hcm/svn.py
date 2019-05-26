@@ -42,3 +42,10 @@ def delete(sDirectory):
         return issue_command(['svn', 'delete', sDirectory])
     except subprocess.CalledProcessError as e:
         raise e
+
+
+def copy(sSource, sDestination):
+    try:
+        return issue_command(['svn', 'copy', sSource, sDestination])
+    except subprocess.CalledProcessError as e:
+        raise e

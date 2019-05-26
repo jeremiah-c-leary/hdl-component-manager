@@ -1,5 +1,6 @@
 
 import subprocess
+import os
 
 
 def mocked_subprocess_check_output(lList, stderr=None):
@@ -36,8 +37,19 @@ def parse_svn_command(lList):
             return parse_svn_status_command(lList[-1])
         if lList[0] == 'delete':
             return parse_svn_delete_command(lList[-1])
+        if lList[0] == 'copy':
+            return parse_svn_copy_command(lList[1:])
+
     except subprocess.CalledProcessError as e:
         raise e
+
+
+def parse_svn_copy_command(lArgs):
+    if lArgs[0] == 'rook':
+        os.mkdir(lArgs[1])
+        return True
+    else:
+        raise subprocess.CalledProcessError(0, 'svn copy')
 
 
 def parse_svn_delete_command(sDirectory):
