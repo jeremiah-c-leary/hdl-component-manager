@@ -197,6 +197,19 @@ class testAddHcmConfigFileToComponentDirectory(unittest.TestCase):
       self.assertTrue(add_hcm_config_file_to_component_directory(dExpected))
 
 
+class testCheckSvnStatusIsClean(unittest.TestCase):
+
+  def setUp(self):
+      logging.disable(logging.CRITICAL)
+
+  def tearDown(self):
+      logging.disable(logging.NOTSET)
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  def test_svn_status_is_clean(self, mocked_function):
+
+      self.assertRaises(SystemExit, check_svn_status_is_clean, 'knight')
+      self.assertTrue(check_svn_status_is_clean('rook'))
 
 #  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
 #  def test_creating_directory_that_does_not_exist(self, mocked_function):

@@ -32,9 +32,20 @@ def parse_svn_command(lList):
             return parse_svn_info_command(lList[-1])
         if lList[0] == 'add':
             return parse_svn_add_command(lList[-1])
+        if lList[0] == 'status':
+            return parse_svn_status_command(lList[-1])
     except subprocess.CalledProcessError as e:
         raise e
 
+
+def parse_svn_status_command(sDirectory):
+    if sDirectory == 'rook':
+        return ''
+    else:
+        sReturn = '?   rook.vhd\n'
+        sReturn += 'A   file.txt\n'
+        sReturn += 'K   otherfile.xls\n'
+        return sReturn
 
 def parse_svn_add_command(sFileName):
     return True

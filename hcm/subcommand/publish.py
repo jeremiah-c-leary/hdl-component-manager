@@ -139,6 +139,7 @@ def check_svn_status_is_clean(sDirectory):
         for sOutput in lOutput:
             print(sOutput)
         exit()
+    return True
 
 
 def create_component_directory(sUrl):
