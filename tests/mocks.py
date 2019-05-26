@@ -38,36 +38,61 @@ def parse_svn_command(lList):
         if lList[0] == 'delete':
             return parse_svn_delete_command(lList[-1])
         if lList[0] == 'copy':
-            return parse_svn_copy_command(lList[1:])
+            return parse_svn_copy_command(lList[1:], dSvnRepos)
 
     except subprocess.CalledProcessError as e:
         raise e
 
 
-def parse_svn_copy_command(lArgs):
-    if lArgs[0] == 'rook':
-        os.mkdir(lArgs[1])
-        return True
+def parse_svn_copy_command(lArgs, dSvnRepos):
+    if lArgs[0].startswith('http:'):
+        sRepoUrl = lArgs[0]
+        sLocalDir = lArgs[1]
     else:
-        raise subprocess.CalledProcessError(0, 'svn copy')
+        sRepoUrl = lArgs[1]
+        sLocalDir = lArgs[0]
+
+    fRepoUrlFound = False
+    for sKey in dSvnRepos.keys():
+        for sDir in dSvnRepos[sKey]:
+ 
+            if sRepoUrl == sKey + '/' + sDir:
+                fRepoUrlFound = True
+                break
+
+
+    if lArgs[0].startswith('http:'):
+        if not fRepoUrlFound:
+            raise subprocess.CalledProcessError(0, 'svn copy')
+        os.mkdir(lArgs[1])
+    else:
+        if fRepoUrlFound:
+            raise subprocess.CalledProcessError(0, 'svn copy')
+
+    return True
+
 
 
 def parse_svn_delete_command(sDirectory):
-    if sDirectory == 'rook':
-        sReturn = 'D         rook\n'
-        sReturn += 'D         rook/hcm.json\n'
-        sReturn += 'D         rook/rtl\n'
-        sReturn += 'D         rook/rtl/rook.rtl\n'
+    if sDirectory == 'rook' or sDirectory == 'queen':
+        sReturn = 'D         ' + sDirectory + '\n'
+        sReturn += 'D         ' + sDirectory + '/hcm.json\n'
+        sReturn += 'D         ' + sDirectory + '/rtl\n'
+        sReturn += 'D         ' + sDirectory + '/rtl/' + sDirectory + '.rtl\n'
+        try:
+            os.rmdir(sDirectory)
+        except FileNotFoundError:
+            pass
         return sReturn
     else:
         raise subprocess.CalledProcessError(0, 'svn delete')
 
 
 def parse_svn_status_command(sDirectory):
-    if sDirectory == 'rook':
+    if sDirectory == 'rook' or sDirectory == 'queen':
         return ''
     else:
-        sReturn = '?   rook.vhd\n'
+        sReturn = '?   ' + sDirectory + '.vhd\n'
         sReturn += 'A   file.txt\n'
         sReturn += 'K   otherfile.xls\n'
         return sReturn

@@ -64,10 +64,14 @@ class testSvnMethods(unittest.TestCase):
   def test_svn_copy(self, mocked_function):
 
       self.assertFalse(os.path.isdir(sTestLocation + 'rook'))
-      svn.copy('rook', sTestLocation + 'rook')
+      svn.copy('http://svn/my_repo/components/rook/1.0.0', sTestLocation + 'rook')
       self.assertTrue(os.path.isdir(sTestLocation + 'rook'))
 
       self.assertFalse(os.path.isdir(sTestLocation + 'bishop'))
-      self.assertRaises(subprocess.CalledProcessError, svn.copy, 'bishop', sTestLocation + 'bishop')
+      self.assertRaises(subprocess.CalledProcessError, svn.copy, 'http://svn/my_repo/components/bishop/1.0.1', sTestLocation + 'bishop')
       self.assertFalse(os.path.isdir(sTestLocation + 'bishop'))
+
+      self.assertRaises(subprocess.CalledProcessError, svn.copy, 'rook', 'http://svn/my_repo/components/rook/1.0.0')
+      self.assertTrue(svn.copy('rook', 'http://svn/my_repo/components/rook/4.0.0'))
+
 

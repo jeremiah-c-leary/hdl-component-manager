@@ -17,13 +17,14 @@ This is the workflow for a local install:
 
 .. image:: img/install_local.svg
 
+#.  Check if component version exists in repo
 #.  Check if local component directory is svn status clean
 #.  Delete component directory in working copy
 #.  SVN copy component version directory from local repo
 
 HCM will perform all these steps.
 
-.. NOTE:: Committing the install is left to the user.
+.. NOTE:: Committing the install is the responsibility of the user.
 
 Remote Install
 ~~~~~~~~~~~~~~
@@ -32,6 +33,7 @@ This is the workflow for a remote install:
 
 .. image:: img/install_remote.svg
 
+#.  Check if component version exists in repo
 #.  Check if local component directory is svn status clean
 #.  Delete component directory in working copy
 #.  Export component from external repo
@@ -39,4 +41,4 @@ This is the workflow for a remote install:
 
 HCM will perform all these steps.
 
-.. NOTE:: Committing the install is left to the user.
+.. NOTE:: Committing the install is the responsibility of the user.
