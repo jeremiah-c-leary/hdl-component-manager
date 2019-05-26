@@ -30,9 +30,15 @@ def parse_svn_command(lList):
             parse_svn_list_command(lList[-1], dSvnRepos)
         if lList[0] == 'info':
             return parse_svn_info_command(lList[-1])
+        if lList[0] == 'add':
+            return parse_svn_add_command(lList[-1])
     except subprocess.CalledProcessError as e:
         raise e
 
+
+def parse_svn_add_command(sFileName):
+    return True
+    
 
 def parse_svn_list_command(sUrl, dSvnRepos):
     fFoundUrl = False

@@ -118,7 +118,7 @@ def write_configuration_file(dHcmConfig):
 def add_hcm_config_file_to_component_directory(dHcmConfig):
     logging.info('Adding configuration file to component directory')
     try:
-        subprocess.check_output(['svn', 'add', utils.get_component_name(dHcmConfig) + '/hcm.json'], stderr=subprocess.STDOUT)
+        return svn.issue_command(['svn', 'add', utils.get_hcm_config_path(dHcmConfig)])
     except subprocess.CalledProcessError:
         # File is already added
         pass
@@ -127,13 +127,13 @@ def add_hcm_config_file_to_component_directory(dHcmConfig):
 def copy_component_to_component_directory(dHcmConfig, oCommandLineArguments):
     sComponentName = utils.get_component_name(dHcmConfig)
     sUrl = utils.get_version_path(dHcmConfig)
-    subprocess.check_output(['svn', 'cp', sComponentName, sUrl, '-m "' + oCommandLineArguments.m + '"'], stderr=subprocess.STDOUT)
+    svn.issue_command(['svn', 'cp', sComponentName, sUrl, '-m "' + oCommandLineArguments.m + '"'])
     logging.info('Component published')
 
 
 def check_svn_status_is_clean(sDirectory):
     logging.info('Validating all files for component ' + sDirectory + ' are committed.')
-    lOutput = subprocess.check_output(['svn', 'status', sDirectory]).split('\n')[:-1]
+    lOutput = svn.issue_command(['svn', 'status', sDirectory]).split('\n')[:-1]
     if len(lOutput) > 0:
         logging.error('The following files must be committed or removed:')
         for sOutput in lOutput:

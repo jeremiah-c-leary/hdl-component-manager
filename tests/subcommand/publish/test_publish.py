@@ -172,6 +172,32 @@ class testWriteConfigurationFile(unittest.TestCase):
 
       self.assertEqual(dExpected, dActual)
 
+class testAddHcmConfigFileToComponentDirectory(unittest.TestCase):
+
+  def setUp(self):
+      logging.disable(logging.CRITICAL)
+
+  def tearDown(self):
+      logging.disable(logging.NOTSET)
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  def test_add_config_file(self, mocked_function):
+      '''
+      This is not much of a test.
+      I do not know a good method to test the output of the svn add command.
+      '''
+      dExpected = {}
+      dExpected['hcm'] = {}
+      dExpected['hcm']['url'] = ''
+      dExpected['hcm']['source_url'] = ''
+      dExpected['hcm']['name'] = sTestLocation + 'rook'
+      dExpected['hcm']['version'] = '1.0.0'
+      dExpected['hcm']['manifest'] = {}
+
+      self.assertTrue(add_hcm_config_file_to_component_directory(dExpected))
+
+
+
 #  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
 #  def test_creating_directory_that_does_not_exist(self, mocked_function):
 #      self.assertTrue(create('http://svn/my_repo/new_directory'))
