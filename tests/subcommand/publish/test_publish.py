@@ -115,7 +115,7 @@ class testUpdateManifest(unittest.TestCase):
       update_manifest(dActual)
       self.assertEqual(dExpected, dActual)
 
-      
+
 class testUpdateVersion(unittest.TestCase):
 
   def setUp(self):

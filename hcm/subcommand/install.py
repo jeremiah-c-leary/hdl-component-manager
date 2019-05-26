@@ -1,6 +1,5 @@
 
 import logging
-import subprocess
 
 import hcm.svn as svn
 

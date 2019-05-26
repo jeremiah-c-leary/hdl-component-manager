@@ -2,8 +2,6 @@
 import unittest
 from unittest import mock
 import logging
-import json
-import copy
 import os
 
 from hcm.subcommand.install import *
@@ -46,7 +44,7 @@ class testInstallSubcommand(unittest.TestCase):
       self.assertFalse(os.path.isdir('queen'))
       install('http://svn/my_repo/components', 'queen', '1.0.0')
       self.assertTrue(os.path.isdir('queen'))
-       
+
       install('http://svn/my_repo/components', 'queen', '2.0.0')
       self.assertTrue(os.path.isdir('queen'))
 

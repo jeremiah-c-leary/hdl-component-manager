@@ -64,7 +64,7 @@ def parse_svn_copy_command(lArgs, dSvnRepos):
     if lArgs[0].startswith('http:'):
         if not fRepoUrlFound:
             raise subprocess.CalledProcessError(0, 'svn copy')
-        os.mkdir(lArgs[1])
+        os.mkdir(sLocalDir)
     else:
         if fRepoUrlFound:
             raise subprocess.CalledProcessError(0, 'svn copy')
@@ -100,7 +100,7 @@ def parse_svn_status_command(sDirectory):
 
 def parse_svn_add_command(sFileName):
     return True
-    
+
 
 def parse_svn_list_command(sUrl, dSvnRepos):
     fFoundUrl = False
