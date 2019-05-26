@@ -10,6 +10,7 @@ from tests.mocks import mocked_subprocess_check_output
 
 sTestLocation = 'tests/subcommand/publish/'
 
+
 class testExtractUrl(unittest.TestCase):
 
   def setUp(self):
@@ -27,6 +28,7 @@ class testExtractUrl(unittest.TestCase):
   def test_extracting_url_with_multiple_paths_set_in_environment_variable(self):
       self.assertRaises(SystemExit, extract_url, None)
 
+
 class testReadHcmJsonFile(unittest.TestCase):
 
   def setUp(self):
@@ -42,6 +44,7 @@ class testReadHcmJsonFile(unittest.TestCase):
       self.assertEqual(read_hcm_json_file(sTestLocation + 'knight'), None)
       self.assertEqual(read_hcm_json_file(sTestLocation + 'rook'), dRookExpected)
       self.assertEqual(read_hcm_json_file(sTestLocation + 'errored_rook'), None)
+
 
 class testCreateDefaultHcmDictionary(unittest.TestCase):
 
@@ -61,6 +64,7 @@ class testCreateDefaultHcmDictionary(unittest.TestCase):
       dExpected['hcm']['manifest'] = {}
 
       self.assertEqual(create_default_hcm_dictionary('component', '1.0.0', 'http://my_url'), dExpected)
+
 
 class testUpdateSourceUrl(unittest.TestCase):
 
@@ -86,6 +90,7 @@ class testUpdateSourceUrl(unittest.TestCase):
       update_source_url(dActual)
       self.assertEqual(dExpected, dActual)
 
+
 class testUpdateManifest(unittest.TestCase):
 
   def setUp(self):
@@ -109,6 +114,7 @@ class testUpdateManifest(unittest.TestCase):
 
       update_manifest(dActual)
       self.assertEqual(dExpected, dActual)
+
       
 class testUpdateVersion(unittest.TestCase):
 
@@ -138,6 +144,7 @@ class testUpdateVersion(unittest.TestCase):
 
       update_version(dActual, '3.1.2')
       self.assertEqual(dExpected, dActual)
+
 
 class testWriteConfigurationFile(unittest.TestCase):
 
@@ -171,6 +178,7 @@ class testWriteConfigurationFile(unittest.TestCase):
           dActual = json.load(json_file)
 
       self.assertEqual(dExpected, dActual)
+
 
 class testAddHcmConfigFileToComponentDirectory(unittest.TestCase):
 
@@ -211,6 +219,7 @@ class testCheckSvnStatusIsClean(unittest.TestCase):
       self.assertRaises(SystemExit, check_svn_status_is_clean, 'knight')
       self.assertTrue(check_svn_status_is_clean('rook'))
 
+
 class testCheckIfVersionAlreadyExists(unittest.TestCase):
 
   def setUp(self):
@@ -234,22 +243,3 @@ class testCheckIfVersionAlreadyExists(unittest.TestCase):
 
       dExpected['hcm']['version'] = '7.0.0'
       self.assertFalse(check_if_version_already_exists(dExpected))
-
-
-#  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
-#  def test_creating_directory_that_does_not_exist(self, mocked_function):
-#      self.assertTrue(create('http://svn/my_repo/new_directory'))
-#      self.assertTrue(create('http://svn/my_repo/components/knight'))
-#
-#  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
-#  def test_creating_directory_that_does_exist(self, mocked_function):
-#      self.assertRaises(SystemExit, create, 'http://svn/my_repo/components/rook')
-#      self.assertRaises(SystemExit, create, 'http://svn/my_repo/components/rook/1.0.0')
-#      self.assertRaises(SystemExit, create, 'http://svn/my_repo/components/queen/1.0.0')
-#
-#  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
-#  def test_wrong_repo_url(self, mocked_function):
-#      self.assertRaises(SystemExit, create, 'http://svn/repo/components/knight')
-
-
-
