@@ -63,6 +63,8 @@ def main():
         subcommand.create(commandLineArguments.url)
     if commandLineArguments.which == 'publish':
         subcommand.publish(commandLineArguments)
+    if commandLineArguments.which == 'install':
+        subcommand.install(commandLineArguments.url, commandLineArguments.component, commandLineArguments.version)
 
     sys.exit(0)
 

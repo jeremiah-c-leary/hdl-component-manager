@@ -16,9 +16,11 @@ def install(sUrl, sComponent, sVersion):
 
         svn.is_directory_status_clean(sComponent)
 
+        logging.info('Removing local component directory')
         svn.delete(sComponent)
 
         svn.copy(sUrlPath, sComponent)
+        logging.info('Installation complete')
 
 
 def build_url_path(sUrl, sComponent, sVersion):
