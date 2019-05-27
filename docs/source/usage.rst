@@ -63,20 +63,16 @@ list
 ----
 
 Use the **list** subcommand to check the versions of components you have installed.
-Components in the component repo can also be listed.
 The arguments for the subcommand can be listed using the *-h* option:
 
 .. code-block:: bash
 
     $ hcm list -h
-    usage: hcm list [-h] [--upgrades UPGRADES] [--available AVAILABLE]
+    usage: hcm list [-h] [--upgrades]
     
     optional arguments:
-      -h, --help            show this help message and exit
-      --upgrades UPGRADES   Lists upgrades for currently installed
-                            components
-      --available AVAILABLE
-                            Lists available components stored in repo
+      -h, --help  show this help message and exit
+      --upgrades  Lists upgrades for currently installed components
 
 publish
 -------

@@ -39,8 +39,7 @@ def parse_command_line_arguments():
     publish_parser.add_argument('--url', help='Base URL of the component repository')
     publish_parser.set_defaults(which='publish')
 
-    list_parser.add_argument('--upgrades', help='Lists upgrades for currently installed components')
-    list_parser.add_argument('--available', help='Lists available components stored in repo')
+    list_parser.add_argument('--upgrades', default=False, action='store_true', help='Lists upgrades for currently installed components')
     list_parser.set_defaults(which='list')
 
     if len(sys.argv) == 1:
@@ -65,6 +64,8 @@ def main():
         subcommand.publish(commandLineArguments)
     if commandLineArguments.which == 'install':
         subcommand.install(commandLineArguments.url, commandLineArguments.component, commandLineArguments.version)
+    if commandLineArguments.which == 'list':
+        subcommand.sub_list()
 
     sys.exit(0)
 
