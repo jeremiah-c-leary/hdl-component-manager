@@ -1,4 +1,6 @@
 
+import os
+
 
 def get_version_path(dHcmConfig):
     sUrl = get_component_path(dHcmConfig)
@@ -26,3 +28,11 @@ def get_version(dHcmConfig):
 
 def get_hcm_config_path(dHcmConfig):
     return get_component_name(dHcmConfig) + '/hcm.json'
+
+
+def get_url_from_environment_variable():
+    try:
+        return os.environ['HCM_URL_PATHS'].split(',')
+    except KeyError:
+        return None
+

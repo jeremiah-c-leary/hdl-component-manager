@@ -67,3 +67,26 @@ class testInstallSubcommand(unittest.TestCase):
       self.assertRaises(SystemExit, install, 'http://svn/my_repo/components', 'queen', '6.0.0')
       self.assertFalse(os.path.isdir('queen'))
 
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  @mock.patch.dict('os.environ', {'HCM_URL_PATHS':'http://svn/my_repo/components'})
+  def test_install_component_from_url_environment_variable(self, mocked_function):
+
+      self.assertFalse(os.path.isdir('rook'))
+      install(None, 'rook', '1.0.0')
+      self.assertTrue(os.path.isdir('rook'))
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  @mock.patch.dict('os.environ', {'dummy':'dummy_stuff'}, clear=True)
+  def test_install_component_with_no_url(self, mocked_function):
+
+      self.assertFalse(os.path.isdir('rook'))
+      self.assertRaises(SystemExit, install, None, 'rook', '1.0.0')
+      self.assertFalse(os.path.isdir('rook'))
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  @mock.patch.dict('os.environ', {'HCM_URL_PATHS':'http://svn/my_repo/components,http://svn/my_other_repo/components'}, clear=True)
+  def test_install_component_with_multiple_environment_variables(self, mocked_function):
+
+      self.assertFalse(os.path.isdir('rook'))
+      self.assertRaises(SystemExit, install, None, 'rook', '1.0.0')
+      self.assertFalse(os.path.isdir('rook'))

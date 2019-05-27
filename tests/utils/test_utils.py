@@ -1,5 +1,6 @@
 
 import unittest
+from unittest import mock
 
 from hcm import utils
 
@@ -29,3 +30,17 @@ class testUtilsMethods(unittest.TestCase):
 
     def test_get_version_path(self):
         self.assertEqual(utils.get_version_path(self.dExpected), 'http://my_repo/components/rook/1.0.0')
+
+
+    @mock.patch.dict('os.environ', {'HCM_URL_PATHS':'http://svn/my_repo'})
+    def test_get_url_from_single_environment_variable(self):
+        self.assertEqual(utils.get_url_from_environment_variable(), ['http://svn/my_repo'])
+
+    @mock.patch.dict('os.environ', {'dummy':'dummy_stuff'}, clear=True)
+    def test_get_url_from_no_environment_variable(self):
+        self.assertEqual(utils.get_url_from_environment_variable(), None)
+
+    @mock.patch.dict('os.environ', {'HCM_URL_PATHS':'http://svn/my_repo,http://svn/my_other_repo'})
+    def test_get_url_from_multiple_environment_variables(self):
+        self.assertEqual(utils.get_url_from_environment_variable(), ['http://svn/my_repo', 'http://svn/my_other_repo'])
+
