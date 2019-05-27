@@ -7,6 +7,8 @@ install:
 language:
   - python
 
+dist: xenial  # required for Python >= 3.7
+
 python:
   - "3.7.2"
 
