@@ -101,5 +101,7 @@ The arguments for the subcommand can be listed using the *-h* option:
 Environment Variables
 ---------------------
 
-HCM requires the **HCM_URL_PATHS** environment variable is set before using the install, list, publish, or update subcommands.
+HCM will use the **HCM_URL_PATHS** environment variable as a replacement for the **--url** command line option.
 HCM uses the paths in the variable to know which component repos to interact with.
+
+.. NOTE::  Only one URL path is currently supported
