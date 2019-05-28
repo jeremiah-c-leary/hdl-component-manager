@@ -155,11 +155,11 @@ def publish(oCommandLineArguments):
 
         svn.is_directory_status_clean(oCommandLineArguments.component)
 
-        sUrl = extract_url(oCommandLineArguments)
+        sUrl = extract_url(oCommandLineArguments.url)
 
         dHcmConfig = read_hcm_json_file(oCommandLineArguments.component)
         if not dHcmConfig:
-            dHcmConfig = create_default_hcm_dictionary(oCommandLineArguments.name, oCommandLineArguments.version, sUrl)
+            dHcmConfig = create_default_hcm_dictionary(oCommandLineArguments.component, oCommandLineArguments.version, sUrl)
 
         create_component_directory(utils.get_component_path(dHcmConfig))
         check_if_version_already_exists(dHcmConfig)
