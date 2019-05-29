@@ -37,9 +37,14 @@ def is_directory_status_clean(sDirectory):
     return True
 
 
-def delete(sDirectory):
+def delete(sDirectory, fForce=False):
+    if fForce:
+        sForce = '--force'
+    else:
+        sForce = ''
+
     try:
-        return issue_command(['svn', 'delete', sDirectory])
+        return issue_command(['svn', 'delete', sForce, sDirectory])
     except subprocess.CalledProcessError as e:
         raise e
 

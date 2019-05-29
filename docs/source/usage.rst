@@ -48,7 +48,7 @@ The arguments for the subcommand can be listed using the *-h* option:
 .. code-block:: bash
 
     $ bin/hcm install -h
-    usage: hcm install [-h] [--url URL] component version
+    usage: hcm install [-h] [--url URL] [--force] component version
     
     positional arguments:
       component   Component name to install
@@ -58,6 +58,7 @@ The arguments for the subcommand can be listed using the *-h* option:
     optional arguments:
       -h, --help  show this help message and exit
       --url URL   location of component directory in repo
+      --force     Install component ignoring any local changes
 
 list
 ----

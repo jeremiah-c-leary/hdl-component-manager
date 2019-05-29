@@ -32,6 +32,7 @@ def parse_command_line_arguments():
     install_parser.add_argument('component', help='Component name to install')
     install_parser.add_argument('version', help='Major.Minor.Patch version of component to install, or latest to grab the latest version.')
     install_parser.add_argument('--url', help='location of component directory in repo')
+    install_parser.add_argument('--force', default=False, action='store_true', help='Install component ignoring any local changes')
     install_parser.set_defaults(which='install')
 
     publish_parser.add_argument('component', help='Component name to publish')
@@ -72,7 +73,7 @@ def main():
     if commandLineArguments.which == 'publish':
         subcommand.publish(commandLineArguments)
     if commandLineArguments.which == 'install':
-        subcommand.install(commandLineArguments.url, commandLineArguments.component, commandLineArguments.version)
+        subcommand.install(commandLineArguments.url, commandLineArguments.component, commandLineArguments.version, commandLineArguments.force)
     if commandLineArguments.which == 'list':
         subcommand.sub_list(commandLineArguments)
 

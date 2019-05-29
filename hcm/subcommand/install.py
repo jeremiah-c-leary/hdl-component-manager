@@ -5,7 +5,7 @@ import hcm.svn as svn
 import hcm.utils as utils
 
 
-def install(sUrl, sComponent, sVersion):
+def install(sUrl, sComponent, sVersion, fForce):
 
         logging.info('Installing component ' + sComponent + ' version ' + sVersion)
 
@@ -17,10 +17,11 @@ def install(sUrl, sComponent, sVersion):
             logging.error('Could not find the following URL path to component: ' + sUrlPath)
             exit()
 
-        svn.is_directory_status_clean(sComponent)
+        if not fForce:
+            svn.is_directory_status_clean(sComponent)
 
         logging.info('Removing local component directory')
-        svn.delete(sComponent)
+        svn.delete(sComponent, fForce)
 
         svn.copy(sUrlPath, sComponent)
         logging.info('Installation complete')
