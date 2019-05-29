@@ -4,7 +4,7 @@ import argparse
 import sys
 import logging
 
-import subcommand
+from . import subcommand
 
 
 def parse_command_line_arguments():
