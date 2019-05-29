@@ -40,6 +40,7 @@ def parse_command_line_arguments():
     publish_parser.set_defaults(which='publish')
 
     list_parser.add_argument('--upgrades', default=False, action='store_true', help='Lists upgrades for currently installed components')
+    list_parser.add_argument('--all', default=False, action='store_true', help='Includes directories that are not under HCM control')
     list_parser.set_defaults(which='list')
 
     if len(sys.argv) == 1:
@@ -65,7 +66,7 @@ def main():
     if commandLineArguments.which == 'install':
         subcommand.install(commandLineArguments.url, commandLineArguments.component, commandLineArguments.version)
     if commandLineArguments.which == 'list':
-        subcommand.sub_list()
+        subcommand.sub_list(commandLineArguments)
 
     sys.exit(0)
 

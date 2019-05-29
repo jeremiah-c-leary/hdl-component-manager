@@ -7,7 +7,7 @@ import hcm.svn as svn
 import hcm.utils as utils
 
 
-def sub_list():
+def sub_list(oCommandLineArguments):
 
     logging.info('Listing components')
 
@@ -33,7 +33,7 @@ def sub_list():
             dVersions['components'][sDirectory]['version'] = dConfig['hcm']['version']
             dVersions['config']['max_ver_len'] = max(dVersions['config']['max_ver_len'], len(dConfig['hcm']['version']))
             dVersions['config']['max_url_len'] = max(dVersions['config']['max_url_len'], len(dConfig['hcm']['url']))
-        else:
+        elif oCommandLineArguments.all:
             dVersions['components'][sDirectory] = {}
             dVersions['components'][sDirectory]['url'] = '-----'
             dVersions['components'][sDirectory]['version'] = '-----'

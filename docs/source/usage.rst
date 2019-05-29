@@ -68,11 +68,12 @@ The arguments for the subcommand can be listed using the *-h* option:
 .. code-block:: bash
 
     $ hcm list -h
-    usage: hcm list [-h] [--upgrades]
+    usage: hcm list [-h] [--upgrades] [--all]
     
     optional arguments:
       -h, --help  show this help message and exit
       --upgrades  Lists upgrades for currently installed components
+      --all       Includes directories that are not under HCM control
 
 publish
 -------
