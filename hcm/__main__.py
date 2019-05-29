@@ -55,6 +55,7 @@ def parse_command_line_arguments():
                 sys.exit(1)
         except AttributeError:
             return oArgs
+        return oArgs
 
 
 def main():
