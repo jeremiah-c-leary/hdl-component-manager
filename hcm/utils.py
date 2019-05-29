@@ -1,5 +1,6 @@
 
 import os
+import re
 
 
 def get_version_path(dHcmConfig):
@@ -36,3 +37,8 @@ def get_url_from_environment_variable():
     except KeyError:
         return None
 
+
+def validate_version(sVersion):
+    if re.match('^[0-9]+\.[0-9]+\.[0-9]+$', sVersion):
+        return True
+    return False

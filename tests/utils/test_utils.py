@@ -44,3 +44,9 @@ class testUtilsMethods(unittest.TestCase):
     def test_get_url_from_multiple_environment_variables(self):
         self.assertEqual(utils.get_url_from_environment_variable(), ['http://svn/my_repo', 'http://svn/my_other_repo'])
 
+    def test_validate_version(self):
+        self.assertTrue(utils.validate_version('1.0.0'))
+        self.assertFalse(utils.validate_version('1.0'))
+        self.assertFalse(utils.validate_version('latest'))
+        self.assertTrue(utils.validate_version('234.456.4456'))
+        self.assertFalse(utils.validate_version('1'))

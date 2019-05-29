@@ -5,6 +5,7 @@ import sys
 import logging
 
 from . import subcommand
+import utils
 
 
 def parse_command_line_arguments():
@@ -47,7 +48,13 @@ def parse_command_line_arguments():
         top_parser.print_help()
         sys.exit(1)
     else:
-        return top_parser.parse_args()
+        oArgs = top_parser.parse_args()
+        try:
+            if not utils.validate_version(oArgs.version):
+                logging.error('Version ' + oArgs.version + ' does not match Major.Minor.Patch format.')
+                sys.exit(1)
+        except AttributeError:
+            return oArgs
 
 
 def main():
@@ -55,9 +62,9 @@ def main():
     Main routine of the HDL Component Manager (HCM) application.
     '''
 
-    commandLineArguments = parse_command_line_arguments()
-
     logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
+
+    commandLineArguments = parse_command_line_arguments()
 
     if commandLineArguments.which == 'create':
         subcommand.create(commandLineArguments.url)
