@@ -37,7 +37,12 @@ def install(sUrl, sComponent, sVersion, fForce):
         logging.info('Removing local component directory')
         svn.delete(sComponent, fForce)
 
-        svn.copy(sFinalUrlPath, sComponent)
+        sRootUrl = svn.extract_root_url_from_directory('.')
+        if sFinalUrlPath.startswith(sRootUrl):
+            svn.copy(sFinalUrlPath, sComponent)
+        else:
+            svn.export(sFinalUrlPath, sComponent)
+
         logging.info('Installation complete')
 
 

@@ -74,4 +74,20 @@ class testSvnMethods(unittest.TestCase):
       self.assertRaises(subprocess.CalledProcessError, svn.copy, 'rook', 'http://svn/my_repo/components/rook/1.0.0')
       self.assertTrue(svn.copy('rook', 'http://svn/my_repo/components/rook/4.0.0'))
 
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  def test_svn_extract_path_url(self, mocked_function):
+      self.assertEqual(svn.extract_root_url_from_directory('.'), 'http://svn/my_repo')
 
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  def test_svn_export(self, mocked_function):
+
+      self.assertFalse(os.path.isdir(sTestLocation + 'rook'))
+      svn.export('http://svn/my_repo/components/rook/1.0.0', sTestLocation + 'rook')
+      self.assertTrue(os.path.isdir(sTestLocation + 'rook'))
+
+      self.assertFalse(os.path.isdir(sTestLocation + 'bishop'))
+      self.assertRaises(subprocess.CalledProcessError, svn.export, 'http://svn/my_repo/components/bishop/1.0.1', sTestLocation + 'bishop')
+      self.assertFalse(os.path.isdir(sTestLocation + 'bishop'))
+
+      self.assertRaises(subprocess.CalledProcessError, svn.export, 'rook', 'http://svn/my_repo/components/rook/1.0.0')
+      self.assertTrue(svn.export('rook', 'http://svn/my_repo/components/rook/4.0.0'))

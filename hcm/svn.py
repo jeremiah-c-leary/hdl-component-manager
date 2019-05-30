@@ -54,3 +54,21 @@ def copy(sSource, sDestination):
         return issue_command(['svn', 'copy', sSource, sDestination])
     except subprocess.CalledProcessError as e:
         raise e
+
+
+def extract_root_url_from_directory(sDirectory):
+    try:
+        lOutput = issue_command(['svn', 'info', sDirectory]).split('\n')
+        for sLine in lOutput:
+            if sLine.startswith('Repository Root:'):
+                lLine = sLine.split()
+                return lLine[-1]
+    except subprocess.CalledProcessError as e:
+        raise e
+
+
+def export(sSource, sDestination):
+    try:
+        return issue_command(['svn', 'export', sSource, sDestination])
+    except subprocess.CalledProcessError as e:
+        raise e

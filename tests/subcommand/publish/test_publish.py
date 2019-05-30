@@ -80,7 +80,7 @@ class testUpdateSourceUrl(unittest.TestCase):
       dExpected['hcm'] = {}
       dExpected['hcm']['url'] = ''
       dExpected['hcm']['source_url'] = ''
-      dExpected['hcm']['name'] = ''
+      dExpected['hcm']['name'] = 'rook'
       dExpected['hcm']['version'] = ''
       dExpected['hcm']['manifest'] = {}
 
