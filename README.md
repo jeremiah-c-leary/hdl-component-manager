@@ -41,13 +41,13 @@ HDL Component Manager (HCM) provides a package manager for HDL languages.
 ## Table of Contents
 
 <!--ts-->
-* [Overview](#Overview)
-* [Key Benefits](#Key-Benefits)
-* [Key Features](#Key-Features)
-* [Installation](#Installation)
-* [Usage](#Usage)
-* [Documentation](#Documentation)
-* [Contributing](#Contributing)
+  * [Overview](#Overview)
+  * [Key Benefits](#Key-Benefits)
+  * [Key Features](#Key-Features)
+  * [Installation](#Installation)
+  * [Usage](#Usage)
+  * [Documentation](#Documentation)
+  * [Contributing](#Contributing)
 <!--te-->
 
 ## Overview
@@ -81,19 +81,19 @@ I wanted to bring that same level of ease to HDL design.
 
 You can get the latest released version of HCM via **pip**.
 
-``` bash
+```
 pip install hcm
 ```
 
 The latest development version can be cloned...
 
-``` bash
+```
 git clone https://github.com/jeremiah-c-leary/hdl-component-manager.git
 ```
 
 ...and then installed locally...
 
-``` bash
+```
 python setup.py install
 ```
 
@@ -102,7 +102,7 @@ python setup.py install
 HCM is a command line tool.
 It can be invoked with:
 
-``` bash
+```
 $ hcm
 usage: hcm [-h] {create,install,list,publish} ...
 
@@ -126,7 +126,7 @@ HCM has four subcommands:  create, install, list, and publish.
 Use the **create** subcommand to create a new component repository.
 The arguments for the subcommand can be listed using the *-h* option:
 
-``` bash
+```
 $ hcm create -h
 usage: hcm create [-h] url
 
@@ -142,7 +142,7 @@ optional arguments:
 Use the **install** subcommand to add or upgrade a componet from the component repository.
 The arguments for the subcommand can be listed using the *-h* option:
 
-``` bash
+```
 $ bin/hcm install -h
 usage: hcm install [-h] [--url URL] component version
 
@@ -161,7 +161,7 @@ optional arguments:
 Use the **list** subcommand to check the versions of components you have installed.
 The arguments for the subcommand can be listed using the *-h* option:
 
-``` bash
+```
 $ hcm list -h
 usage: hcm list [-h] [--upgrades] [--all]
 
@@ -176,7 +176,7 @@ optional arguments:
 Use the **publish** subcommand to push a version of a component to the component repository.
 The arguments for the subcommand can be listed using the *-h* option:
 
-``` bash
+```
 $ hcm publish -h
 usage: hcm publish [-h] -m M [--url URL] component version
 
