@@ -1,5 +1,6 @@
 
 import logging
+import os
 
 import hcm.svn as svn
 import hcm.utils as utils
@@ -35,7 +36,8 @@ def install(sUrl, sComponent, sVersion, fForce):
             svn.is_directory_status_clean(sComponent)
 
         logging.info('Removing local component directory')
-        svn.delete(sComponent, fForce)
+        if os.path.isdir(sComponent):
+            svn.delete(sComponent, fForce)
 
         sRootUrl = svn.extract_root_url_from_directory('.')
         if sFinalUrlPath.startswith(sRootUrl):

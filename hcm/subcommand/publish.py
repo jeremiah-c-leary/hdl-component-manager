@@ -19,10 +19,11 @@ def extract_url(sUrl):
         return None
 
     if sHcmUrlPaths.count(':') > 1:
-        logging.error('Multiple HCM url paths detected.')
+        logging.error('Multiple HCM URL paths detected.')
         for sString in sHcmUrlPaths.split(','):
             logging.info('-- ' + sString)
         logging.error('Unable to determine correct path to component directory.')
+        logging.info('Use the --url command line option to specify correct URL.')
         exit()
 
     return sHcmUrlPaths
