@@ -24,6 +24,20 @@ def parse_svn_command(lList):
     dSvnRepos['http://svn/my_repo'].append('components/queen/2.0.0')
     dSvnRepos['http://svn/my_repo'].append('components/queen/3.0.0')
 
+    dSvnRepos['http://svn/external_repo'] = []
+    dSvnRepos['http://svn/external_repo'].append('comps/king')
+    dSvnRepos['http://svn/external_repo'].append('comps/king/1.0.0')
+    dSvnRepos['http://svn/external_repo'].append('comps/king/1.1.0')
+    dSvnRepos['http://svn/external_repo'].append('comps/bishop')
+    dSvnRepos['http://svn/external_repo'].append('comps/bishop/1.0.0')
+    dSvnRepos['http://svn/external_repo'].append('comps/bishop/2.0.0')
+    dSvnRepos['http://svn/external_repo'].append('comps/bishop/2.1.0')
+    dSvnRepos['http://svn/external_repo'].append('comps/queen')
+    dSvnRepos['http://svn/external_repo'].append('comps/queen/1.0.0')
+    dSvnRepos['http://svn/external_repo'].append('comps/queen/2.0.0')
+    dSvnRepos['http://svn/external_repo'].append('comps/queen/3.0.0')
+
+
     try:
         if lList[0] == 'mkdir':
             parse_svn_mkdir_command(lList[1:], dSvnRepos)
@@ -74,7 +88,7 @@ def parse_svn_copy_command(lArgs, dSvnRepos):
 
 
 def parse_svn_delete_command(sDirectory):
-    if sDirectory == 'rook' or sDirectory == 'queen':
+    if sDirectory == 'rook' or sDirectory == 'queen' or sDirectory == 'bishop':
         sReturn = 'D         ' + sDirectory + '\n'
         sReturn += 'D         ' + sDirectory + '/hcm.json\n'
         sReturn += 'D         ' + sDirectory + '/rtl\n'
@@ -89,7 +103,7 @@ def parse_svn_delete_command(sDirectory):
 
 
 def parse_svn_status_command(sDirectory):
-    if sDirectory == 'rook' or sDirectory == 'queen':
+    if sDirectory == 'rook' or sDirectory == 'queen' or sDirectory == 'bishop':
         return ''
     else:
         sReturn = '?   ' + sDirectory + '.vhd\n'

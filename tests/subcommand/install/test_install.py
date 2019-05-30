@@ -9,24 +9,26 @@ from tests.mocks import mocked_subprocess_check_output
 
 sTestLocation = 'tests/subcommand/install/'
 
+def remove_directory(sName):
+    try:
+        os.rmdir(sName)
+    except FileNotFoundError:
+        pass
+
 
 class testInstallSubcommand(unittest.TestCase):
 
   def setUp(self):
       logging.disable(logging.CRITICAL)
-      try:
-          os.rmdir('rook')
-          os.rmdir('queen')
-      except FileNotFoundError:
-          pass
+      remove_directory('rook')
+      remove_directory('queen')
+      remove_directory('bishop')
 
   def tearDown(self):
       logging.disable(logging.NOTSET)
-      try:
-          os.rmdir('rook')
-          os.rmdir('queen')
-      except FileNotFoundError:
-          pass
+      remove_directory('rook')
+      remove_directory('queen')
+      remove_directory('bishop')
 
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   def test_install_component_that_exists(self, mocked_function):
@@ -84,9 +86,22 @@ class testInstallSubcommand(unittest.TestCase):
       self.assertFalse(os.path.isdir('rook'))
 
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
-  @mock.patch.dict('os.environ', {'HCM_URL_PATHS':'http://svn/my_repo/components,http://svn/my_other_repo/components'}, clear=True)
+  @mock.patch.dict('os.environ', {'HCM_URL_PATHS':'http://svn/my_repo/components,http://svn/external_repo/comps'}, clear=True)
   def test_install_component_with_multiple_environment_variables(self, mocked_function):
 
+      self.assertFalse(os.path.isdir('castle'))
+      self.assertRaises(SystemExit, install, None, 'castle', '1.0.0', None)
+      self.assertFalse(os.path.isdir('castle'))
+
       self.assertFalse(os.path.isdir('rook'))
-      self.assertRaises(SystemExit, install, None, 'rook', '1.0.0', None)
-      self.assertFalse(os.path.isdir('rook'))
+      install(None, 'rook', '1.0.0', None)
+      self.assertTrue(os.path.isdir('rook'))
+
+      self.assertFalse(os.path.isdir('queen'))
+      self.assertRaises(SystemExit, install, None, 'queen', '1.0.0', None)
+      self.assertFalse(os.path.isdir('queen'))
+
+      self.assertFalse(os.path.isdir('bishop'))
+      install(None, 'bishop', '1.0.0', None)
+      self.assertTrue(os.path.isdir('bishop'))
+

@@ -9,12 +9,26 @@ def install(sUrl, sComponent, sVersion, fForce):
 
         logging.info('Installing component ' + sComponent + ' version ' + sVersion)
 
-        sUrl = determine_url(sUrl)
+        lUrl = determine_url(sUrl)
+        fUrlPathFound = False
+        fMultipleFound = False
 
-        sUrlPath = build_url_path(sUrl, sComponent, sVersion)
+        for sUrl in lUrl:
+            sUrlPath = build_url_path(sUrl, sComponent, sVersion)
 
-        if not svn.does_directory_exist(sUrlPath):
-            logging.error('Could not find the following URL path to component: ' + sUrlPath)
+            if svn.does_directory_exist(sUrlPath):
+                if fUrlPathFound:
+                    fMultipleFound = True
+                fUrlPathFound = True
+                sFinalUrlPath = sUrlPath
+
+        if not fUrlPathFound:
+            logging.error('Component ' + sComponent + ' could not be found.')
+            exit()
+
+        if fMultipleFound:
+            logging.warning('Component ' + sComponent + ' was found in multiple locations.')
+            logging.info('Specify url using the --url command line argument.')
             exit()
 
         if not fForce:
@@ -23,7 +37,7 @@ def install(sUrl, sComponent, sVersion, fForce):
         logging.info('Removing local component directory')
         svn.delete(sComponent, fForce)
 
-        svn.copy(sUrlPath, sComponent)
+        svn.copy(sFinalUrlPath, sComponent)
         logging.info('Installation complete')
 
 
@@ -33,7 +47,7 @@ def build_url_path(sUrl, sComponent, sVersion):
 
 def determine_url(sUrl):
     if sUrl:
-        return sUrl
+        return [sUrl]
 
     lUrl = utils.get_url_from_environment_variable()
 
@@ -42,9 +56,4 @@ def determine_url(sUrl):
         logging.error('Use the --url option or set the HCM_URL_PATHS environment variable.')
         exit()
 
-    if len(lUrl) > 1:
-        logging.error('Multiple paths specified in HCM_URL_PATHS.')
-        logging.error('Use the --url option to specify URL.')
-        exit()
-
-    return lUrl[0]
+    return lUrl
