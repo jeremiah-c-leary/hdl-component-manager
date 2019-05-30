@@ -3,17 +3,12 @@ import logging
 import os
 import json
 
-import hcm.svn as svn
-import hcm.utils as utils
-
 
 def sub_list(oCommandLineArguments):
 
     logging.info('Listing components')
 
     lDirectories = get_directories()
-
-    iMaxComponentNameLength = 0
 
     dVersions = {}
     dVersions['components'] = {}
@@ -51,7 +46,7 @@ def print_versions(dVersions):
     lKeys = dVersions['components'].keys()
     lKeys.sort()
 
-    sSpacer = '     ' 
+    sSpacer = '     '
     sComponentColumn = '{0:' + str(dVersions['config']['max_comp_len']) + 's}'
     sVersionColumn = '{0:' + str(dVersions['config']['max_ver_len']) + 's}'
     sUrlColumn = '{0:' + str(dVersions['config']['max_url_len']) + 's}'

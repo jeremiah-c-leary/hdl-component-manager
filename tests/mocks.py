@@ -71,7 +71,7 @@ def parse_svn_copy_command(lArgs, dSvnRepos):
     fRepoUrlFound = False
     for sKey in dSvnRepos.keys():
         for sDir in dSvnRepos[sKey]:
- 
+
             if sRepoUrl == sKey + '/' + sDir:
                 fRepoUrlFound = True
                 break
