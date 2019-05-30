@@ -60,7 +60,7 @@ def print_versions(dVersions):
     sHeader += sUrlHeader
 
     sDivider = '-' * dVersions['config']['max_comp_len'] + sSpacer
-    sDivider +=  '-' * dVersions['config']['max_ver_len'] + sSpacer
+    sDivider += '-' * dVersions['config']['max_ver_len'] + sSpacer
     sDivider += '-' * dVersions['config']['max_url_len']
 
     print('')
@@ -72,4 +72,3 @@ def print_versions(dVersions):
         sVersion = sVersionColumn.format(dVersions['components'][sKey]['version'])
         sUrl = sUrlColumn.format(dVersions['components'][sKey]['url'])
         print(sComponentName + sSpacer + sVersion + sSpacer + sUrl)
-

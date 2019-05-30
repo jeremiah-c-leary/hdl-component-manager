@@ -58,7 +58,7 @@ def determine_url(sUrl):
 
     lUrl = utils.get_url_from_environment_variable()
 
-    if lUrl == None:
+    if lUrl is None:
         logging.error('URL path to components has not been specified.')
         logging.error('Use the --url option or set the HCM_URL_PATHS environment variable.')
         exit()
