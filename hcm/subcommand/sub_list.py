@@ -22,9 +22,9 @@ def sub_list(oCommandLineArguments):
             with open(sHcmName) as json_file:
                 dConfig = json.load(json_file)
             dVersions['components'][sDirectory] = {}
-            dVersions['components'][sDirectory]['url'] = dConfig['hcm']['url']
-            dVersions['components'][sDirectory]['version'] = dConfig['hcm']['version']
-            update_column_width(dVersions, 'max_var_len', len(dConfig['hcm']['version']))
+            copy_key(dVersions, dConfig, sDirectory, 'url')
+            copy_key(dVersions, dConfig, sDirectory, 'version')
+            update_column_width(dVersions, 'max_ver_len', len(dConfig['hcm']['version']))
             update_column_width(dVersions, 'max_url_len', len(dConfig['hcm']['url']))
         elif oCommandLineArguments.all:
             dVersions['components'][sDirectory] = {}
@@ -32,6 +32,10 @@ def sub_list(oCommandLineArguments):
             dVersions['components'][sDirectory]['version'] = '-----'
 
     print_versions(dVersions)
+
+
+def copy_key(dVersions, dConfig, sDirectory, sKey):
+    dVersions['components'][sDirectory][sKey] = dConfig['hcm'][sKey]
 
 
 def update_column_width(dVersions, sKey, iValue):
