@@ -128,7 +128,11 @@ def add_hcm_config_file_to_component_directory(dHcmConfig):
 def copy_component_to_component_directory(dHcmConfig, oCommandLineArguments):
     sComponentName = utils.get_component_name(dHcmConfig)
     sUrl = utils.get_version_path(dHcmConfig)
-    svn.issue_command(['svn', 'cp', sComponentName, sUrl, '-m "' + oCommandLineArguments.m + '"'])
+    if oCommandLineArguments.f is None:
+        svn.issue_command(['svn', 'cp', sComponentName, sUrl, '-m "' + oCommandLineArguments.m + '"'])
+    else:
+        svn.issue_command(['svn', 'cp', sComponentName, sUrl, '-F', oCommandLineArguments.f])
+
     logging.info('Component published')
 
 

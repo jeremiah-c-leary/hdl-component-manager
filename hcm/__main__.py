@@ -62,7 +62,9 @@ def build_list_parser(oParser):
 def build_publish_parser(oParser):
     oParser.add_argument('component', help='Component name to publish')
     oParser.add_argument('version', help='Major.Minor.Patch version to publish')
-    oParser.add_argument('-m', required=True, help='Commit message')
+    oGroup = oParser.add_mutually_exclusive_group(required=True)
+    oGroup.add_argument('-m', help='Commit message')
+    oGroup.add_argument('-f', help='File to use as commit message')
     oParser.add_argument('--url', help='Base URL of the component repository')
     oParser.set_defaults(which='publish')
 
