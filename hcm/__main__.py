@@ -45,18 +45,34 @@ def parse_command_line_arguments():
     list_parser.add_argument('--all', default=False, action='store_true', help='Includes directories that are not under HCM control')
     list_parser.set_defaults(which='list')
 
+    print_help_if_no_command_line_options_given(top_parser)
+
+    oArgs = top_parser.parse_args()
+
+    check_for_correctly_formed_version_argument(oArgs.version)
+
+    return oArgs
+
+
+def print_help_if_no_command_line_options_given(oParser):
+    '''
+    Will print the help output if no command line arguments were given.
+    '''
     if len(sys.argv) == 1:
-        top_parser.print_help()
+        oParser.print_help()
         sys.exit(1)
-    else:
-        oArgs = top_parser.parse_args()
-        try:
-            if not utils.validate_version(oArgs.version):
-                logging.error('Version ' + oArgs.version + ' does not match Major.Minor.Patch format.')
-                sys.exit(1)
-        except AttributeError:
-            return oArgs
-        return oArgs
+
+
+def check_for_correctly_formed_version_argument(sVersion):
+    '''
+    Will exit if a malformed version is given in the --URL argument.
+    '''
+    try:
+        if not utils.validate_version(sVersion):
+            logging.error('Version ' + sVersion + ' does not match Major.Minor.Patch format.')
+            sys.exit(1)
+    except AttributeError:
+        pass
 
 
 def main():
