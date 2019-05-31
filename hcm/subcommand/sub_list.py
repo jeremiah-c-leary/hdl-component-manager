@@ -6,8 +6,6 @@ import json
 
 def sub_list(oCommandLineArguments):
 
-    logging.info('Listing components')
-
     lDirectories = get_directories()
 
     dVersions = {}
@@ -46,29 +44,25 @@ def print_versions(dVersions):
     lKeys = dVersions['components'].keys()
     lKeys.sort()
 
-    sSpacer = '     '
-    sComponentColumn = '{0:' + str(dVersions['config']['max_comp_len']) + 's}'
-    sVersionColumn = '{0:' + str(dVersions['config']['max_ver_len']) + 's}'
-    sUrlColumn = '{0:' + str(dVersions['config']['max_url_len']) + 's}'
-
-    sComponentHeader = sComponentColumn.format('Component')
-    sVersionHeader = sVersionColumn.format('Version')
-    sUrlHeader = sVersionColumn.format('URL')
-
-    sHeader = sComponentHeader + sSpacer
-    sHeader += sVersionHeader + sSpacer
-    sHeader += sUrlHeader
-
-    sDivider = '-' * dVersions['config']['max_comp_len'] + sSpacer
-    sDivider += '-' * dVersions['config']['max_ver_len'] + sSpacer
-    sDivider += '-' * dVersions['config']['max_url_len']
+    sRow = build_row(dVersions['config']['max_comp_len'], dVersions['config']['max_ver_len'], dVersions['config']['max_url_len'])
 
     print('')
-    print(sHeader)
-    print(sDivider)
+    print(sRow.format('Component', 'Version', 'URL'))
+    print(build_divider(sRow, dVersions))
 
     for sKey in lKeys:
-        sComponentName = sComponentColumn.format(sKey)
-        sVersion = sVersionColumn.format(dVersions['components'][sKey]['version'])
-        sUrl = sUrlColumn.format(dVersions['components'][sKey]['url'])
-        print(sComponentName + sSpacer + sVersion + sSpacer + sUrl)
+        sVersion = dVersions['components'][sKey]['version']
+        sUrl = dVersions['components'][sKey]['url']
+        print(sRow.format(sKey, sVersion, sUrl))
+
+
+def build_row(iComponentLength, iVersionLength, iUrlLength):
+    sSpacer = '     '
+    sComponentColumn = '{0:' + str(iComponentLength) + 's}'
+    sVersionColumn = '{1:' + str(iVersionLength) + 's}'
+    sUrlColumn = '{2:' + str(iUrlLength) + 's}'
+    return sComponentColumn + sSpacer + sVersionColumn + sSpacer + sUrlColumn
+
+
+def build_divider(sRow, dVersions):
+    return sRow.format('-' * dVersions['config']['max_comp_len'], '-' * dVersions['config']['max_ver_len'], '-' * dVersions['config']['max_url_len'])

@@ -49,7 +49,7 @@ def parse_command_line_arguments():
 
     oArgs = top_parser.parse_args()
 
-    check_for_correctly_formed_version_argument(oArgs.version)
+    check_for_correctly_formed_version_argument(oArgs)
 
     return oArgs
 
@@ -63,13 +63,13 @@ def print_help_if_no_command_line_options_given(oParser):
         sys.exit(1)
 
 
-def check_for_correctly_formed_version_argument(sVersion):
+def check_for_correctly_formed_version_argument(oArgs):
     '''
     Will exit if a malformed version is given in the --URL argument.
     '''
     try:
-        if not utils.validate_version(sVersion):
-            logging.error('Version ' + sVersion + ' does not match Major.Minor.Patch format.')
+        if not utils.validate_version(oArgs.version):
+            logging.error('Version ' + oArgs.version + ' does not match Major.Minor.Patch format.')
             sys.exit(1)
     except AttributeError:
         pass
