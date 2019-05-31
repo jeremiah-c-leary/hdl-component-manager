@@ -26,24 +26,10 @@ def parse_command_line_arguments():
     list_parser = subparsers.add_parser('list', help='lists components and their versions')
     publish_parser = subparsers.add_parser('publish', help='Adds components to the component repo')
 
-    create_parser.add_argument('url', help='location to create the base component directory')
-    create_parser.set_defaults(which='create')
-
-    install_parser.add_argument('component', help='Component name to install')
-    install_parser.add_argument('version', help='Major.Minor.Patch version of component to install, or latest to grab the latest version.')
-    install_parser.add_argument('--url', help='location of component directory in repo')
-    install_parser.add_argument('--force', default=False, action='store_true', help='Install component ignoring any local changes')
-    install_parser.set_defaults(which='install')
-
-    publish_parser.add_argument('component', help='Component name to publish')
-    publish_parser.add_argument('version', help='Major.Minor.Patch version to publish')
-    publish_parser.add_argument('-m', required=True, help='Commit message')
-    publish_parser.add_argument('--url', help='Base URL of the component repository')
-    publish_parser.set_defaults(which='publish')
-
-    list_parser.add_argument('--upgrades', default=False, action='store_true', help='Lists upgrades for currently installed components')
-    list_parser.add_argument('--all', default=False, action='store_true', help='Includes directories that are not under HCM control')
-    list_parser.set_defaults(which='list')
+    build_create_parser(create_parser)
+    build_install_parser(install_parser)
+    build_publish_parser(publish_parser)
+    build_list_parser(list_parser)
 
     print_help_if_no_command_line_options_given(top_parser)
 
@@ -52,6 +38,33 @@ def parse_command_line_arguments():
     check_for_correctly_formed_version_argument(oArgs)
 
     return oArgs
+
+
+def build_create_parser(oParser):
+    oParser.add_argument('url', help='location to create the base component directory')
+    oParser.set_defaults(which='create')
+
+
+def build_install_parser(oParser):
+    oParser.add_argument('component', help='Component name to install')
+    oParser.add_argument('version', help='Major.Minor.Patch version of component to install, or latest to grab the latest version.')
+    oParser.add_argument('--url', help='location of component directory in repo')
+    oParser.add_argument('--force', default=False, action='store_true', help='Install component ignoring any local changes')
+    oParser.set_defaults(which='install')
+
+
+def build_list_parser(oParser):
+    oParser.add_argument('--upgrades', default=False, action='store_true', help='Lists upgrades for currently installed components')
+    oParser.add_argument('--all', default=False, action='store_true', help='Includes directories that are not under HCM control')
+    oParser.set_defaults(which='list')
+
+
+def build_publish_parser(oParser):
+    oParser.add_argument('component', help='Component name to publish')
+    oParser.add_argument('version', help='Major.Minor.Patch version to publish')
+    oParser.add_argument('-m', required=True, help='Commit message')
+    oParser.add_argument('--url', help='Base URL of the component repository')
+    oParser.set_defaults(which='publish')
 
 
 def print_help_if_no_command_line_options_given(oParser):
