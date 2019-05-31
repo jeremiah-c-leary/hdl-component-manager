@@ -56,8 +56,7 @@ def validate_urls(lUrl, sComponent, sVersion):
         sUrlPath = build_url_path(sUrl, sComponent, sVersion)
 
         if svn.does_directory_exist(sUrlPath):
-            if fUrlPathFound:
-                fMultipleFound = True
+            fMultipleFound = fUrlPathFound
             fUrlPathFound = True
             sFinalUrlPath = sUrlPath
 
