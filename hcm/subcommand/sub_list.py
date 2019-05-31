@@ -16,7 +16,7 @@ def sub_list(oCommandLineArguments):
     dVersions['config']['max_url_len'] = len('-----')
 
     for sDirectory in lDirectories:
-        dVersions['config']['max_comp_len'] = max(dVersions['config']['max_comp_len'], len(sDirectory))
+        update_column_width(dVersions, 'max_comp_len', len(sDirectory))
         sHcmName = sDirectory + '/hcm.json'
         if os.path.isfile(sHcmName):
             with open(sHcmName) as json_file:
@@ -24,14 +24,18 @@ def sub_list(oCommandLineArguments):
             dVersions['components'][sDirectory] = {}
             dVersions['components'][sDirectory]['url'] = dConfig['hcm']['url']
             dVersions['components'][sDirectory]['version'] = dConfig['hcm']['version']
-            dVersions['config']['max_ver_len'] = max(dVersions['config']['max_ver_len'], len(dConfig['hcm']['version']))
-            dVersions['config']['max_url_len'] = max(dVersions['config']['max_url_len'], len(dConfig['hcm']['url']))
+            update_column_width(dVersions, 'max_var_len', len(dConfig['hcm']['version']))
+            update_column_width(dVersions, 'max_url_len', len(dConfig['hcm']['url']))
         elif oCommandLineArguments.all:
             dVersions['components'][sDirectory] = {}
             dVersions['components'][sDirectory]['url'] = '-----'
             dVersions['components'][sDirectory]['version'] = '-----'
 
     print_versions(dVersions)
+
+
+def update_column_width(dVersions, sKey, iValue):
+    dVersions['config'][sKey] = max(dVersions['config'][sKey], iValue)
 
 
 def get_directories():
