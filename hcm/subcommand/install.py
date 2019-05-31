@@ -11,26 +11,8 @@ def install(sUrl, sComponent, sVersion, fForce):
         logging.info('Installing component ' + sComponent + ' version ' + sVersion)
 
         lUrl = determine_url(sUrl)
-        fUrlPathFound = False
-        fMultipleFound = False
 
-        for sUrl in lUrl:
-            sUrlPath = build_url_path(sUrl, sComponent, sVersion)
-
-            if svn.does_directory_exist(sUrlPath):
-                if fUrlPathFound:
-                    fMultipleFound = True
-                fUrlPathFound = True
-                sFinalUrlPath = sUrlPath
-
-        if not fUrlPathFound:
-            logging.error('Component ' + sComponent + ' could not be found.')
-            exit()
-
-        if fMultipleFound:
-            logging.warning('Component ' + sComponent + ' was found in multiple locations.')
-            logging.info('Specify url using the --url command line argument.')
-            exit()
+        sFinalUrlPath = validate_urls(lUrl, sComponent, sVersion)
 
         if not fForce:
             svn.is_directory_status_clean(sComponent)
@@ -64,3 +46,28 @@ def determine_url(sUrl):
         exit()
 
     return lUrl
+
+
+def validate_urls(lUrl, sComponent, sVersion):
+    fUrlPathFound = False
+    fMultipleFound = False
+
+    for sUrl in lUrl:
+        sUrlPath = build_url_path(sUrl, sComponent, sVersion)
+
+        if svn.does_directory_exist(sUrlPath):
+            if fUrlPathFound:
+                fMultipleFound = True
+            fUrlPathFound = True
+            sFinalUrlPath = sUrlPath
+
+    if not fUrlPathFound:
+        logging.error('Component ' + sComponent + ' could not be found.')
+        exit()
+
+    if fMultipleFound:
+        logging.warning('Component ' + sComponent + ' was found in multiple locations.')
+        logging.info('Specify url using the --url command line argument.')
+        exit()
+
+    return sFinalUrlPath
