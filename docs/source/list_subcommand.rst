@@ -2,7 +2,6 @@ Listing Components
 ==================
 
 Use the **list** subcommand to view information about installed components.
-It can also list information about available components stored in the component repo.
 
 Example:  listing installed components
 --------------------------------------
@@ -11,7 +10,12 @@ Example:  listing installed components
 
    $ hcm list
 
-   [jcl - need some output]
+   Component     Version      URL                                           
+   ---------     --------     ----------------------------------------------
+   bishop        1.1.0        http://svn/my_repo/comps       
+   castle        1.0.0        http://svn/external_repo/blocks
+   pawn          1.0.0        http://svn/external_repo/blocks
+   rook          1.1.0        http://svn/my_repo/comps       
 
 Example:  listing upgrades available
 ------------------------------------
@@ -22,12 +26,4 @@ Example:  listing upgrades available
 
    [jcl - need some output]
 
-Example:  listing components available in component repo
---------------------------------------------------------
-
-.. code-block:: bash
-
-    $ hcm list --available
-
-If multiple repos are listed in the **HCM_URL_PATHS** environment variable, then every component in all repos will be reported.
-
+.. WARNING::  This is not implemented yet.

@@ -12,10 +12,6 @@ There are a couple of requirements before a component can be published.
 HCM uses SVN copy commands to publish components.
 This ensures a history is maintained for the component development.
 
-If the **HCM_URL_PATHS** is defined, and there is a single 
-If there is only one path defined in the **HCM_URL_PATHS** environment variable, then the *--url* argument is optional.
-Otherwise HCM will indicate the *--url* argument is required, as it will not know which repo to store the component.
-
 Example:  Publishing a new component
 ------------------------------------
 
@@ -23,7 +19,7 @@ A new component can be published, but HCM must be told where to publish the comp
 This can be done by setting the **HCM_URL_PATHS** environment variable.
 If only one path is defined, HCM will use it as the publish location.
 There is also a *--url* command line argument that will tell HCM where to publish the component.
-The argument will override any paths in the **HCM_URL_PATH**.
+The argument will override any paths in the **HCM_URL_PATH** environment variable.
 
 .. NOTE:: Publishing is restricted to the current repository.
 

@@ -19,8 +19,8 @@ Where *<url>* is the path to the component directory:
 .. code-block:: bash
 
   $ hcm create http://svn/acme/project1/components
-  $ hcm create http://svn/acme/project2/components
-  $ hcm create http://svn/acme/components
+  INFO:Creating component directory http://svn/acme/project1/components
+  INFO:Add "http://svn/acme/project1/components" to the HCM_URL_PATHS environment variable.
 
 HCM will create any level of hierarchy necessary to create the given URL path.
 
@@ -28,10 +28,10 @@ HCM supports multiple component repos and can install/publish from/to any of the
 
 .. WARNING:: If the URL already exists, an error will be reported
 
-You will need to update the **HCM_PATHS** environment variable to point to the URL path just created.
+You should update the **HCM_URL_PATHS** environment variable to point to the URL path just created.
 
 .. code-block:: bash
 
-  $ export HCM_URL_PATHS=http://svn/acme/components:$HCM_URL_PATHS
+  $ export HCM_URL_PATHS=http://svn/acme/components,$HCM_URL_PATHS
 
-.. NOTE:: The SVN repository the component directory will be created must already exist.
+.. NOTE:: The separator is a comma and not a colon.
