@@ -65,7 +65,6 @@ def validate_urls(lUrl, sComponent, sVersion):
 
     for sUrl in lUrl:
         sUrlPath = build_url_path(sUrl, sComponent, sVersion)
-        print(sUrlPath)
 
         if svn.does_directory_exist(sUrlPath):
             fMultipleFound = fUrlPathFound
@@ -93,7 +92,6 @@ def is_component_externalled(sComponent, fExternal):
         if sExternal.endswith(sComponent):
             return True
     return False
-    print(lExternals)
 
 
 def update_externals(sUrlPath, sComponent):
