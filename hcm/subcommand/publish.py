@@ -167,9 +167,9 @@ def publish(oCommandLineArguments):
             dHcmConfig = create_default_hcm_dictionary(oCommandLineArguments.component, oCommandLineArguments.version, sUrl)
 
         create_component_directory(utils.get_component_path(dHcmConfig))
+        update_version(dHcmConfig, oCommandLineArguments.version)
         check_if_version_already_exists(dHcmConfig)
 
-        update_version(dHcmConfig, oCommandLineArguments.version)
         update_source_url(dHcmConfig)
         update_manifest(dHcmConfig)
 
