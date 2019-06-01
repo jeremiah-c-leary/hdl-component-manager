@@ -44,15 +44,10 @@ Table of Contents
 <!--ts-->
 
 *   [Overview](#Overview)
-
 *   [Key Benefits](#Key-Benefits)
-
 *   [Key Features](#Key-Features)
-
 *   [Installation](#Installation)
-
 *   [Usage](#Usage)
-
 *   [Documentation](#Documentation)
 *   [Contributing](#Contributing)
 
