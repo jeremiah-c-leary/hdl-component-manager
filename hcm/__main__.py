@@ -54,7 +54,6 @@ def build_install_parser(oParser):
 
 
 def build_list_parser(oParser):
-    oParser.add_argument('--upgrades', default=False, action='store_true', help='Lists upgrades for currently installed components')
     oParser.add_argument('--all', default=False, action='store_true', help='Includes directories that are not under HCM control')
     oParser.set_defaults(which='list')
 

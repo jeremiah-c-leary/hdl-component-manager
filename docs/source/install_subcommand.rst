@@ -21,8 +21,8 @@ After viewing the component repository, we decide to pull in version 3.0.0 of th
 HCM will use the paths in the **HCM_URL_PATHS** environment variable and search for the component name.
 HCM will then check if the version exists.
 
-Example:  installing the rook component when files rook directory are not committed
------------------------------------------------------------------------------------
+Example:  installing the rook component when files under the rook directory are not committed
+---------------------------------------------------------------------------------------------
 
 If the status of files underneath the component directory are not svn clean, then HCM will not perform the installation.
 This behavior can be overridden by using the **--force** command line option.

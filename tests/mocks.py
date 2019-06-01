@@ -42,7 +42,7 @@ def parse_svn_command(lList):
         if lList[0] == 'mkdir':
             parse_svn_mkdir_command(lList[1:], dSvnRepos)
         if lList[0] == 'list':
-            parse_svn_list_command(lList[-1], dSvnRepos)
+            return parse_svn_list_command(lList[-1], dSvnRepos)
         if lList[0] == 'info':
             return parse_svn_info_command(lList[-1])
         if lList[0] == 'add':
@@ -120,20 +120,25 @@ def parse_svn_add_command(sFileName):
 def parse_svn_list_command(sUrl, dSvnRepos):
     fFoundUrl = False
     fFoundDirectory = False
+    sOutput = ''
     for sKey in dSvnRepos.keys():
         if sUrl.startswith(sKey):
             fFoundUrl = True
             sDirectory = sUrl.replace(sKey + '/', '')
             if sDirectory in dSvnRepos[sKey]:
                 fFoundDirectory = True
-                break
+#                break
+        for sUrlKey in dSvnRepos[sKey]:
+            sUrlPath = sKey + '/' + sUrlKey
+            if sUrlPath.startswith(sUrl + '/'):
+                sOutput += sUrlPath.split('/')[-1] + '/\n'
 
     if not fFoundUrl:
         raise subprocess.CalledProcessError(0, 'svn list')
 
     if not fFoundDirectory:
         raise subprocess.CalledProcessError(0, 'svn list')
-
+    return sOutput
 
 def parse_svn_mkdir_command(lList, dSvnRepos):
 
