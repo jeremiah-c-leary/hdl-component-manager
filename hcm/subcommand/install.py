@@ -20,18 +20,11 @@ def install(sUrl, sComponent, sVersion, fForce, fExternal=None):
         if not fForce:
             svn.is_directory_status_clean(sComponent)
 
-        logging.info('Removing local component directory')
-        if os.path.isdir(sComponent):
-            if fExternalled:
-                shutil.rmtree(sComponent, ignore_errors=True)
-            else:
-                svn.delete(sComponent, fForce)
+        remove_local_component_directory(sComponent, fForce, fExternalled)
 
         sRootUrl = svn.extract_root_url_from_directory('.')
         if fExternalled:
             update_externals(sFinalUrlPath, sComponent)
-            svn.issue_command(['svn', 'propset', 'svn:externals', '-F' '.hcm_externals.txt', '.'])
-            os.remove('.hcm_externals.txt')
             svn.issue_command(['svn', 'update', '.'])
         elif sFinalUrlPath.startswith(sRootUrl):
             svn.copy(sFinalUrlPath, sComponent)
@@ -39,6 +32,15 @@ def install(sUrl, sComponent, sVersion, fForce, fExternal=None):
             svn.export(sFinalUrlPath, sComponent)
 
         logging.info('Installation complete')
+
+
+def remove_local_component_directory(sComponent, fForce, fExternalled):
+        logging.info('Removing local component directory')
+        if os.path.isdir(sComponent):
+            if fExternalled:
+                shutil.rmtree(sComponent, ignore_errors=True)
+            else:
+                svn.delete(sComponent, fForce)
 
 
 def build_url_path(sUrl, sComponent, sVersion):
@@ -107,4 +109,5 @@ def update_externals(sUrlPath, sComponent):
     with open('.hcm_externals.txt', 'w') as outfile:
         for sLine in lFile:
             outfile.write(sLine + '\n')
-
+    svn.issue_command(['svn', 'propset', 'svn:externals', '-F' '.hcm_externals.txt', '.'])
+    os.remove('.hcm_externals.txt')
