@@ -91,3 +91,13 @@ class testSvnMethods(unittest.TestCase):
 
       self.assertRaises(subprocess.CalledProcessError, svn.export, 'rook', 'http://svn/my_repo/components/rook/1.0.0')
       self.assertTrue(svn.export('rook', 'http://svn/my_repo/components/rook/4.0.0'))
+
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  def test_svn_get_externals(self, mocked_function):
+
+      sExpected = "http://svn/external_repo/blocks/castle/1.0.0 castle\n"
+      sExpected += "http://svn/external_repo/blocks/pawn/3.0.0 pawn\n"
+
+      self.assertEqual(svn.get_externals('.'), sExpected)
+      self.assertEqual(svn.get_externals('fail'), None)

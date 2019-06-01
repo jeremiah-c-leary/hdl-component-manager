@@ -70,3 +70,11 @@ def export(sSource, sDestination):
         return issue_command(['svn', 'export', sSource, sDestination])
     except subprocess.CalledProcessError as e:
         raise e
+
+
+def get_externals(sDirectory):
+    try:
+        return issue_command(['svn', 'propget', 'svn:externals', sDirectory])
+    except subprocess.CalledProcessError as e:
+        return None
+    

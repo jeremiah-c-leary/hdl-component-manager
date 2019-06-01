@@ -1,12 +1,13 @@
 
 import logging
 import os
+import shutil
 
 import hcm.svn as svn
 import hcm.utils as utils
 
 
-def install(sUrl, sComponent, sVersion, fForce):
+def install(sUrl, sComponent, sVersion, fForce, fExternal=None):
 
         logging.info('Installing component ' + sComponent + ' version ' + sVersion)
 
@@ -14,15 +15,25 @@ def install(sUrl, sComponent, sVersion, fForce):
 
         sFinalUrlPath = validate_urls(lUrl, sComponent, sVersion)
 
+        fExternalled = is_component_externalled(sComponent, fExternal)
+
         if not fForce:
             svn.is_directory_status_clean(sComponent)
 
         logging.info('Removing local component directory')
         if os.path.isdir(sComponent):
-            svn.delete(sComponent, fForce)
+            if fExternalled:
+                shutil.rmtree(sComponent, ignore_errors=True)
+            else:
+                svn.delete(sComponent, fForce)
 
         sRootUrl = svn.extract_root_url_from_directory('.')
-        if sFinalUrlPath.startswith(sRootUrl):
+        if fExternalled:
+            update_externals(sFinalUrlPath, sComponent)
+            svn.issue_command(['svn', 'propset', 'svn:externals', '-F' '.hcm_externals.txt', '.'])
+            os.remove('.hcm_externals.txt')
+            svn.issue_command(['svn', 'update', '.'])
+        elif sFinalUrlPath.startswith(sRootUrl):
             svn.copy(sFinalUrlPath, sComponent)
         else:
             svn.export(sFinalUrlPath, sComponent)
@@ -54,6 +65,7 @@ def validate_urls(lUrl, sComponent, sVersion):
 
     for sUrl in lUrl:
         sUrlPath = build_url_path(sUrl, sComponent, sVersion)
+        print(sUrlPath)
 
         if svn.does_directory_exist(sUrlPath):
             fMultipleFound = fUrlPathFound
@@ -70,3 +82,31 @@ def validate_urls(lUrl, sComponent, sVersion):
         exit()
 
     return sFinalUrlPath
+
+
+def is_component_externalled(sComponent, fExternal):
+    if fExternal:
+        return True
+
+    lExternals = svn.get_externals('.').split('\n')[:-1]
+    for sExternal in lExternals:
+        if sExternal.endswith(sComponent):
+            return True
+    return False
+    print(lExternals)
+
+
+def update_externals(sUrlPath, sComponent):
+    logging.info('Updating externals')
+    lExternals = svn.get_externals('.').split('\n')[:-1]
+    lFile = []
+    for sExternal in lExternals:
+        if sExternal.endswith(sComponent):
+            lFile.append(sUrlPath + ' ' + sComponent)
+        else:
+            lFile.append(sExternal)
+
+    with open('.hcm_externals.txt', 'w') as outfile:
+        for sLine in lFile:
+            outfile.write(sLine + '\n')
+

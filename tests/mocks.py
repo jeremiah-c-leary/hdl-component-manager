@@ -55,9 +55,21 @@ def parse_svn_command(lList):
             return parse_svn_copy_command(lList[1:], dSvnRepos)
         if lList[0] == 'export':
             return parse_svn_copy_command(lList[1:], dSvnRepos)
+        if lList[0] == 'propget' and lList[1] == 'svn:externals':
+            return parse_svn_externals_command(lList[2])
+
 
     except subprocess.CalledProcessError as e:
         raise e
+
+
+def parse_svn_externals_command(sDirectory):
+    if sDirectory == '.':
+        sReturn = 'http://svn/external_repo/blocks/castle/1.0.0 castle\n'
+        sReturn += 'http://svn/external_repo/blocks/pawn/3.0.0 pawn\n'
+        return sReturn
+    else:
+        return None
 
 
 def parse_svn_copy_command(lArgs, dSvnRepos):
