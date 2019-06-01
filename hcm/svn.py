@@ -75,6 +75,5 @@ def export(sSource, sDestination):
 def get_externals(sDirectory):
     try:
         return issue_command(['svn', 'propget', 'svn:externals', sDirectory])
-    except subprocess.CalledProcessError as e:
+    except subprocess.CalledProcessError:
         return None
-    

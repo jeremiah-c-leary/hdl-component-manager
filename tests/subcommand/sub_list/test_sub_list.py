@@ -2,7 +2,6 @@
 import unittest
 from unittest import mock
 import logging
-import os
 
 from hcm.subcommand.sub_list import *
 from tests.mocks import mocked_subprocess_check_output

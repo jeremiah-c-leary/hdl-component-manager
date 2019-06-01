@@ -38,19 +38,29 @@ Manage HDL code as components so they can shared as IP.
 
 HDL Component Manager (HCM) provides a package manager for HDL languages.
 
-## Table of Contents
+Table of Contents
+-----------------
 
 <!--ts-->
-  * [Overview](#Overview)
-  * [Key Benefits](#Key-Benefits)
-  * [Key Features](#Key-Features)
-  * [Installation](#Installation)
-  * [Usage](#Usage)
-  * [Documentation](#Documentation)
-  * [Contributing](#Contributing)
+
+*   [Overview](#Overview)
+
+*   [Key Benefits](#Key-Benefits)
+
+*   [Key Features](#Key-Features)
+
+*   [Installation](#Installation)
+
+*   [Usage](#Usage)
+
+*   [Documentation](#Documentation)
+
+*   [Contributing](#Contributing)
+
 <!--te-->
 
-## Overview
+Overview
+--------
 
 HCM was created after a frustrating attempt to merge changes from one program to another.
 Even after carefully performing the merge, there were issues.
@@ -62,47 +72,51 @@ This was turning into a nightmare just to pass updates between multiple concurre
 I was inspired by PIP, and how easy it is to install python packages.
 I wanted to bring that same level of ease to HDL design.
 
-## Key Benefits
+Key Benefits
+------------
 
-* Provides a method to control versions of IP
-* Controls the distribution of HDL code
-* Follows the Major.Minor.Patch method of version control
-* Language independent (VHDL, Verilog, System Verilog)
-* Can be used to control vendor IP
+*   Provides a method to control versions of IP
+*   Controls the distribution of HDL code
+*   Follows the Major.Minor.Patch method of version control
+*   Language independent (VHDL, Verilog, System Verilog)
+*   Can be used to control vendor IP
 
-## Key Features
+Key Features
+------------
 
-* Works with SVN repositories
-* Automates publishing of code to a central location
-* Automates installing and upgrading of code
-* Supports multiple IP repositories
+*   Works with SVN repositories
+*   Automates publishing of code to a central location
+*   Automates installing and upgrading of code
+*   Supports multiple IP repositories
 
-## Installation
+Installation
+------------
 
 You can get the latest released version of HCM via **pip**.
 
-```
+``` bash
 pip install hcm
 ```
 
 The latest development version can be cloned...
 
-```
+``` bash
 git clone https://github.com/jeremiah-c-leary/hdl-component-manager.git
 ```
 
 ...and then installed locally...
 
-```
+``` bash
 python setup.py install
 ```
 
-## Usage
+Usage
+-----
 
 HCM is a command line tool.
 It can be invoked with:
 
-```
+``` bash
 $ hcm
 usage: hcm [-h] {create,install,list,publish} ...
 
@@ -126,7 +140,7 @@ HCM has four subcommands:  create, install, list, and publish.
 Use the **create** subcommand to create a new component repository.
 The arguments for the subcommand can be listed using the *-h* option:
 
-```
+``` bash
 $ hcm create -h
 usage: hcm create [-h] url
 
@@ -142,7 +156,7 @@ optional arguments:
 Use the **install** subcommand to add or upgrade a componet from the component repository.
 The arguments for the subcommand can be listed using the *-h* option:
 
-```
+``` bash
 $ bin/hcm install -h
 usage: hcm install [-h] [--url URL] component version
 
@@ -161,7 +175,7 @@ optional arguments:
 Use the **list** subcommand to check the versions of components you have installed.
 The arguments for the subcommand can be listed using the *-h* option:
 
-```
+``` bash
 $ hcm list -h
 usage: hcm list [-h] [--upgrades] [--all]
 
@@ -176,7 +190,7 @@ optional arguments:
 Use the **publish** subcommand to push a version of a component to the component repository.
 The arguments for the subcommand can be listed using the *-h* option:
 
-```
+``` bash
 $ hcm publish -h
 usage: hcm publish [-h] -m M [--url URL] component version
 
@@ -190,20 +204,22 @@ optional arguments:
   --url URL   Base URL of the component repository
 ```
 
-## Documentation
+Documentation
+-------------
 
 All documentation for HCM is hosted at [read-the-docs](http://hdl-component-manager.readthedocs.io/en/latest/index.html)
 
-## Contributing
+Contributing
+------------
 
 I welcome any contributions to this project.
 No matter how small or large.
 
 There are several ways to contribute:
 
-* Bug reports
-* Code base improvements
-* Feature requests
-* Pull requests
+*   Bug reports
+*   Code base improvements
+*   Feature requests
+*   Pull requests
 
 Please refer to the documentation hosted at [read-the-docs](http://hdl-component-manager.readthedocs.io/en/latest/index.html) for more details on contributing.
