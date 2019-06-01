@@ -3,7 +3,7 @@ from setuptools import find_packages
 
 
 def readme():
-    with open('README.md') as f:
+    with open('README.rst') as f:
         return f.read()
 
 
@@ -12,7 +12,6 @@ setup(
   version='0.3',
   description='HDL Component Manager',
   long_description=readme(),
-  long_description_content_type="text/markdown",
   classifiers=[
       'Development Status :: 2 - Pre-Alpha',
       'Environment :: Console',
