@@ -2,7 +2,6 @@ Contributing
 ------------
 
 I welcome any contributions to this project.
-No matter how small or large.
 
 There are several ways to contribute:
 
@@ -41,10 +40,11 @@ Pull Requests
 Pull requests are always welcome.
 I am trying to follow a Test Driven Development (TDD) process.
 If you do add a new feature or fix a bug, I would appreciate a new or updated test to go along with the change.
+If not, then I will add a test to cover any updates.
 
 I use *Travis CI* to run all the tests.
-I also use *Codacy* and *Code Climate* to check for code style issues.
-I use *Codcov* to check the code coverage of the tests.
+*Codacy* and *Code Climate* are my quality control tools.
+Code coverage is reported by *Codcov*.
 
 *Travis CI* will run these tools when a pull request is made.
 The results will be available on the pull request Github page.

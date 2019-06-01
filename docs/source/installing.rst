@@ -1,7 +1,7 @@
 Installation
 ============
 
-There are two methods to install HCM.
+There are two methods to install HCM: PIP and Git Hub.
 
 PIP
 ---

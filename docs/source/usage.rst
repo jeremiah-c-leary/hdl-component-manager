@@ -25,7 +25,7 @@ HCM has four subcommands:  create, install, list, and publish.
 create
 ------
 
-Use the **create** subcommand to create a new component repository.
+Use the **create** subcommand to create a component directory in the repository.
 The arguments for the subcommand can be listed using the *-h* option:
 
 .. code-block:: bash
@@ -42,13 +42,13 @@ The arguments for the subcommand can be listed using the *-h* option:
 install
 -------
 
-Use the **install** subcommand to add or upgrade a componet from the component repository.
+Use the **install** subcommand to add or upgrade a component from a repository.
 The arguments for the subcommand can be listed using the *-h* option:
 
 .. code-block:: bash
 
     $ bin/hcm install -h
-    usage: hcm install [-h] [--url URL] [--force] component version
+    usage: hcm install [-h] [--url URL] [--force] [--external] component version
     
     positional arguments:
       component   Component name to install
@@ -59,6 +59,7 @@ The arguments for the subcommand can be listed using the *-h* option:
       -h, --help  show this help message and exit
       --url URL   location of component directory in repo
       --force     Install component ignoring any local changes
+      --external  Install as an external
 
 list
 ----
@@ -78,7 +79,7 @@ The arguments for the subcommand can be listed using the *-h* option:
 publish
 -------
 
-Use the **publish** subcommand to push a version of a component to the component repository.
+Use the **publish** subcommand to push a version of a component to a repository.
 The arguments for the subcommand can be listed using the *-h* option:
 
 .. code-block:: bash
@@ -98,5 +99,5 @@ The arguments for the subcommand can be listed using the *-h* option:
 Environment Variables
 ---------------------
 
-HCM will use the **HCM_URL_PATHS** environment variable as a replacement for the **--url** command line option for the install subcommand.
-HCM uses the paths in the variable to know which component repos to interact with.
+HCM will use the **HCM_URL_PATHS** environment variable as a replacement for the **--url** command line option.
+HCM uses the paths in the variable to know which component repositories to interact with.

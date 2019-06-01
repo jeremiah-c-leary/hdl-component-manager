@@ -1,12 +1,12 @@
 Installing Components
 =====================
 
-Use the **install** subcommand to bring in a new component that is not part of your current working copy.
+Use the **install** subcommand to add a component to your current working copy.
 The URL path to the component and the version are required to install a new component.
 This can be found using a repository browser or the **svn ls** subcommand.
 
-Example:  installing the rook component
----------------------------------------
+Example:  Installing a Component
+--------------------------------
 
 After viewing the component repository, we decide to pull in version 3.0.0 of the rook component.
 
@@ -18,13 +18,23 @@ After viewing the component repository, we decide to pull in version 3.0.0 of th
    INFO:Removing local component directory
    INFO:Installation complete
 
-HCM will use the paths in the **HCM_URL_PATHS** environment variable and search for the component name.
-HCM will then check if the version exists.
+HCM will use the paths in the **HCM_URL_PATHS** environment variable.
+It will search each path for a matching component name and version.
 
-Example:  installing the rook component when files under the rook directory are not committed
----------------------------------------------------------------------------------------------
+Example:  installing component when files under the rook directory are not committed
+------------------------------------------------------------------------------------
 
-If the status of files underneath the component directory are not svn clean, then HCM will not perform the installation.
+HCM validates every file under the local component directory is checked in.
+If this is not the case, then HCM will not install over the existing directory.
+
+.. code-block:: bash
+
+   $ ../../bin/hcm install rook 3.0.0
+   INFO:Installing component rook version 3.0.0
+   INFO:Validating all files for component rook are committed.
+   ERROR:The following files must be committed or removed:
+   M       rook/rtl/rook.vhd
+
 This behavior can be overridden by using the **--force** command line option.
 
 .. code-block:: bash
@@ -37,7 +47,7 @@ This behavior can be overridden by using the **--force** command line option.
 Example:  installing from an external repo
 ------------------------------------------
 
-When installing from an external repo, HCM will use the **svn export** command instead of **svn copy**.
+When installing from an external repo, HCM must use the **svn export** command.
 
 .. code-block:: bash
 
@@ -47,10 +57,14 @@ When installing from an external repo, HCM will use the **svn export** command i
    INFO:Removing local component directory
    INFO:Installation complete
 
+Performing an **svn status** command shows a new directory has been created.
+
+.. code-block:: bash
+
    $ svn status
    ?       pawn
 
-After performing the install, the directory must be added using the **svn add** command, and then committed.
+The directory must be added using the **svn add** command...
 
 .. code-block:: bash
 
@@ -60,5 +74,22 @@ After performing the install, the directory must be added using the **svn add** 
    A         pawn/rtl
    A         pawn/rtl/pawn.vhd
 
+... and then committed.
+
+.. code-block:: bash
+
    $ svn commit pawn
+
+.. NOTE:: The last two steps are left to the user to perform.
+
+Example: Installing using an external
+-------------------------------------
+
+HCM can install components using externals.
+An external is a essentially a pointer to directory in a repository.
+
+.. code-block:: bash
+
+   $ hcm install rook 3.0.0 --external
+
 

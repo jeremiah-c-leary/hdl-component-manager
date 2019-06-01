@@ -19,5 +19,5 @@ Example:  listing installed components
    rook          1.1.0        3.0.3        http://svn/my_repo/comps       
 
 The upgrade column shows the latest published version available.
-There may be several versions between what is installed and what is available.
-Use a repository browswer to determine if an upgrade is desired.
+There may be several versions between what is installed and what is published.
+Use a repository browser to decide whether to upgrade a component.
