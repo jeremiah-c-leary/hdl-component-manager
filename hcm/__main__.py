@@ -5,7 +5,7 @@ import sys
 import logging
 
 from . import subcommand
-import utils
+from . import utils
 
 
 def parse_command_line_arguments():
@@ -50,6 +50,7 @@ def build_install_parser(oParser):
     oParser.add_argument('version', help='Major.Minor.Patch version of component to install, or latest to grab the latest version.')
     oParser.add_argument('--url', help='location of component directory in repo')
     oParser.add_argument('--force', default=False, action='store_true', help='Install component ignoring any local changes')
+    oParser.add_argument('--external', default=False, action='store_true', help='Install as an external')
     oParser.set_defaults(which='install')
 
 
