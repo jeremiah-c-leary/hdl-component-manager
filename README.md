@@ -54,7 +54,6 @@ Table of Contents
 *   [Usage](#Usage)
 
 *   [Documentation](#Documentation)
-
 *   [Contributing](#Contributing)
 
 <!--te-->
