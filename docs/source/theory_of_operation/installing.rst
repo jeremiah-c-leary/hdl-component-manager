@@ -51,7 +51,7 @@ When using an external, the type of repo (external or local) does not matter.
 
 This is the workflow for an external install:
 
-.. image:: img/external_install.svg
+.. image:: img/install_external.svg
 
 #.  Read externals from svn:externals property on current directory
 #.  Check the status of the local component directory
