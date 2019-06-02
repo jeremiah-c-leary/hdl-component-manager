@@ -24,7 +24,7 @@ This uniquely identifies the information as belonging to HCM.
 It contains five other keys: url, name, version, source_url, and manifest.
 
 +---------------+------------------------------------------------------------------------------+
-| Key           |                                                                              |
+| Key           | Description                                                                  |
 +===============+==============================================================================+
 | url           | location of the component directory where this component has been published. |
 +---------------+------------------------------------------------------------------------------+

@@ -9,4 +9,5 @@ This section details how HCM performs it's tasks.
 .. include:: publishing.rst
 .. include:: installing.rst
 .. include:: listing.rst
+.. include:: detecting_modifications.rst
 
