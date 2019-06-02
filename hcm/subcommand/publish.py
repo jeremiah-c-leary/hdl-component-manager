@@ -87,16 +87,16 @@ def update_manifest(dHcmConfig):
     for root, dirs, files in os.walk(dHcmConfig['hcm']['name'], topdown=True):
         for name in files:
             sFileName = os.path.join(root, name)
-            dHcmConfig['hcm']['manifest'][sFileName] = calculate_md5sum(sFileName)
+            add_file_to_manifest(dHcmConfig, sFileName)
+   
 
-    remove_hcm_json_file_from_manifest(dHcmConfig)
-
-
-def remove_hcm_json_file_from_manifest(dHcmConfig):
-    try:
-        dHcmConfig['hcm']['manifest'].pop(dHcmConfig['hcm']['name'] + '/hcm.json')
-    except KeyError:
-        pass
+def add_file_to_manifest(dHcmConfig, sFileName):
+    if 'hcm.json' in sFileName:
+        return False
+    if '.svn' in sFileName:
+        return False
+    dHcmConfig['hcm']['manifest'][sFileName] = calculate_md5sum(sFileName)
+    return True
 
 
 def calculate_md5sum(sFileName):
