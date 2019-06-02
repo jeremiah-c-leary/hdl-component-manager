@@ -104,7 +104,7 @@ def main():
     if commandLineArguments.which == 'publish':
         subcommand.publish(commandLineArguments)
     if commandLineArguments.which == 'install':
-        subcommand.install(commandLineArguments.url, commandLineArguments.component, commandLineArguments.version, commandLineArguments.force)
+        subcommand.install(commandLineArguments)
     if commandLineArguments.which == 'list':
         subcommand.sub_list(commandLineArguments)
 

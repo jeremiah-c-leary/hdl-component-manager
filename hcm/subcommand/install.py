@@ -7,7 +7,13 @@ import hcm.svn as svn
 import hcm.utils as utils
 
 
-def install(sUrl, sComponent, sVersion, fForce, fExternal=None):
+def install(oCommandLineArguments):
+
+        sUrl = oCommandLineArguments.url
+        sComponent = oCommandLineArguments.component
+        sVersion = oCommandLineArguments.version
+        fForce = oCommandLineArguments.force
+        fExternal = oCommandLineArguments.external
 
         logging.info('Installing component ' + sComponent + ' version ' + sVersion)
 
