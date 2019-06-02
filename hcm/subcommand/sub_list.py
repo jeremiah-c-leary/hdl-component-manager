@@ -18,13 +18,7 @@ def sub_list(oCommandLineArguments):
     dVersions['config']['max_url_len'] = len('-----')
     dVersions['config']['max_upgrade_len'] = len('99.99.99')
 
-    lExternals = []
-    for sLine in svn.get_externals('.').split('\n')[:-1]:
-        if sLine is not '':
-            lLine = sLine.split()
-            lExternals.append(lLine[-1])
-
-    print(lExternals)
+    lExternals = parse_externals_into_components()
 
     for sDirectory in lDirectories:
         update_column_width(dVersions, 'max_comp_len', len(sDirectory))
@@ -42,19 +36,37 @@ def sub_list(oCommandLineArguments):
             dVersions['components'][sDirectory]['upgrade'] = sUpgrade
             update_column_width(dVersions, 'max_upgrade_len', len(sUpgrade))
 
-            if sDirectory in lExternals:
-                dVersions['components'][sDirectory]['External'] = True
-            else:
-                dVersions['components'][sDirectory]['External'] = False
+            update_external(dVersions, sDirectory, lExternals)
 
         elif oCommandLineArguments.all:
             dVersions['components'][sDirectory] = {}
             dVersions['components'][sDirectory]['url'] = '-----'
             dVersions['components'][sDirectory]['version'] = '-----'
             dVersions['components'][sDirectory]['upgrade'] = '-----'
+            update_external(dVersions, sDirectory, lExternals)
 
 
     print_versions(dVersions)
+
+
+def parse_externals_into_components():
+    lExternals = []
+    try:
+        for sLine in svn.get_externals('.').split('\n')[:-1]:
+            if sLine is not '':
+                lLine = sLine.split()
+                lExternals.append(lLine[-1])
+    except AttributeError:
+        pass
+
+    return lExternals
+
+
+def update_external(dVersions, sComponent, lExternals):
+    if sComponent in lExternals:
+        dVersions['components'][sComponent]['External'] = True
+    else:
+        dVersions['components'][sComponent]['External'] = False
 
 
 def copy_key(dVersions, dConfig, sDirectory, sKey):
