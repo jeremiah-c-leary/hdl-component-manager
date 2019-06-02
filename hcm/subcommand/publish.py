@@ -154,9 +154,18 @@ def check_if_version_already_exists(dHcmConfig):
     return False
 
 
+def does_component_directory_exist(sComponent):
+    if not os.path.isdir(sComponent):
+        logging.error('Component directory ' + sComponent + ' does not exist.')
+        exit()
+    return True
+
+
 def publish(oCommandLineArguments):
 
         logging.info('Publishing component ' + oCommandLineArguments.component + ' as version ' + oCommandLineArguments.version)
+
+        does_component_directory_exist(oCommandLineArguments.component)
 
         svn.is_directory_status_clean(oCommandLineArguments.component)
 

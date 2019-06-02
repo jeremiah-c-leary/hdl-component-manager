@@ -205,7 +205,6 @@ class testAddHcmConfigFileToComponentDirectory(unittest.TestCase):
       self.assertTrue(add_hcm_config_file_to_component_directory(dExpected))
 
 
-
 class testCheckIfVersionAlreadyExists(unittest.TestCase):
 
   def setUp(self):
@@ -229,3 +228,20 @@ class testCheckIfVersionAlreadyExists(unittest.TestCase):
 
       dExpected['hcm']['version'] = '7.0.0'
       self.assertFalse(check_if_version_already_exists(dExpected))
+
+
+class testDoesComponentDirectoryExist(unittest.TestCase):
+
+  def setUp(self):
+      logging.disable(logging.CRITICAL)
+      os.mkdir('.hcm_test')
+
+  def tearDown(self):
+      logging.disable(logging.NOTSET)
+      os.rmdir('.hcm_test')
+
+  def test_directory_exists(self):
+
+      self.assertRaises(SystemExit, does_component_directory_exist, 'rook')
+      self.assertTrue(does_component_directory_exist('.hcm_test'))
+
