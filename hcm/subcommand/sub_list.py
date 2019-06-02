@@ -52,10 +52,9 @@ def sub_list(oCommandLineArguments):
 def parse_externals_into_components():
     lExternals = []
     try:
-        for sLine in svn.get_externals('.').split('\n')[:-1]:
-            if sLine is not '':
-                lLine = sLine.split()
-                lExternals.append(lLine[-1])
+        for sLine in svn.get_externals('.').split('\n')[:-2]:
+            lLine = sLine.split()
+            lExternals.append(lLine[-1])
     except AttributeError:
         pass
 
