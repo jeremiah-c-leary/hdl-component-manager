@@ -88,7 +88,7 @@ def update_manifest(dHcmConfig):
         for name in files:
             sFileName = os.path.join(root, name)
             add_file_to_manifest(dHcmConfig, sFileName)
-   
+
 
 def add_file_to_manifest(dHcmConfig, sFileName):
     if 'hcm.json' in sFileName:
