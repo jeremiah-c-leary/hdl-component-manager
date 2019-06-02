@@ -4,6 +4,7 @@ from unittest import mock
 
 from hcm import utils
 
+
 class testUtilsMethods(unittest.TestCase):
 
     def setUp(self):
