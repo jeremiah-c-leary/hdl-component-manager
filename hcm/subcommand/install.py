@@ -114,6 +114,9 @@ def update_externals(sUrlPath, sComponent):
 
     with open('.hcm_externals.txt', 'w') as outfile:
         for sLine in lFile:
-            outfile.write(sLine + '\n')
+            if sLine is lFile[-1]:
+                outfile.write(sLine)
+            else:
+                outfile.write(sLine + '\n')
     svn.issue_command(['svn', 'propset', 'svn:externals', '-F' '.hcm_externals.txt', '.'])
     os.remove('.hcm_externals.txt')
