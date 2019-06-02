@@ -79,7 +79,11 @@ def update_column_width(dVersions, sKey, iValue):
 def get_directories():
     lDirectories = os.listdir('.')
     lDirectories.sort()
-    return lDirectories
+    lReturn = []
+    for sDirectory in lDirectories:
+        if os.path.isdir(sDirectory):
+            lReturn.append(sDirectory)
+    return lReturn
 
 
 def print_versions(dVersions):
@@ -99,6 +103,19 @@ def print_versions(dVersions):
             sStatus = 'E'
         else:
             sStatus = ' '
+
+        if dVersions['components'][sKey]['url'] == '-----':
+            sStatus += ' '
+        elif svn.directory_has_committed_modifications(sKey):
+            sStatus += 'M'
+        else:
+            sStatus += ' '
+
+        if svn.does_directory_have_uncommitted_files(sKey):
+            sStatus += 'U'
+        else:
+            sStatus += ' '
+
         sUpgrade = str(dVersions['components'][sKey]['upgrade'])
         print(sRow.format(sKey, sVersion, sUpgrade, sStatus, sUrl))
 

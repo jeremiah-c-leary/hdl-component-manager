@@ -99,3 +99,10 @@ def directory_has_committed_modifications(sDirectory):
         raise e
 
     return False
+
+
+def does_directory_have_uncommitted_files(sDirectory):
+    lOutput = issue_command(['svn', 'status', sDirectory]).split('\n')[:-1]
+    if len(lOutput) > 0:
+        return True
+    return False
