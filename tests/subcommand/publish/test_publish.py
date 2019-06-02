@@ -85,7 +85,7 @@ class testUpdateSourceUrl(unittest.TestCase):
       dExpected['hcm']['manifest'] = {}
 
       dActual = copy.deepcopy(dExpected)
-      dExpected['hcm']['source_url'] = 'http://svn/my_repo/trunk/project_chess/components/rook@21'
+      dExpected['hcm']['source_url'] = 'http://svn/my_repo/trunk/project_chess/components/rook@40'
 
       update_source_url(dActual)
       self.assertEqual(dExpected, dActual)

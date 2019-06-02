@@ -77,3 +77,25 @@ def get_externals(sDirectory):
         return issue_command(['svn', 'propget', 'svn:externals', sDirectory])
     except subprocess.CalledProcessError:
         return None
+
+def directory_has_committed_modifications(sDirectory):
+    lOutput = issue_command(['svn', 'info', '-R', sDirectory]).split('\n')
+    fHcmDetected = False
+    for sLine in lOutput:
+        if 'hcm.json' in sLine and not fHcmDetected:
+            fHcmDetected = True
+        if 'Revision' in sLine and fHcmDetected:
+            lLine = sLine.split()
+            sHcmRevision = lLine[-1]
+            break
+
+    try:
+        for sLine in lOutput:
+            if 'Revision' in sLine:
+                lLine = sLine.split()
+                if lLine[-1] != sHcmRevision:
+                    return True
+    except UnboundLocalError as e:
+        raise e
+
+    return False
