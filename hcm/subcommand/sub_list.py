@@ -18,9 +18,18 @@ def sub_list(oCommandLineArguments):
     dVersions['config']['max_url_len'] = len('-----')
     dVersions['config']['max_upgrade_len'] = len('99.99.99')
 
+    lExternals = []
+    for sLine in svn.get_externals('.').split('\n')[:-1]:
+        if sLine is not '':
+            lLine = sLine.split()
+            lExternals.append(lLine[-1])
+
+    print(lExternals)
+
     for sDirectory in lDirectories:
         update_column_width(dVersions, 'max_comp_len', len(sDirectory))
         sHcmName = sDirectory + '/hcm.json'
+        
         if os.path.isfile(sHcmName):
             with open(sHcmName) as json_file:
                 dConfig = json.load(json_file)
@@ -32,11 +41,18 @@ def sub_list(oCommandLineArguments):
             sUpgrade = str(get_upgrade(utils.get_component_path(dConfig), dConfig['hcm']['version']))
             dVersions['components'][sDirectory]['upgrade'] = sUpgrade
             update_column_width(dVersions, 'max_upgrade_len', len(sUpgrade))
+
+            if sDirectory in lExternals:
+                dVersions['components'][sDirectory]['External'] = True
+            else:
+                dVersions['components'][sDirectory]['External'] = False
+
         elif oCommandLineArguments.all:
             dVersions['components'][sDirectory] = {}
             dVersions['components'][sDirectory]['url'] = '-----'
             dVersions['components'][sDirectory]['version'] = '-----'
             dVersions['components'][sDirectory]['upgrade'] = '-----'
+
 
     print_versions(dVersions)
 
@@ -62,14 +78,18 @@ def print_versions(dVersions):
     sRow = build_row(dVersions['config']['max_comp_len'], dVersions['config']['max_ver_len'], dVersions['config']['max_upgrade_len'], dVersions['config']['max_url_len'])
 
     print('')
-    print(sRow.format('Component', 'Version', 'Upgrade', 'URL'))
+    print(sRow.format('Component', 'Version', 'Upgrade', 'Status', 'URL'))
     print(build_divider(sRow, dVersions))
 
     for sKey in lKeys:
         sVersion = dVersions['components'][sKey]['version']
         sUrl = dVersions['components'][sKey]['url']
+        if dVersions['components'][sKey]['External']:
+            sStatus = 'E'
+        else:
+            sStatus = ' '
         sUpgrade = str(dVersions['components'][sKey]['upgrade'])
-        print(sRow.format(sKey, sVersion, sUpgrade, sUrl))
+        print(sRow.format(sKey, sVersion, sUpgrade, sStatus, sUrl))
 
 
 def build_row(iComponentLength, iVersionLength, iUpgradeLength, iUrlLength):
@@ -77,12 +97,13 @@ def build_row(iComponentLength, iVersionLength, iUpgradeLength, iUrlLength):
     sComponentColumn = '{0:' + str(iComponentLength) + 's}'
     sVersionColumn = '{1:' + str(iVersionLength) + 's}'
     sUpgradeColumn = '{2:' + str(iUpgradeLength) + 's}'
-    sUrlColumn = '{3:' + str(iUrlLength) + 's}'
-    return sComponentColumn + sSpacer + sVersionColumn + sSpacer + sUpgradeColumn + sSpacer + sUrlColumn
+    sStatusColumn = '{3:' + str(len('Status')) + 's}'
+    sUrlColumn = '{4:' + str(iUrlLength) + 's}'
+    return sComponentColumn + sSpacer + sVersionColumn + sSpacer + sUpgradeColumn + sSpacer + sStatusColumn + sSpacer + sUrlColumn
 
 
 def build_divider(sRow, dVersions):
-    return sRow.format('-' * dVersions['config']['max_comp_len'], '-' * dVersions['config']['max_ver_len'], '-' * dVersions['config']['max_upgrade_len'], '-' * dVersions['config']['max_url_len'])
+    return sRow.format('-' * dVersions['config']['max_comp_len'], '-' * dVersions['config']['max_ver_len'], '-' * dVersions['config']['max_upgrade_len'], '-' * len('Status'), '-' * dVersions['config']['max_url_len'])
 
 
 def get_upgrade(sUrl, sVersion):
