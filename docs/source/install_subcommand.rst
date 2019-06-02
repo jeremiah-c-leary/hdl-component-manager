@@ -21,8 +21,8 @@ After viewing the component repository, we decide to pull in version 3.0.0 of th
 HCM will use the paths in the **HCM_URL_PATHS** environment variable.
 It will search each path for a matching component name and version.
 
-Example:  installing component when files under the rook directory are not committed
-------------------------------------------------------------------------------------
+Example:  installing component when files under the component directory are not committed
+-----------------------------------------------------------------------------------------
 
 HCM validates every file under the local component directory is checked in.
 If this is not the case, then HCM will not install over the existing directory.
@@ -90,6 +90,21 @@ An external is a essentially a pointer to directory in a repository.
 
 .. code-block:: bash
 
-   $ hcm install rook 3.0.0 --external
+   $ hcm install pawn 3.0.0 --external
+   INFO:Installing component pawn version 3.0.0
+   INFO:Validating all files for component pawn are committed.
+   INFO:Removing local component directory
+   INFO:Updating externals
+   INFO:Installation complete
 
+Checking the svn status of the current directory...
 
+.. code-block:: bash
+
+   $ svn status
+    M      .
+   X       castle
+   X       pawn
+
+...shows the properties of the existing directory have been modified and pawn in an external.
+The directory must be committed to keep the change to 3.0.0 of pawn.
