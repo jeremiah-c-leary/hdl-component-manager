@@ -104,24 +104,36 @@ def print_versions(dVersions):
 
 
 def update_status_field(dVersions, sComponent):
-        if dVersions['components'][sComponent]['External']:
-            sStatus = 'E'
-        else:
-            sStatus = ' '
 
-        if dVersions['components'][sComponent]['url'] == '-----':
-            sStatus += ' '
-        elif svn.directory_has_committed_modifications(sComponent):
-            sStatus += 'M'
-        else:
-            sStatus += ' '
-
-        if svn.does_directory_have_uncommitted_files(sComponent):
-            sStatus += 'U'
-        else:
-            sStatus += ' '
+        sStatus = update_external_status_flag(dVersions, sComponent)
+        sStatus += update_committed_modifications_status_flag(dVersions, sComponent)
+        sStatus += update_uncommitted_modifications_status_flag(sComponent)
 
         return sStatus
+
+
+def update_external_status_flag(dVersions, sComponent):
+    if dVersions['components'][sComponent]['External']:
+        return 'E'
+    else:
+        return ' '
+
+
+def update_committed_modifications_status_flag(dVersions, sComponent):
+    if dVersions['components'][sComponent]['url'] == '-----':
+        return ' '
+
+    if svn.directory_has_committed_modifications(sComponent):
+        return 'M'
+    else:
+        return ' '
+
+
+def update_uncommitted_modifications_status_flag(sComponent):
+    if svn.does_directory_have_uncommitted_files(sComponent):
+        return 'U'
+    else:
+        return ' '
 
 
 def build_row(iComponentLength, iVersionLength, iUpgradeLength, iUrlLength):
