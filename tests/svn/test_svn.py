@@ -106,5 +106,4 @@ class testSvnMethods(unittest.TestCase):
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   def test_directory_has_committed_modifications(self, mocked_component):
       self.assertFalse(svn.directory_has_committed_modifications('pawn'))
-      self.assertRaises(UnboundLocalError, svn.directory_has_committed_modifications, 'queen')
       self.assertTrue(svn.directory_has_committed_modifications('rook'))

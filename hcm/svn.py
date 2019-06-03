@@ -81,6 +81,26 @@ def get_externals(sDirectory):
 
 def directory_has_committed_modifications(sDirectory):
     lOutput = issue_command(['svn', 'info', '-R', sDirectory]).split('\n')
+
+    sHcmRevision = extract_hcm_json_revision(lOutput)
+
+    if sHcmRevision is None:
+        return False
+
+    return is_there_a_file_with_a_later_revision_than_hcm_json(lOutput, sHcmRevision)
+
+
+def is_there_a_file_with_a_later_revision_than_hcm_json(lOutput, sHcmRevision):
+    for sLine in lOutput:
+        if 'Revision' in sLine:
+            lLine = sLine.split()
+            if lLine[-1] != sHcmRevision:
+                return True
+
+    return False
+
+
+def extract_hcm_json_revision(lOutput):
     fHcmDetected = False
     for sLine in lOutput:
         if 'hcm.json' in sLine and not fHcmDetected:
@@ -88,18 +108,8 @@ def directory_has_committed_modifications(sDirectory):
         if 'Revision' in sLine and fHcmDetected:
             lLine = sLine.split()
             sHcmRevision = lLine[-1]
-            break
-
-    try:
-        for sLine in lOutput:
-            if 'Revision' in sLine:
-                lLine = sLine.split()
-                if lLine[-1] != sHcmRevision:
-                    return True
-    except UnboundLocalError as e:
-        raise e
-
-    return False
+            return sHcmRevision
+    return None
 
 
 def does_directory_have_uncommitted_files(sDirectory):
