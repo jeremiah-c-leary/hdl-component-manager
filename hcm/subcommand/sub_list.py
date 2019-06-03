@@ -23,7 +23,7 @@ def sub_list(oCommandLineArguments):
     for sDirectory in lDirectories:
         update_column_width(dVersions, 'max_comp_len', len(sDirectory))
         sHcmName = sDirectory + '/hcm.json'
-        
+
         if os.path.isfile(sHcmName):
             with open(sHcmName) as json_file:
                 dConfig = json.load(json_file)
@@ -44,7 +44,6 @@ def sub_list(oCommandLineArguments):
             dVersions['components'][sDirectory]['version'] = '-----'
             dVersions['components'][sDirectory]['upgrade'] = '-----'
             update_external(dVersions, sDirectory, lExternals)
-
 
     print_versions(dVersions)
 
@@ -99,25 +98,30 @@ def print_versions(dVersions):
     for sKey in lKeys:
         sVersion = dVersions['components'][sKey]['version']
         sUrl = dVersions['components'][sKey]['url']
-        if dVersions['components'][sKey]['External']:
+        sStatus = update_status_field(dVersions, sKey)
+        sUpgrade = str(dVersions['components'][sKey]['upgrade'])
+        print(sRow.format(sKey, sVersion, sUpgrade, sStatus, sUrl))
+
+
+def update_status_field(dVersions, sComponent):
+        if dVersions['components'][sComponent]['External']:
             sStatus = 'E'
         else:
             sStatus = ' '
 
-        if dVersions['components'][sKey]['url'] == '-----':
+        if dVersions['components'][sComponent]['url'] == '-----':
             sStatus += ' '
-        elif svn.directory_has_committed_modifications(sKey):
+        elif svn.directory_has_committed_modifications(sComponent):
             sStatus += 'M'
         else:
             sStatus += ' '
 
-        if svn.does_directory_have_uncommitted_files(sKey):
+        if svn.does_directory_have_uncommitted_files(sComponent):
             sStatus += 'U'
         else:
             sStatus += ' '
 
-        sUpgrade = str(dVersions['components'][sKey]['upgrade'])
-        print(sRow.format(sKey, sVersion, sUpgrade, sStatus, sUrl))
+        return sStatus
 
 
 def build_row(iComponentLength, iVersionLength, iUpgradeLength, iUrlLength):
@@ -131,7 +135,12 @@ def build_row(iComponentLength, iVersionLength, iUpgradeLength, iUrlLength):
 
 
 def build_divider(sRow, dVersions):
-    return sRow.format('-' * dVersions['config']['max_comp_len'], '-' * dVersions['config']['max_ver_len'], '-' * dVersions['config']['max_upgrade_len'], '-' * len('Status'), '-' * dVersions['config']['max_url_len'])
+    sComponent = '-' * dVersions['config']['max_comp_len']
+    sVersion = '-' * dVersions['config']['max_ver_len']
+    sUpgrade = '-' * dVersions['config']['max_upgrade_len']
+    sStatus = '-' * len('Status')
+    sUrl = '-' * dVersions['config']['max_url_len']
+    return sRow.format(sComponent, sVersion, sUpgrade, sStatus, sUrl)
 
 
 def get_upgrade(sUrl, sVersion):

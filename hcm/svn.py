@@ -78,6 +78,7 @@ def get_externals(sDirectory):
     except subprocess.CalledProcessError:
         return None
 
+
 def directory_has_committed_modifications(sDirectory):
     lOutput = issue_command(['svn', 'info', '-R', sDirectory]).split('\n')
     fHcmDetected = False
