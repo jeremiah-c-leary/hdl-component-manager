@@ -18,7 +18,7 @@ Example:  Publishing a new component
 A new component can be published, but HCM must be told where to publish the component.
 This can be done by setting the **HCM_URL_PATHS** environment variable or using the *--url* command line argument.
 If only one path is defined in **HCM_URL_PATHS**, then HCM will use it as the publish location.
-Using the *--url* command line argument will override **HCM_URL_PATH**.
+Using the *--url* command line argument will override **HCM_URL_PATHS**.
 
 .. NOTE:: Publishing is restricted to the current repository.
 
