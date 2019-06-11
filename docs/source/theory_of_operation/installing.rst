@@ -59,4 +59,3 @@ This is the workflow for an external install:
 #.  Update svn:externals property with new component version
 #.  Update component directory
 
-

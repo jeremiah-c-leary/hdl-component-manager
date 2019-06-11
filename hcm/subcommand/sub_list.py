@@ -156,9 +156,8 @@ def build_divider(sRow, dVersions):
 
 
 def get_upgrade(sUrl, sVersion):
-    lOutput = svn.issue_command(['svn', 'list', sUrl]).split('\n')[:-1]
-    sUpgradeVersion = lOutput[-1][:-1]
+    sUpgradeVersion = utils.get_latest_version(sUrl)
     if sVersion == sUpgradeVersion:
         return None
     else:
-        return lOutput[-1][:-1]
+        return sUpgradeVersion

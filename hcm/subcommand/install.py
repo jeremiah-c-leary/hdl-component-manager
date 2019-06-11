@@ -15,7 +15,10 @@ def install(oCommandLineArguments):
         fForce = oCommandLineArguments.force
         fExternal = oCommandLineArguments.external
 
-        logging.info('Installing component ' + sComponent + ' version ' + sVersion)
+        if sVersion is None:
+            logging.info('Installing component ' + sComponent)
+        else:
+            logging.info('Installing component ' + sComponent + ' version ' + sVersion)
 
         lUrl = determine_url(sUrl)
 
@@ -50,7 +53,11 @@ def remove_local_component_directory(sComponent, fForce, fExternalled):
 
 
 def build_url_path(sUrl, sComponent, sVersion):
-    return sUrl + '/' + sComponent + '/' + sVersion
+    sReturn = sUrl + '/' + sComponent + '/'
+    if sVersion is None:
+        return sReturn + utils.get_latest_version(sUrl + '/' + sComponent)
+    else:
+        return sReturn + sVersion
 
 
 def determine_url(sUrl):
@@ -95,10 +102,14 @@ def is_component_externalled(sComponent, fExternal):
     if fExternal:
         return True
 
-    lExternals = svn.get_externals('.').split('\n')[:-1]
-    for sExternal in lExternals:
-        if sExternal.endswith(sComponent):
-            return True
+    try:
+        lExternals = svn.get_externals('.').split('\n')[:-1]
+        for sExternal in lExternals:
+            if sExternal.endswith(sComponent):
+                return True
+    except AttributeError:
+        return False
+
     return False
 
 

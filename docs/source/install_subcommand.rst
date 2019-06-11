@@ -21,6 +21,19 @@ After viewing the component repository, we decide to pull in version 3.0.0 of th
 HCM will use the paths in the **HCM_URL_PATHS** environment variable.
 It will search each path for a matching component name and version.
 
+Example:  Installing the latest version of a component
+------------------------------------------------------
+
+If the version argument is left blank, then HCM will install the latest version of the component.
+
+.. code-block:: bash
+
+   $ hcm install rook
+   INFO:Installing component rook
+   INFO:Validating all files for component rook are committed.
+   INFO:Removing local component directory
+   INFO:Installation complete
+
 Example:  installing component when files under the component directory are not committed
 -----------------------------------------------------------------------------------------
 
@@ -106,5 +119,5 @@ Checking the svn status of the current directory...
    X       castle
    X       pawn
 
-...shows the properties of the existing directory have been modified and pawn in an external.
+...shows the properties of the existing directory have been modified and pawn is an external.
 The directory must be committed to keep the change to 3.0.0 of pawn.

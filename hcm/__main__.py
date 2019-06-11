@@ -55,7 +55,7 @@ def build_create_parser(oParser):
 
 def build_install_parser(oParser):
     oParser.add_argument('component', help='Component name to install')
-    oParser.add_argument('version', help='Major.Minor.Patch version of component to install, or latest to grab the latest version.')
+    oParser.add_argument('version', nargs='?', default=None, help='Major.Minor.Patch version of component to install.  Leave blank to install the latest version.')
     oParser.add_argument('--url', help='location of component directory in repo')
     oParser.add_argument('--force', default=False, action='store_true', help='Install component ignoring any local changes')
     oParser.add_argument('--external', default=False, action='store_true', help='Install as an external')
@@ -90,6 +90,9 @@ def check_for_correctly_formed_version_argument(oArgs):
     '''
     Will exit if a malformed version is given in the --URL argument.
     '''
+    if oArgs.which == 'install':
+        if oArgs.version is None:
+            return
     try:
         if not utils.validate_version(oArgs.version):
             logging.error('Version ' + oArgs.version + ' does not match Major.Minor.Patch format.')

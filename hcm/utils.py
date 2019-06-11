@@ -2,6 +2,8 @@
 import os
 import re
 
+from hcm import svn
+
 
 def get_version_path(dHcmConfig):
     sUrl = get_component_path(dHcmConfig)
@@ -42,3 +44,9 @@ def validate_version(sVersion):
     if re.match('^[0-9]+\.[0-9]+\.[0-9]+$', sVersion):
         return True
     return False
+
+
+def get_latest_version(sUrl):
+    lOutput = svn.issue_command(['svn', 'list', sUrl]).split('\n')[:-1]
+    sUpgradeVersion = lOutput[-1][:-1]
+    return sUpgradeVersion

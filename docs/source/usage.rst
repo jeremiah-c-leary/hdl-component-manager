@@ -49,18 +49,21 @@ The arguments for the subcommand can be listed using the *-h* option:
 .. code-block:: bash
 
     $ bin/hcm install -h
-    usage: hcm install [-h] [--url URL] [--force] [--external] component version
+    usage: hcm install [-h] [--url URL] [--force] [--external] component [version]
     
     positional arguments:
       component   Component name to install
-      version     Major.Minor.Patch version of component to install, or latest to
-                  grab the latest version.
+      version     Major.Minor.Patch version of component to install. Leave blank
+                  to install the latest version.
     
     optional arguments:
       -h, --help  show this help message and exit
       --url URL   location of component directory in repo
       --force     Install component ignoring any local changes
       --external  Install as an external
+
+.. NOTE:: *version* is optional.
+          If not specified, then the latest version will be installed.
 
 list
 ----
