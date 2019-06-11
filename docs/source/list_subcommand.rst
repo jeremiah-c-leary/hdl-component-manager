@@ -33,8 +33,11 @@ Use a repository browser to decide whether to upgrade a component.
 | Upgrade       | The latest published version of the component.                               |
 +---------------+------------------------------------------------------------------------------+
 | Status        | Flags indicating information about the component.                            |
+|               |                                                                              |
 |               | E = Component was installed as an external.                                  |
+|               |                                                                              |
 |               | M = Component has commited modifications.                                    |
+|               |                                                                              |
 |               | U = Component has uncommitted modifications                                  |
 +---------------+------------------------------------------------------------------------------+
 | URL           | The base URL the component was installed from.                               |

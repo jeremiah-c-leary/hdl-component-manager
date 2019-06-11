@@ -6,20 +6,21 @@ HCM can be invoked by issuing **hcm** at the command line prompt:
 .. code-block:: bash
 
     $ hcm
-    usage: hcm [-h] {create,install,list,publish} ...
+    usage: hcm [-h] {create,install,list,publish,show} ...
     
     Provides configuration management for HDL components.
     
     positional arguments:
-      {create,install,list,publish}
-        create              creates a component repo
-        install             adds a component from the component repo
-        list                lists components and their versions
+      {create,install,list,publish,show}
+        create              Creates a component repo
+        install             Adds a component from the component repo
+        list                Lists components and their versions
         publish             Adds components to the component repo
+        show                Displays information about installed components
     
     optional arguments:
       -h, --help            show this help message and exit
-    
+
 HCM has four subcommands:  create, install, list, and publish.
 
 create
@@ -95,6 +96,24 @@ The arguments for the subcommand can be listed using the *-h* option:
       -h, --help  show this help message and exit
       -m M        Commit message
       --url URL   Base URL of the component repository
+
+show
+----
+
+Use the **show** subcommand to display information about an installed component.
+The arguments for the subcommand can be listed using the *-h* options:
+
+.. code-block:: bash
+
+    $ hcm show -h
+    usage: hcm show [-h] [--manifest] component
+    
+    positional arguments:
+      component   Component to display information
+    
+    optional arguments:
+      -h, --help  show this help message and exit
+      --manifest  Displays manifest for all files in component
 
 Environment Variables
 ---------------------

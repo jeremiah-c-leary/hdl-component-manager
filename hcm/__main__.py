@@ -21,15 +21,17 @@ def parse_command_line_arguments():
 
     subparsers = top_parser.add_subparsers()
 
-    create_parser = subparsers.add_parser('create', help='creates a component repo')
-    install_parser = subparsers.add_parser('install', help='adds a component from the component repo')
-    list_parser = subparsers.add_parser('list', help='lists components and their versions')
+    create_parser = subparsers.add_parser('create', help='Creates a component repo')
+    install_parser = subparsers.add_parser('install', help='Adds a component from the component repo')
+    list_parser = subparsers.add_parser('list', help='Lists components and their versions')
     publish_parser = subparsers.add_parser('publish', help='Adds components to the component repo')
+    show_parser = subparsers.add_parser('show', help='Displays information about installed components')
 
     build_create_parser(create_parser)
     build_install_parser(install_parser)
     build_publish_parser(publish_parser)
     build_list_parser(list_parser)
+    build_show_parser(show_parser)
 
     print_help_if_no_command_line_options_given(top_parser)
 
@@ -38,6 +40,12 @@ def parse_command_line_arguments():
     check_for_correctly_formed_version_argument(oArgs)
 
     return oArgs
+
+
+def build_show_parser(oParser):
+    oParser.add_argument('component', help='Component to display information')
+    oParser.add_argument('--manifest', default=False, action='store_true', help='Displays manifest for all files in component')
+    oParser.set_defaults(which='show')
 
 
 def build_create_parser(oParser):
@@ -107,6 +115,8 @@ def main():
         subcommand.install(commandLineArguments)
     if commandLineArguments.which == 'list':
         subcommand.sub_list(commandLineArguments)
+    if commandLineArguments.which == 'show':
+        subcommand.show(commandLineArguments)
 
     sys.exit(0)
 
