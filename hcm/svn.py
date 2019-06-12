@@ -16,6 +16,8 @@ def does_directory_exist(sUrl):
         return True
     except subprocess.CalledProcessError:
         return False
+    except TypeError:
+        return False
 
 
 def mkdir(sUrl):

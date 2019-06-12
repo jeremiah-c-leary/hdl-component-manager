@@ -51,3 +51,13 @@ class testUtilsMethods(unittest.TestCase):
         self.assertFalse(utils.validate_version('latest'))
         self.assertTrue(utils.validate_version('234.456.4456'))
         self.assertFalse(utils.validate_version('1'))
+
+    def test_read_dependencies(self):
+        dExpected = {}
+        dExpected['requires'] = {}
+        dExpected['requires']['queen'] = None
+        dExpected['requires']['king'] = None
+        dExpected['requires']['castle'] = None
+
+        self.assertEqual(utils.read_dependencies('./bad_directory'), None)
+        self.assertEqual(utils.read_dependencies('./tests/utils'), dExpected)

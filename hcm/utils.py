@@ -1,6 +1,7 @@
 
 import os
 import re
+import yaml
 
 from hcm import svn
 
@@ -50,3 +51,16 @@ def get_latest_version(sUrl):
     lOutput = svn.issue_command(['svn', 'list', sUrl]).split('\n')[:-1]
     sUpgradeVersion = lOutput[-1][:-1]
     return sUpgradeVersion
+
+
+def read_dependencies(sDirectory):
+    sFileName = sDirectory + '/dependencies.yaml'
+    if not os.path.isfile(sFileName):
+        return None
+    try:
+        with open(sFileName) as yaml_file:
+            tempConfiguration = yaml.full_load(yaml_file)
+        return tempConfiguration
+    except:
+        logging.error('Error in configuration file: ' + sFileName)
+        exit()

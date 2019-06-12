@@ -59,6 +59,8 @@ def build_install_parser(oParser):
     oParser.add_argument('--url', help='location of component directory in repo')
     oParser.add_argument('--force', default=False, action='store_true', help='Install component ignoring any local changes')
     oParser.add_argument('--external', default=False, action='store_true', help='Install as an external')
+    oParser.add_argument('--dependencies', default=False, action='store_true', help='Install dependencies')
+    oParser.add_argument('--upgrade', default=False, action='store_true', help='Upgrade dependencies to latest version')
     oParser.set_defaults(which='install')
 
 

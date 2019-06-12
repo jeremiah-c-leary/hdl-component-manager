@@ -24,6 +24,8 @@ class command_line_args():
         self.version = version
         self.force = force
         self.external = external
+        self.dependencies = False
+        self.upgrade = False
 
 
 class testInstallSubcommand(unittest.TestCase):

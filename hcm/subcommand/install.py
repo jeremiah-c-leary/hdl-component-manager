@@ -9,38 +9,81 @@ import hcm.utils as utils
 
 def install(oCommandLineArguments):
 
-        sUrl = oCommandLineArguments.url
-        sComponent = oCommandLineArguments.component
-        sVersion = oCommandLineArguments.version
-        fForce = oCommandLineArguments.force
-        fExternal = oCommandLineArguments.external
+    install_component(oCommandLineArguments)
 
-        if sVersion is None:
-            logging.info('Installing component ' + sComponent)
+    if oCommandLineArguments.dependencies: 
+        lInstalledDependencies = []
+        lInstalledDependencies.append(oCommandLineArguments.component)
+    
+        get_dependencies(oCommandLineArguments, lInstalledDependencies)
+
+        install_dependencies(oCommandLineArguments, lInstalledDependencies[1:])
+
+    logging.info('Installation complete')
+
+
+def install_dependencies(oCommandLineArguments, lDependencies):
+
+    logging.info('Installing dependencies')
+    oCommandLineArguments.version = None
+    for sDependent in lDependencies:
+        oCommandLineArguments.component = sDependent
+        if os.path.isdir(sDependent) and not oCommandLineArguments.upgrade:
+            logging.info('Component ' + sDependent + ' is already installed')
         else:
-            logging.info('Installing component ' + sComponent + ' version ' + sVersion)
+            install_component(oCommandLineArguments)
 
-        lUrl = determine_url(sUrl)
 
-        sFinalUrlPath = validate_urls(lUrl, sComponent, sVersion)
+def get_dependencies(oCommandLineArguments, lInstalledDependencies):
+    logging.info('Checking for dependencies of ' + oCommandLineArguments.component)
+    sComponent = oCommandLineArguments.component
 
-        fExternalled = is_component_externalled(sComponent, fExternal)
+    ### Check for dependencies
+    oCommandLineArguments.version = None
+    dFileDependencies = utils.read_dependencies(sComponent)
+    try:
+        lDependencies = dFileDependencies['requires'].keys()
+        for sDependent in lDependencies:
+            if sDependent not in lInstalledDependencies:
+                lInstalledDependencies.append(sDependent)
+                oCommandLineArguments.component = sDependent
+                get_dependencies(oCommandLineArguments, lInstalledDependencies)
+    except TypeError:
+        logging.info('  No Dependencies found')
+        return
 
-        if not fForce:
-            svn.is_directory_status_clean(sComponent)
 
-        remove_local_component_directory(sComponent, fForce, fExternalled)
+def install_component(oCommandLineArguments):
+    sUrl = oCommandLineArguments.url
+    sComponent = oCommandLineArguments.component
+    sVersion = oCommandLineArguments.version
+    fForce = oCommandLineArguments.force
+    fExternal = oCommandLineArguments.external
 
-        sRootUrl = svn.extract_root_url_from_directory('.')
-        if fExternalled:
-            update_externals(sFinalUrlPath, sComponent)
-            svn.issue_command(['svn', 'update', '.'])
-        elif sFinalUrlPath.startswith(sRootUrl):
-            svn.copy(sFinalUrlPath, sComponent)
-        else:
-            svn.export(sFinalUrlPath, sComponent)
+    if sVersion is None:
+        logging.info('Installing component ' + sComponent)
+    else:
+        logging.info('Installing component ' + sComponent + ' version ' + sVersion)
 
-        logging.info('Installation complete')
+    lUrl = determine_url(sUrl)
+
+    sFinalUrlPath = validate_urls(lUrl, sComponent, sVersion)
+
+    fExternalled = is_component_externalled(sComponent, fExternal)
+
+    if not fForce:
+        svn.is_directory_status_clean(sComponent)
+
+    remove_local_component_directory(sComponent, fForce, fExternalled)
+
+    sRootUrl = svn.extract_root_url_from_directory('.')
+    if fExternalled:
+        update_externals(sFinalUrlPath, sComponent)
+        svn.issue_command(['svn', 'update', '.'])
+    elif sFinalUrlPath.startswith(sRootUrl):
+        svn.copy(sFinalUrlPath, sComponent)
+    else:
+        svn.export(sFinalUrlPath, sComponent)
 
 
 def remove_local_component_directory(sComponent, fForce, fExternalled):
@@ -55,7 +98,10 @@ def remove_local_component_directory(sComponent, fForce, fExternalled):
 def build_url_path(sUrl, sComponent, sVersion):
     sReturn = sUrl + '/' + sComponent + '/'
     if sVersion is None:
-        return sReturn + utils.get_latest_version(sUrl + '/' + sComponent)
+        try:
+            return sReturn + utils.get_latest_version(sUrl + '/' + sComponent)
+        except:
+            return None
     else:
         return sReturn + sVersion
 
@@ -80,7 +126,6 @@ def validate_urls(lUrl, sComponent, sVersion):
 
     for sUrl in lUrl:
         sUrlPath = build_url_path(sUrl, sComponent, sVersion)
-
         if svn.does_directory_exist(sUrlPath):
             fMultipleFound = fUrlPathFound
             fUrlPathFound = True
