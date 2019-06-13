@@ -32,6 +32,9 @@ setup(
   test_suite='nose.collector',
   tests_require=['nose'],
   keywords=['vhdl', 'verilog', 'packager', 'configuration management'],
+  install_requires=[
+    'PyYAML'
+  ],
   entry_points={
     'console_scripts': [
       'hcm = hcm.__main__:main'
