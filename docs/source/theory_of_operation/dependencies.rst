@@ -28,7 +28,7 @@ This is the workflow for a local install:
 #.  Read dependencies.yaml file
 #.  Check if components in YAML file have been installed
 #.  Read dependencies.yaml file for those components that have been installed
-#.  Install components components that have not been installed
+#.  Install components that have not been installed
 
 This process repeats until all dependencies have been installed.
 Any duplicate dependencies are ignored.
