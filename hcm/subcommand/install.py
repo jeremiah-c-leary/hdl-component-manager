@@ -39,7 +39,6 @@ def install_dependencies(oCommandLineArguments, lInstalledDependencies):
 def get_dependencies(sComponent):
     logging.info('Checking for dependencies of ' + sComponent)
 
-    ### Check for dependencies
     dFileDependencies = utils.read_dependencies(sComponent)
     try:
         return dFileDependencies['requires'].keys()

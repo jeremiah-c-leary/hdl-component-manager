@@ -89,7 +89,9 @@ def print_versions(dVersions):
     lKeys = dVersions['components'].keys()
     lKeys.sort()
 
-    sRow = build_row(dVersions['config']['max_comp_len'], dVersions['config']['max_ver_len'], dVersions['config']['max_upgrade_len'], dVersions['config']['max_url_len'])
+    dConfig = dVersions['config']
+
+    sRow = build_row(dConfig['max_comp_len'], dConfig['max_ver_len'], dConfig['max_upgrade_len'], dConfig['max_url_len'])
 
     print('')
     print(sRow.format('Component', 'Version', 'Upgrade', 'Status', 'URL'))
