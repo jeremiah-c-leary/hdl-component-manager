@@ -127,7 +127,9 @@ def validate_urls(lUrl, sComponent, sVersion):
             sFinalUrlPath = sUrlPath
 
     if not fUrlPathFound:
-        logging.error('Component ' + sComponent + ' could not be found.')
+        logging.error('Component ' + sComponent + ' could not be found in the following URLs:')
+        for sUrl in lUrl:
+            print(sUrl)
         exit()
 
     if fMultipleFound:
