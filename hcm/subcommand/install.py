@@ -11,46 +11,41 @@ def install(oCommandLineArguments):
 
     install_component(oCommandLineArguments)
 
-    if oCommandLineArguments.dependencies: 
-        lInstalledDependencies = []
-        lInstalledDependencies.append(oCommandLineArguments.component)
+    if oCommandLineArguments.dependencies:
+        lInstalledDependencies = [oCommandLineArguments.component]
     
-        get_dependencies(oCommandLineArguments, lInstalledDependencies)
-
-        install_dependencies(oCommandLineArguments, lInstalledDependencies[1:])
+        oCommandLineArguments.version = None
+        logging.info('Installing dependencies')
+        install_dependencies(oCommandLineArguments, lInstalledDependencies)
 
     logging.info('Installation complete')
 
 
-def install_dependencies(oCommandLineArguments, lDependencies):
+def install_dependencies(oCommandLineArguments, lInstalledDependencies):
 
-    logging.info('Installing dependencies')
-    oCommandLineArguments.version = None
+    lDependencies = get_dependencies(oCommandLineArguments.component)
     for sDependent in lDependencies:
+        if sDependent in lInstalledDependencies:
+            continue
         oCommandLineArguments.component = sDependent
         if os.path.isdir(sDependent) and not oCommandLineArguments.upgrade:
             logging.info('Component ' + sDependent + ' is already installed')
         else:
             install_component(oCommandLineArguments)
+            lInstalledDependencies.append(sDependent)
+            install_dependencies(oCommandLineArguments, lInstalledDependencies)
 
 
-def get_dependencies(oCommandLineArguments, lInstalledDependencies):
-    logging.info('Checking for dependencies of ' + oCommandLineArguments.component)
-    sComponent = oCommandLineArguments.component
+def get_dependencies(sComponent):
+    logging.info('Checking for dependencies of ' + sComponent)
 
     ### Check for dependencies
-    oCommandLineArguments.version = None
     dFileDependencies = utils.read_dependencies(sComponent)
     try:
-        lDependencies = dFileDependencies['requires'].keys()
-        for sDependent in lDependencies:
-            if sDependent not in lInstalledDependencies:
-                lInstalledDependencies.append(sDependent)
-                oCommandLineArguments.component = sDependent
-                get_dependencies(oCommandLineArguments, lInstalledDependencies)
+        return dFileDependencies['requires'].keys()
     except TypeError:
         logging.info('  No Dependencies found')
-        return
+        return []
 
 
 def install_component(oCommandLineArguments):
