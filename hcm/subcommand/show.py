@@ -2,6 +2,8 @@
 import json
 import logging
 
+from hcm import utils
+
 
 def show(oCommandLineArguments):
 
@@ -13,8 +15,12 @@ def show(oCommandLineArguments):
         logging.error('Component ' + oCommandLineArguments.component + ' is not under HCM control.')
         exit()
 
-    iColumn1Max = 0
-    iColumn2Max = 0
+    sDependencies = get_dependencies(oCommandLineArguments)
+    iColumn1Max = len('Dependencies')
+    if sDependencies is None:
+        sDependencies = 'No dependencies found'
+    iColumn2Max = len(sDependencies)
+
     for sKey in dConfig['hcm']:
         iColumn1Max = max(iColumn1Max, len(sKey))
         iColumn2Max = max(iColumn2Max, len(dConfig['hcm'][sKey]))
@@ -26,6 +32,7 @@ def show(oCommandLineArguments):
     print(sRow.format('Version', dConfig['hcm']['version']))
     print(sRow.format('URL', dConfig['hcm']['url']))
     print(sRow.format('Source', dConfig['hcm']['source_url']))
+    print(sRow.format('Dependencies', sDependencies))
     print(build_divider(sRow, iColumn1Max, iColumn2Max))
 
     print_manifest(oCommandLineArguments, dConfig)
@@ -58,3 +65,10 @@ def print_manifest(oCommandLineArguments, dConfig):
     print('-'*(iColumn1Max + len(sSpacer) + iColumn2Max))
     for sFileName in dConfig['hcm']['manifest']:
         print(dConfig['hcm']['manifest'][sFileName] + sSpacer + sFileName)
+
+
+def get_dependencies(oCommandLineArguments):
+    dDependencies = utils.read_dependencies(oCommandLineArguments.component)
+    if dDependencies is None:
+        return None
+    return ', '.join(dDependencies['requires'].keys())

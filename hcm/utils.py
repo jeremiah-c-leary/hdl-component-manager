@@ -62,5 +62,5 @@ def read_dependencies(sDirectory):
             tempConfiguration = yaml.full_load(yaml_file)
         return tempConfiguration
     except:
-        logging.error('Error in configuration file: ' + sFileName)
+        logging.error('Error in dependency file: ' + sFileName)
         exit()
