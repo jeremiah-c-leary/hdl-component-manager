@@ -13,7 +13,7 @@ def install(oCommandLineArguments):
 
     if oCommandLineArguments.dependencies:
         lInstalledDependencies = [oCommandLineArguments.component]
-    
+
         oCommandLineArguments.version = None
         logging.info('Installing dependencies')
         install_dependencies(oCommandLineArguments, lInstalledDependencies)

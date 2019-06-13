@@ -25,7 +25,7 @@ def show(oCommandLineArguments):
         iColumn1Max = max(iColumn1Max, len(sKey))
         iColumn2Max = max(iColumn2Max, len(dConfig['hcm'][sKey]))
 
-    sRow = build_row(iColumn1Max, iColumn2Max) 
+    sRow = build_row(iColumn1Max, iColumn2Max)
 
     print(build_divider(sRow, iColumn1Max, iColumn2Max))
     print(sRow.format('Component', dConfig['hcm']['name']))
