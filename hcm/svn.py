@@ -94,7 +94,7 @@ def directory_has_committed_modifications(sDirectory):
 
 def is_there_a_file_with_a_later_revision_than_hcm_json(lOutput, sHcmRevision):
     sRevision = what_is_the_latest_file_revision(lOutput)
-    if sRevision != sHcmRevision:
+    if str(sRevision) != str(sHcmRevision):
         return True
 
     return False
@@ -105,7 +105,7 @@ def what_is_the_latest_file_revision(lOutput):
     for sLine in lOutput:
         if 'Revision' in sLine:
             lLine = sLine.split()
-            iMaxRevision = max(iMaxRevision, lLine[-1])
+            iMaxRevision = max(iMaxRevision, int(lLine[-1]))
     return iMaxRevision
 
 
