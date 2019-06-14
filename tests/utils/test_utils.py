@@ -1,4 +1,5 @@
 
+import logging
 import unittest
 from unittest import mock
 
@@ -8,30 +9,39 @@ from hcm import utils
 class testUtilsMethods(unittest.TestCase):
 
     def setUp(self):
-        self.dExpected = {}
-        self.dExpected['publish'] = {}
-        self.dExpected['publish']['url'] = 'http://my_repo/components'
-        self.dExpected['version'] = '1.0.0'
-        self.dExpected['name'] = 'rook'
+        self.dHcmConfig = {}
+        self.dHcmConfig['publish'] = {}
+        self.dHcmConfig['publish']['url'] = 'http://my_repo/components'
+        self.dHcmConfig['version'] = '1.0.0'
+        self.dHcmConfig['name'] = 'rook'
+        self.dHcmConfig['source'] = {}
+        self.dHcmConfig['source']['url'] = 'Source URL'
+        self.dHcmConfig['source']['manifest'] = {}
+        self.dHcmConfig['source']['manifest']['first'] = '1'
+        self.dHcmConfig['source']['manifest']['second'] = '2'
+        self.dHcmConfig['source']['manifest']['third'] = '3'
+        logging.disable(logging.CRITICAL)
+
+    def tearDown(self):
+        logging.disable(logging.NOTSET)
 
     def test_get_url(self):
-        self.assertEqual(utils.get_url(self.dExpected), 'http://my_repo/components')
+        self.assertEqual(utils.get_url(self.dHcmConfig), 'http://my_repo/components')
 
     def test_get_version(self):
-        self.assertEqual(utils.get_version(self.dExpected), '1.0.0')
+        self.assertEqual(utils.get_version(self.dHcmConfig), '1.0.0')
 
     def test_get_component_name(self):
-        self.assertEqual(utils.get_component_name(self.dExpected), 'rook')
+        self.assertEqual(utils.get_component_name(self.dHcmConfig), 'rook')
 
     def test_get_component_path(self):
-        self.assertEqual(utils.get_component_path(self.dExpected), 'http://my_repo/components/rook')
+        self.assertEqual(utils.get_component_path(self.dHcmConfig), 'http://my_repo/components/rook')
 
     def test_get_hcm_config_path(self):
-        self.assertEqual(utils.get_hcm_config_path(self.dExpected), 'rook/hcm.json')
+        self.assertEqual(utils.get_hcm_config_path(self.dHcmConfig), 'rook/hcm.json')
 
     def test_get_version_path(self):
-        self.assertEqual(utils.get_version_path(self.dExpected), 'http://my_repo/components/rook/1.0.0')
-
+        self.assertEqual(utils.get_version_path(self.dHcmConfig), 'http://my_repo/components/rook/1.0.0')
 
     @mock.patch.dict('os.environ', {'HCM_URL_PATHS':'http://svn/my_repo'})
     def test_get_url_from_single_environment_variable(self):
@@ -53,11 +63,23 @@ class testUtilsMethods(unittest.TestCase):
         self.assertFalse(utils.validate_version('1'))
 
     def test_read_dependencies(self):
-        dExpected = {}
-        dExpected['requires'] = {}
-        dExpected['requires']['queen'] = None
-        dExpected['requires']['king'] = None
-        dExpected['requires']['castle'] = None
+        dDependencies = {}
+        dDependencies['requires'] = {}
+        dDependencies['requires']['queen'] = None
+        dDependencies['requires']['king'] = None
+        dDependencies['requires']['castle'] = None
 
         self.assertEqual(utils.read_dependencies('./bad_directory'), None)
-        self.assertEqual(utils.read_dependencies('./tests/utils'), dExpected)
+        self.assertEqual(utils.read_dependencies('./tests/utils'), dDependencies)
+        self.assertRaises(SystemExit, utils.read_dependencies, './tests/utils/bad_dependency')
+
+    def test_get_source_url(self):
+        self.assertEqual(utils.get_source_url(self.dHcmConfig), 'Source URL')
+
+    def test_get_manifest(self):
+        dExpected = {}
+        dExpected['first'] = '1'
+        dExpected['second'] = '2'
+        dExpected['third'] = '3'
+
+        self.assertEqual(utils.get_manifest(self.dHcmConfig), dExpected)
