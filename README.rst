@@ -85,7 +85,136 @@ The latest development version can be cloned...
 
   python setup.py install
 
-.. include:: https://github.com/jeremiah-c-leary/hdl-component-manager/blob/master/docs/source/usage.rst
+
+Usage
+-----
+
+HCM can be invoked by issuing **hcm** at the command line prompt:
+
+.. code-block:: bash
+
+    $ hcm
+    usage: hcm [-h] {create,install,list,publish,show} ...
+    
+    Provides configuration management for HDL components.
+    
+    positional arguments:
+      {create,install,list,publish,show}
+        create              Creates a component repo
+        install             Adds a component from the component repo
+        list                Lists components and their versions
+        publish             Adds components to the component repo
+        show                Displays information about installed components
+    
+    optional arguments:
+      -h, --help            show this help message and exit
+
+HCM has four subcommands:  create, install, list, and publish.
+
+create
+~~~~~~
+
+Use the **create** subcommand to create a component directory in the repository.
+The arguments for the subcommand can be listed using the *-h* option:
+
+.. code-block:: bash
+
+    $ hcm create -h
+    usage: hcm create [-h] url
+    
+    positional arguments:
+      url         location to create the base component repo
+    
+    optional arguments:
+      -h, --help  show this help message and exit
+
+install
+~~~~~~~
+
+Use the **install** subcommand to add or upgrade a component from a repository.
+The arguments for the subcommand can be listed using the *-h* option:
+
+.. code-block:: bash
+
+    $ bin/hcm install -h
+    usage: hcm install [-h] [--url URL] [--force] [--external] [--dependencies]
+                       [--upgrade]
+                       component [version]
+    
+    positional arguments:
+      component       Component name to install
+      version         Major.Minor.Patch version of component to install. Leave
+                      blank to install the latest version.
+    
+    optional arguments:
+      -h, --help      show this help message and exit
+      --url URL       location of component directory in repo
+      --force         Install component ignoring any local changes
+      --external      Install as an external
+      --dependencies  Install dependencies
+      --upgrade       Upgrade dependencies to latest version
+
+.. NOTE:: *version* is optional.
+          If not specified, then the latest version will be installed.
+
+list
+~~~~
+
+Use the **list** subcommand to check the versions of components you have installed.
+The arguments for the subcommand can be listed using the *-h* option:
+
+.. code-block:: bash
+
+    $ hcm list -h
+    usage: hcm list [-h] [--all]
+    
+    optional arguments:
+      -h, --help  show this help message and exit
+      --all       Includes directories that are not under HCM control
+
+publish
+~~~~~~~
+
+Use the **publish** subcommand to push a version of a component to a repository.
+The arguments for the subcommand can be listed using the *-h* option:
+
+.. code-block:: bash
+
+    $ hcm publish -h
+    usage: hcm publish [-h] -m M [--url URL] component version
+    
+    positional arguments:
+      component   Component name to publish
+      version     Major.Minor.Patch version to publish
+    
+    optional arguments:
+      -h, --help  show this help message and exit
+      -m M        Commit message
+      --url URL   Base URL of the component repository
+
+show
+~~~~
+
+Use the **show** subcommand to display information about an installed component.
+The arguments for the subcommand can be listed using the *-h* options:
+
+.. code-block:: bash
+
+    $ hcm show -h
+    usage: hcm show [-h] [--manifest] component
+    
+    positional arguments:
+      component   Component to display information
+    
+    optional arguments:
+      -h, --help  show this help message and exit
+      --manifest  Displays manifest for all files in component
+
+Environment Variables
+~~~~~~~~~~~~~~~~~~~~~
+
+HCM will use the **HCM_URL_PATHS** environment variable as a replacement for the **--url** command line option.
+HCM uses the paths in the variable to know which component repositories to interact with.
 
 Documentation
 -------------
