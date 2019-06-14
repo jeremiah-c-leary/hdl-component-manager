@@ -59,6 +59,7 @@ class testSvnMethods(unittest.TestCase):
 
       self.assertTrue(svn.delete('rook'))
       self.assertRaises(subprocess.CalledProcessError, svn.delete, 'knight')
+      self.assertTrue(svn.delete('knight', True))
 
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   def test_svn_copy(self, mocked_function):
@@ -77,6 +78,7 @@ class testSvnMethods(unittest.TestCase):
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   def test_svn_extract_path_url(self, mocked_function):
       self.assertEqual(svn.extract_root_url_from_directory('.'), 'http://svn/my_repo')
+      self.assertRaises(subprocess.CalledProcessError, svn.extract_root_url_from_directory, 'error')
 
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   def test_svn_export(self, mocked_function):
@@ -107,3 +109,12 @@ class testSvnMethods(unittest.TestCase):
   def test_directory_has_committed_modifications(self, mocked_component):
       self.assertFalse(svn.directory_has_committed_modifications('pawn'))
       self.assertTrue(svn.directory_has_committed_modifications('rook'))
+      self.assertFalse(svn.directory_has_committed_modifications('queen'))
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  def test_does_directory_have_uncommitted_files(self, mocked_component):
+      self.assertFalse(svn.does_directory_have_uncommitted_files('rook'))
+      self.assertTrue(svn.does_directory_have_uncommitted_files('pawn'))
+      self.assertTrue(svn.does_directory_have_uncommitted_files('castle'))
+      self.assertFalse(svn.does_directory_have_uncommitted_files('queen'))
+      self.assertFalse(svn.does_directory_have_uncommitted_files('bishop'))

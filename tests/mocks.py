@@ -50,7 +50,7 @@ def parse_svn_command(lList):
         if lList[0] == 'status':
             return parse_svn_status_command(lList[-1])
         if lList[0] == 'delete':
-            return parse_svn_delete_command(lList[-1])
+            return parse_svn_delete_command(lList[1:])
         if lList[0] == 'copy':
             return parse_svn_copy_command(lList[1:], dSvnRepos)
         if lList[0] == 'export':
@@ -69,7 +69,7 @@ def parse_svn_externals_command(sDirectory):
         sReturn += 'http://svn/external_repo/blocks/pawn/3.0.0 pawn\n'
         return sReturn
     else:
-        return None
+        raise subprocess.CalledProcessError(0, 'svn propget')
 
 
 def parse_svn_copy_command(lArgs, dSvnRepos):
@@ -100,8 +100,13 @@ def parse_svn_copy_command(lArgs, dSvnRepos):
 
 
 
-def parse_svn_delete_command(sDirectory):
-    if sDirectory == 'rook' or sDirectory == 'queen' or sDirectory == 'bishop':
+def parse_svn_delete_command(lArgs):
+    sDirectory = lArgs[0]
+    fForce = False
+    if len(lArgs) > 1:
+        fForce = lArgs[1]
+
+    if sDirectory == 'rook' or sDirectory == 'queen' or sDirectory == 'bishop' or fForce:
         sReturn = 'D         ' + sDirectory + '\n'
         sReturn += 'D         ' + sDirectory + '/hcm.json\n'
         sReturn += 'D         ' + sDirectory + '/rtl\n'
@@ -178,77 +183,6 @@ def parse_svn_mkdir_command(lList, dSvnRepos):
 
 def parse_svn_info_command(sDirectory):
     if sDirectory == 'rook':
-#        sReturn = 'Path: rook\n'
-#        sReturn += 'Working Copy Root Path: /project_chess\n'
-#        sReturn += 'URL: http://svn/my_repo/trunk/project_chess/components/rook\n'
-#        sReturn += 'Relative URL: ^/trunk/project_chess/components/rook\n'
-#        sReturn += 'Repository Root: http://svn/my_repo\n'
-#        sReturn += 'Repository UUID: 321bcf6c-b4d1-4a84-b4b7-55c366bdaac7\n'
-#        sReturn += 'Revision: 8\n'
-#        sReturn += 'Node Kind: directory\n'
-#        sReturn += 'Schedule: normal\n'
-#        sReturn += 'Last Changed Author: jeremiah\n'
-#        sReturn += 'Last Changed Rev: 8\n'
-#        sReturn += 'Last Changed Date: 2019-05-19 18:42:49 -0500 (Sun, 19 May 2019)\n'
-#        sReturn += '\n'
-#        sReturn += 'Path: rook/lay\n'
-#        sReturn += 'Working Copy Root Path: /project_chess\n'
-#        sReturn += 'URL: http://svn/my_repo/trunk/project_chess/components/rook/lay\n'
-#        sReturn += 'Relative URL: ^/trunk/project_chess/components/rook/lay\n'
-#        sReturn += 'Repository Root: http://svn/my_repo\n'
-#        sReturn += 'Repository UUID: 321bcf6c-b4d1-4a84-b4b7-55c366bdaac7\n'
-#        sReturn += 'Revision: 8\n'
-#        sReturn += 'Node Kind: directory\n'
-#        sReturn += 'Schedule: normal\n'
-#        sReturn += 'Last Changed Author: jeremiah\n'
-#        sReturn += 'Last Changed Rev: 8\n'
-#        sReturn += 'Last Changed Date: 2019-05-19 18:42:49 -0500 (Sun, 19 May 2019)\n'
-#        sReturn += '\n'
-#        sReturn += 'Path: rook/lay/filelist.tcl\n'
-#        sReturn += 'Name: filelist.tcl\n'
-#        sReturn += 'Working Copy Root Path: /project_chess\n'
-#        sReturn += 'URL: http://svn/my_repo/trunk/project_chess/components/rook/lay/filelist.tcl\n'
-#        sReturn += 'Relative URL: ^/trunk/project_chess/components/rook/lay/filelist.tcl\n'
-#        sReturn += 'Repository Root: http://svn/my_repo\n'
-#        sReturn += 'Repository UUID: 321bcf6c-b4d1-4a84-b4b7-55c366bdaac7\n'
-#        sReturn += 'Revision: 8\n'
-#        sReturn += 'Node Kind: file\n'
-#        sReturn += 'Schedule: normal\n'
-#        sReturn += 'Last Changed Author: jeremiah\n'
-#        sReturn += 'Last Changed Rev: 8\n'
-#        sReturn += 'Last Changed Date: 2019-05-19 18:42:49 -0500 (Sun, 19 May 2019)\n'
-#        sReturn += 'Text Last Updated: 2019-05-19 18:04:46 -0500 (Sun, 19 May 2019)\n'
-#        sReturn += 'Checksum: 8ab4b37511ade8aa5f322015ba1881baa715842a\n'
-#        sReturn += '\n'
-#        sReturn += 'Path: rook/rtl\n'
-#        sReturn += 'Working Copy Root Path: /project_chess\n'
-#        sReturn += 'URL: http://svn/my_repo/trunk/project_chess/components/rook/rtl\n'
-#        sReturn += 'Relative URL: ^/trunk/project_chess/components/rook/rtl\n'
-#        sReturn += 'Repository Root: http://svn/my_repo\n'
-#        sReturn += 'Repository UUID: 321bcf6c-b4d1-4a84-b4b7-55c366bdaac7\n'
-#        sReturn += 'Revision: 8\n'
-#        sReturn += 'Node Kind: directory\n'
-#        sReturn += 'Schedule: normal\n'
-#        sReturn += 'Last Changed Author: jeremiah\n'
-#        sReturn += 'Last Changed Rev: 8\n'
-#        sReturn += 'Last Changed Date: 2019-05-19 18:42:49 -0500 (Sun, 19 May 2019)\n'
-#        sReturn += '\n'
-#        sReturn += 'Path: rook/rtl/rook.vhd\n'
-#        sReturn += 'Name: rook.vhd\n'
-#        sReturn += 'Working Copy Root Path: /project_chess\n'
-#        sReturn += 'URL: http://svn/my_repo/trunk/project_chess/components/rook/rtl/rook.vhd\n'
-#        sReturn += 'Relative URL: ^/trunk/project_chess/components/rook/rtl/rook.vhd\n'
-#        sReturn += 'Repository Root: http://svn/my_repo\n'
-#        sReturn += 'Repository UUID: 321bcf6c-b4d1-4a84-b4b7-55c366bdaac7\n'
-#        sReturn += 'Revision: 21\n'
-#        sReturn += 'Node Kind: file\n'
-#        sReturn += 'Schedule: normal\n'
-#        sReturn += 'Last Changed Author: jeremiah\n'
-#        sReturn += 'Last Changed Rev: 21\n'
-#        sReturn += 'Last Changed Date: 2019-05-20 21:54:20 -0500 (Mon, 20 May 2019)\n'
-#        sReturn += 'Text Last Updated: 2019-05-20 21:54:06 -0500 (Mon, 20 May 2019)\n'
-#        sReturn += 'Checksum: c2aeb8841cf4a7178d311e6cff353a31b00af89a\n'
-#        sReturn += '\n'
         sReturn = 'Path: rook\n'
         sReturn += 'Working Copy Root Path: /home/jeremiah/projects/hdl-component-manager/project_chess\n'
         sReturn += 'URL: http://svn/my_repo/trunk/project_chess/components/rook\n'
@@ -482,5 +416,8 @@ def parse_svn_info_command(sDirectory):
         sReturn += 'Last Changed Rev: 7\n'
         sReturn += 'Last Changed Date: 2019-05-19 18:03:12 -0500 (Sun, 19 May 2019)\n'
         sReturn += '\n'
+    else:
+        raise subprocess.CalledProcessError(0, 'svn info')
+        
 
     return sReturn
