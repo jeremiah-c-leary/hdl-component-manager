@@ -56,12 +56,13 @@ class testCreateDefaultHcmDictionary(unittest.TestCase):
 
   def test_default_hcm_dictionary(self):
       dExpected = {}
-      dExpected['hcm'] = {}
-      dExpected['hcm']['url'] = 'http://my_url'
-      dExpected['hcm']['source_url'] = ''
-      dExpected['hcm']['name'] = 'component'
-      dExpected['hcm']['version'] = '1.0.0'
-      dExpected['hcm']['manifest'] = {}
+      dExpected['name'] = 'component'
+      dExpected['version'] = '1.0.0'
+      dExpected['publish'] = {}
+      dExpected['publish']['url'] = 'http://my_url'
+      dExpected['source'] = {}
+      dExpected['source']['url'] = ''
+      dExpected['source']['manifest'] = {}
 
       self.assertEqual(create_default_hcm_dictionary('component', '1.0.0', 'http://my_url'), dExpected)
 
@@ -77,15 +78,16 @@ class testUpdateSourceUrl(unittest.TestCase):
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   def test_update_source_url(self, mocked_function):
       dExpected = {}
-      dExpected['hcm'] = {}
-      dExpected['hcm']['url'] = ''
-      dExpected['hcm']['source_url'] = ''
-      dExpected['hcm']['name'] = 'rook'
-      dExpected['hcm']['version'] = ''
-      dExpected['hcm']['manifest'] = {}
+      dExpected['publish'] = {}
+      dExpected['publish']['url'] = ''
+      dExpected['source'] = {}
+      dExpected['source']['url'] = ''
+      dExpected['name'] = 'rook'
+      dExpected['version'] = ''
+      dExpected['source']['manifest'] = {}
 
       dActual = copy.deepcopy(dExpected)
-      dExpected['hcm']['source_url'] = 'http://svn/my_repo/trunk/project_chess/components/rook@40'
+      dExpected['source']['url'] = 'http://svn/my_repo/trunk/project_chess/components/rook@40'
 
       update_source_url(dActual)
       self.assertEqual(dExpected, dActual)
@@ -101,16 +103,17 @@ class testUpdateManifest(unittest.TestCase):
 
   def test_update_manifest(self):
       dExpected = {}
-      dExpected['hcm'] = {}
-      dExpected['hcm']['url'] = ''
-      dExpected['hcm']['source_url'] = ''
-      dExpected['hcm']['name'] = sTestLocation + 'rook'
-      dExpected['hcm']['version'] = ''
-      dExpected['hcm']['manifest'] = {}
+      dExpected['publish'] = {}
+      dExpected['publish']['url'] = ''
+      dExpected['source'] = {}
+      dExpected['source']['url'] = ''
+      dExpected['name'] = sTestLocation + 'rook'
+      dExpected['version'] = ''
+      dExpected['source']['manifest'] = {}
 
       dActual = copy.deepcopy(dExpected)
-      dExpected['hcm']['manifest'][sTestLocation + 'rook/lay/filelist.tcl'] = '473fd7ad0333b3d2e1be6b6623cacc82'
-      dExpected['hcm']['manifest'][sTestLocation + 'rook/rtl/rook.vhd'] = '8579704d1db4add11c9d861db3ddaf8d'
+      dExpected['source']['manifest'][sTestLocation + 'rook/lay/filelist.tcl'] = '473fd7ad0333b3d2e1be6b6623cacc82'
+      dExpected['source']['manifest'][sTestLocation + 'rook/rtl/rook.vhd'] = '8579704d1db4add11c9d861db3ddaf8d'
 
       update_manifest(dActual)
       self.assertEqual(dExpected, dActual)
@@ -126,21 +129,22 @@ class testUpdateVersion(unittest.TestCase):
 
   def test_update_version(self):
       dExpected = {}
-      dExpected['hcm'] = {}
-      dExpected['hcm']['url'] = ''
-      dExpected['hcm']['source_url'] = ''
-      dExpected['hcm']['name'] = sTestLocation + 'rook'
-      dExpected['hcm']['version'] = '1.0.0'
-      dExpected['hcm']['manifest'] = {}
+      dExpected['publish'] = {}
+      dExpected['source'] = {}
+      dExpected['publish']['url'] = ''
+      dExpected['source']['url'] = ''
+      dExpected['name'] = sTestLocation + 'rook'
+      dExpected['version'] = '1.0.0'
+      dExpected['source']['manifest'] = {}
 
       dActual = copy.deepcopy(dExpected)
 
-      dExpected['hcm']['version'] = '2.0.0'
+      dExpected['version'] = '2.0.0'
 
       update_version(dActual, '2.0.0')
       self.assertEqual(dExpected, dActual)
 
-      dExpected['hcm']['version'] = '3.1.2'
+      dExpected['version'] = '3.1.2'
 
       update_version(dActual, '3.1.2')
       self.assertEqual(dExpected, dActual)
@@ -165,12 +169,13 @@ class testWriteConfigurationFile(unittest.TestCase):
 
   def test_write_configuration(self):
       dExpected = {}
-      dExpected['hcm'] = {}
-      dExpected['hcm']['url'] = ''
-      dExpected['hcm']['source_url'] = ''
-      dExpected['hcm']['name'] = sTestLocation + 'rook'
-      dExpected['hcm']['version'] = '1.0.0'
-      dExpected['hcm']['manifest'] = {}
+      dExpected['publish'] = {}
+      dExpected['publish']['url'] = ''
+      dExpected['source'] = {}
+      dExpected['source']['url'] = ''
+      dExpected['name'] = sTestLocation + 'rook'
+      dExpected['version'] = '1.0.0'
+      dExpected['source']['manifest'] = {}
 
       write_configuration_file(dExpected)
 
@@ -195,12 +200,13 @@ class testAddHcmConfigFileToComponentDirectory(unittest.TestCase):
       I do not know a good method to test the output of the svn add command.
       '''
       dExpected = {}
-      dExpected['hcm'] = {}
-      dExpected['hcm']['url'] = ''
-      dExpected['hcm']['source_url'] = ''
-      dExpected['hcm']['name'] = sTestLocation + 'rook'
-      dExpected['hcm']['version'] = '1.0.0'
-      dExpected['hcm']['manifest'] = {}
+      dExpected['publish'] = {}
+      dExpected['publish']['url'] = ''
+      dExpected['source'] = {}
+      dExpected['source']['source_url'] = ''
+      dExpected['name'] = sTestLocation + 'rook'
+      dExpected['version'] = '1.0.0'
+      dExpected['source']['manifest'] = {}
 
       self.assertTrue(add_hcm_config_file_to_component_directory(dExpected))
 
@@ -217,16 +223,17 @@ class testCheckIfVersionAlreadyExists(unittest.TestCase):
   def test_if_version_exists(self, mocked_function):
 
       dExpected = {}
-      dExpected['hcm'] = {}
-      dExpected['hcm']['url'] = 'http://svn/my_repo/components'
-      dExpected['hcm']['source_url'] = ''
-      dExpected['hcm']['name'] = 'rook'
-      dExpected['hcm']['version'] = '1.0.0'
-      dExpected['hcm']['manifest'] = {}
+      dExpected['publish'] = {}
+      dExpected['publish']['url'] = 'http://svn/my_repo/components'
+      dExpected['source'] = {}
+      dExpected['source']['url'] = ''
+      dExpected['name'] = 'rook'
+      dExpected['version'] = '1.0.0'
+      dExpected['source']['manifest'] = {}
 
       self.assertRaises(SystemExit, check_if_version_already_exists, dExpected)
 
-      dExpected['hcm']['version'] = '7.0.0'
+      dExpected['version'] = '7.0.0'
       self.assertFalse(check_if_version_already_exists(dExpected))
 
 

@@ -20,18 +20,19 @@ def show(oCommandLineArguments):
     if sDependencies is None:
         sDependencies = 'No dependencies found'
     iColumn2Max = len(sDependencies)
+    iColumn2Max = max(iColumn2Max, len(utils.get_component_name(dConfig)))
+    iColumn2Max = max(iColumn2Max, len(utils.get_version(dConfig)))
+    iColumn2Max = max(iColumn2Max, len(utils.get_url(dConfig)))
+    iColumn2Max = max(iColumn2Max, len(utils.get_source_url(dConfig)))
 
-    for sKey in dConfig['hcm']:
-        iColumn1Max = max(iColumn1Max, len(sKey))
-        iColumn2Max = max(iColumn2Max, len(dConfig['hcm'][sKey]))
 
     sRow = build_row(iColumn1Max, iColumn2Max)
 
     print(build_divider(sRow, iColumn1Max, iColumn2Max))
-    print(sRow.format('Component', dConfig['hcm']['name']))
-    print(sRow.format('Version', dConfig['hcm']['version']))
-    print(sRow.format('URL', dConfig['hcm']['url']))
-    print(sRow.format('Source', dConfig['hcm']['source_url']))
+    print(sRow.format('Component', utils.get_component_name(dConfig)))
+    print(sRow.format('Version', utils.get_version(dConfig)))
+    print(sRow.format('URL', utils.get_url(dConfig)))
+    print(sRow.format('Source', utils.get_source_url(dConfig)))
     print(sRow.format('Dependencies', sDependencies))
     print(build_divider(sRow, iColumn1Max, iColumn2Max))
 
@@ -57,14 +58,15 @@ def print_manifest(oCommandLineArguments, dConfig):
     sSpacer = '    '
     iColumn1Max = 0
     iColumn2Max = 0
-    for sFileName in dConfig['hcm']['manifest']:
-        iColumn1Max = max(iColumn1Max, len(dConfig['hcm']['manifest'][sFileName]))
+    dFiles = utils.get_manifest(dConfig)
+    for sFileName in dFiles.keys():
+        iColumn1Max = max(iColumn1Max, len(dFiles[sFileName]))
         iColumn2Max = max(iColumn2Max, len(sFileName))
 
     print('\nManifest')
     print('-'*(iColumn1Max + len(sSpacer) + iColumn2Max))
-    for sFileName in dConfig['hcm']['manifest']:
-        print(dConfig['hcm']['manifest'][sFileName] + sSpacer + sFileName)
+    for sFileName in dFiles.keys():
+        print(dFiles[sFileName] + sSpacer + sFileName)
 
 
 def get_dependencies(oCommandLineArguments):

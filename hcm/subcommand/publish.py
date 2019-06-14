@@ -46,12 +46,13 @@ def read_hcm_json_file(sComponentName):
 def create_default_hcm_dictionary(sName, sVersion, sUrl):
     logging.info('Creating default hcm.json file...')
     dReturn = {}
-    dReturn['hcm'] = {}
-    dReturn['hcm']['url'] = sUrl
-    dReturn['hcm']['source_url'] = ''
-    dReturn['hcm']['name'] = sName
-    dReturn['hcm']['version'] = sVersion
-    dReturn['hcm']['manifest'] = {}
+    dReturn['name'] = sName
+    dReturn['version'] = sVersion
+    dReturn['publish'] = {}
+    dReturn['publish']['url'] = sUrl
+    dReturn['source'] = {}
+    dReturn['source']['url'] = ''
+    dReturn['source']['manifest'] = {}
     return dReturn
 
 
@@ -70,7 +71,7 @@ def search_for_maximum_revision(sLine, iMaxRevision):
 
 def update_source_url(dHcmConfig):
     logging.info('Updating source URL...')
-    lOutput = svn.issue_command(['svn', 'info', '-R', dHcmConfig['hcm']['name']]).split('\n')
+    lOutput = svn.issue_command(['svn', 'info', '-R', dHcmConfig['name']]).split('\n')
     fSourceUrlFound = False
     iMaxRevision = 0
     sSourceUrl = None
@@ -78,13 +79,13 @@ def update_source_url(dHcmConfig):
         sSourceUrl, fSourceUrlFound = search_for_source_url(sLine, sSourceUrl, fSourceUrlFound)
         iMaxRevision = search_for_maximum_revision(sLine, iMaxRevision)
     sSourceUrl += '@' + str(iMaxRevision)
-    dHcmConfig['hcm']['source_url'] = sSourceUrl
+    dHcmConfig['source']['url'] = sSourceUrl
 
 
 def update_manifest(dHcmConfig):
     logging.info('Creating manifest...')
-    dHcmConfig['hcm']['manifest'] = {}
-    for root, dirs, files in os.walk(dHcmConfig['hcm']['name'], topdown=True):
+    dHcmConfig['source']['manifest'] = {}
+    for root, dirs, files in os.walk(dHcmConfig['name'], topdown=True):
         for name in files:
             sFileName = os.path.join(root, name)
             add_file_to_manifest(dHcmConfig, sFileName)
@@ -95,7 +96,7 @@ def add_file_to_manifest(dHcmConfig, sFileName):
         return False
     if '.svn' in sFileName:
         return False
-    dHcmConfig['hcm']['manifest'][sFileName] = calculate_md5sum(sFileName)
+    dHcmConfig['source']['manifest'][sFileName] = calculate_md5sum(sFileName)
     return True
 
 
@@ -106,7 +107,7 @@ def calculate_md5sum(sFileName):
 
 def update_version(dHcmConfig, sVersion):
     logging.info('Updating version...')
-    dHcmConfig['hcm']['version'] = sVersion
+    dHcmConfig['version'] = sVersion
 
 
 def write_configuration_file(dHcmConfig):

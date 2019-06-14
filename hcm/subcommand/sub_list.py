@@ -28,11 +28,11 @@ def sub_list(oCommandLineArguments):
             with open(sHcmName) as json_file:
                 dConfig = json.load(json_file)
             dVersions['components'][sDirectory] = {}
-            copy_key(dVersions, dConfig, sDirectory, 'url')
-            copy_key(dVersions, dConfig, sDirectory, 'version')
-            update_column_width(dVersions, 'max_ver_len', len(dConfig['hcm']['version']))
-            update_column_width(dVersions, 'max_url_len', len(dConfig['hcm']['url']))
-            sUpgrade = str(get_upgrade(utils.get_component_path(dConfig), dConfig['hcm']['version']))
+            copy_url(dVersions, dConfig, sDirectory)
+            copy_version(dVersions, dConfig, sDirectory)
+            update_column_width(dVersions, 'max_ver_len', len(utils.get_version(dConfig)))
+            update_column_width(dVersions, 'max_url_len', len(utils.get_url(dConfig)))
+            sUpgrade = str(get_upgrade(utils.get_component_path(dConfig), utils.get_version(dConfig)))
             dVersions['components'][sDirectory]['upgrade'] = sUpgrade
             update_column_width(dVersions, 'max_upgrade_len', len(sUpgrade))
 
@@ -67,8 +67,12 @@ def update_external(dVersions, sComponent, lExternals):
         dVersions['components'][sComponent]['External'] = False
 
 
-def copy_key(dVersions, dConfig, sDirectory, sKey):
-    dVersions['components'][sDirectory][sKey] = dConfig['hcm'][sKey]
+def copy_version(dVersions, dConfig, sDirectory):
+    dVersions['components'][sDirectory]['version'] = utils.get_version(dConfig)
+
+
+def copy_url(dVersions, dConfig, sDirectory):
+    dVersions['components'][sDirectory]['url'] = utils.get_url(dConfig)
 
 
 def update_column_width(dVersions, sKey, iValue):

@@ -8,12 +8,12 @@ from hcm import svn
 
 def get_version_path(dHcmConfig):
     sUrl = get_component_path(dHcmConfig)
-    sUrl += '/' + dHcmConfig['hcm']['version']
+    sUrl += '/' + dHcmConfig['version']
     return sUrl
 
 
 def get_component_name(dHcmConfig):
-    return dHcmConfig['hcm']['name']
+    return dHcmConfig['name']
 
 
 def get_component_path(dHcmConfig):
@@ -23,11 +23,19 @@ def get_component_path(dHcmConfig):
 
 
 def get_url(dHcmConfig):
-    return dHcmConfig['hcm']['url']
+    return dHcmConfig['publish']['url']
+
+
+def get_source_url(dHcmConfig):
+    return dHcmConfig['source']['url']
 
 
 def get_version(dHcmConfig):
-    return dHcmConfig['hcm']['version']
+    return dHcmConfig['version']
+
+
+def get_manifest(dHcmConfig):
+    return dHcmConfig['source']['manifest']
 
 
 def get_hcm_config_path(dHcmConfig):
