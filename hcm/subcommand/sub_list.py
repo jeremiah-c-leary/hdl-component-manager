@@ -1,6 +1,7 @@
 
 import os
 import json
+import logging
 
 from hcm import svn
 from hcm import utils
@@ -25,8 +26,12 @@ def sub_list(oCommandLineArguments):
         sHcmName = sDirectory + '/hcm.json'
 
         if os.path.isfile(sHcmName):
-            with open(sHcmName) as json_file:
-                dConfig = json.load(json_file)
+            try:
+                with open(sHcmName) as json_file:
+                    dConfig = json.load(json_file)
+            except ValueError:
+                logging.error('Invalid JSON formatted file: ' + sHcmName)
+                exit()
             dVersions['components'][sDirectory] = {}
             copy_url(dVersions, dConfig, sDirectory)
             copy_version(dVersions, dConfig, sDirectory)
