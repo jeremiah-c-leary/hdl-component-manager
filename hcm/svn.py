@@ -126,3 +126,16 @@ def does_directory_have_uncommitted_files(sDirectory):
     if len(lOutput) > 0:
         return True
     return False
+
+
+def get_component_published_versions(sUrl):
+    lReturn = []
+    lVersions = issue_command(['svn', 'list', sUrl]).split('\n')[:-1]
+    for sVersion in lVersions:
+        lReturn.append(sVersion[:-1])
+    return lReturn
+
+
+def get_svn_log_stopped_on_copy(sUrl):
+    lReturn = issue_command(['svn', 'log', '--stop-on-copy', sUrl]).split('\n')[:-1]
+    return lReturn

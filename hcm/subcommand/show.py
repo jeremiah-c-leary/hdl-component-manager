@@ -3,6 +3,7 @@ import json
 import logging
 
 from hcm import utils
+from hcm import svn
 
 
 def show(oCommandLineArguments):
@@ -35,6 +36,8 @@ def show(oCommandLineArguments):
     print(sRow.format('Source', utils.get_source_url(dConfig)))
     print(sRow.format('Dependencies', sDependencies))
     print(build_divider(sRow, iColumn1Max, iColumn2Max))
+
+    print_upgrades(oCommandLineArguments, dConfig)
 
     print_manifest(oCommandLineArguments, dConfig)
 
@@ -74,3 +77,27 @@ def get_dependencies(oCommandLineArguments):
     if dDependencies is None:
         return None
     return ', '.join(dDependencies['requires'].keys())
+
+
+def print_upgrades(oCommandLineArguments, dConfig):
+    if not oCommandLineArguments.upgrades:
+        return
+
+    print('')
+    print('Available Upgrades')
+    print('==================')
+    lVersions = svn.get_component_published_versions(utils.get_component_path(dConfig))
+    if utils.get_version(dConfig) == lVersions[-1]:
+        print('No Upgrades')
+        return
+
+    lVersions.reverse()
+
+    iIndex = lVersions.index(utils.get_version(dConfig))
+
+    for sVersion in lVersions[:iIndex]:
+        print('')
+        print('Version: ' + sVersion)
+        lOutput = svn.get_svn_log_stopped_on_copy(utils.get_component_path(dConfig) + '/' + sVersion)
+        for sLine in lOutput:
+            print(sLine)

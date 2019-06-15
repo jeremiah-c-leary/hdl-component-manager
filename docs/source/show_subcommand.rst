@@ -38,3 +38,76 @@ Example:  Viewing manifest
 
 .. NOTE:: The manifest is extracted from the hcm.json file.
           It does not include any local changes to the files.
+          Use the **validate** subcommand to compare the manifest against what is installed.
+
+Example:  Viewing available upgrades
+------------------------------------
+
+All available upgrades and their log entries can be listed.
+
+.. code-block:: bash
+
+   $ hcm show rook --upgrades
+   ------------     ------------------------------------------------------------------------
+   Component        rook                                                                    
+   Version          3.0.0                                                                   
+   URL              http://svn/my_repo/comps                                 
+   Source           http://svn/my_repo/trunk/project_chess/components/rook@41
+   Dependencies     king, queen                                                             
+   ------------     ------------------------------------------------------------------------
+   
+   Available Upgrades
+   ==================
+   
+   Version: 4.0.0
+   ------------------------------------------------------------------------
+   r42 | jeremiah | 2019-06-11 19:09:53 -0500 (Tue, 11 Jun 2019) | 1 line
+   
+    "testing dependencies"
+   ------------------------------------------------------------------------
+   
+   Version: 3.0.5
+   ------------------------------------------------------------------------
+   r51 | jeremiah | 2019-06-13 19:37:16 -0500 (Thu, 13 Jun 2019) | 1 line
+   
+    "Updating hcm config to the latest version."
+   ------------------------------------------------------------------------
+   
+   Version: 3.0.4
+   ------------------------------------------------------------------------
+   r49 | jeremiah | 2019-06-12 20:02:38 -0500 (Wed, 12 Jun 2019) | 1 line
+   
+    "Adding invalid component to test how HCM handles it."
+   ------------------------------------------------------------------------
+   
+   Version: 3.0.3
+   ------------------------------------------------------------------------
+   r35 | jeremiah | 2019-05-30 22:00:03 -0500 (Thu, 30 May 2019) | 1 line
+   
+    "testing -m works"
+   ------------------------------------------------------------------------
+   
+   Version: 3.0.2
+   ------------------------------------------------------------------------
+   r34 | jeremiah | 2019-05-30 21:58:38 -0500 (Thu, 30 May 2019) | 6 lines
+   
+   This is a test of using the -F argument when publishing.
+   
+   It should allow the use of a file instead of a single line for the commit message.
+   
+   
+   
+   ------------------------------------------------------------------------
+   
+   Version: 3.0.1
+   ------------------------------------------------------------------------
+   r33 | jeremiah | 2019-05-30 21:57:37 -0500 (Thu, 30 May 2019) | 6 lines
+   
+   This is a test of using the -F argument when publishing.
+   
+   It should allow the use of a file instead of a single line for the commit message.
+   
+   
+   
+   ------------------------------------------------------------------------
+
