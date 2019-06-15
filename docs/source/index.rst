@@ -19,6 +19,7 @@ hdl-component-manager
    publish_subcommand.rst
    show_subcommand.rst
    theory_of_operation/theory_of_operation.rst
+   scenarios/scenarios.rst
    contributing.rst
 
 Indices and tables
