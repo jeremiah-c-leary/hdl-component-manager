@@ -2,9 +2,11 @@
 import logging
 import unittest
 from unittest import mock
+import json
 
 from hcm import utils
 
+sTestLocation = 'tests/subcommand/publish/'
 
 class testUtilsMethods(unittest.TestCase):
 
@@ -83,3 +85,21 @@ class testUtilsMethods(unittest.TestCase):
         dExpected['third'] = '3'
 
         self.assertEqual(utils.get_manifest(self.dHcmConfig), dExpected)
+
+
+class testReadHcmJsonFile(unittest.TestCase):
+
+  def setUp(self):
+      logging.disable(logging.CRITICAL)
+
+  def tearDown(self):
+      logging.disable(logging.NOTSET)
+
+  def test_reading_json_file(self):
+      with open(sTestLocation + 'rook/hcm.json') as json_file:
+          dRookExpected = json.load(json_file)
+
+      self.assertEqual(utils.read_hcm_json_file(sTestLocation + 'knight'), None)
+      self.assertEqual(utils.read_hcm_json_file(sTestLocation + 'rook'), dRookExpected)
+      self.assertEqual(utils.read_hcm_json_file(sTestLocation + 'errored_rook'), None)
+

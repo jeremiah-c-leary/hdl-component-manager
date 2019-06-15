@@ -29,19 +29,6 @@ def extract_url(sUrl):
     return sHcmUrlPaths
 
 
-def read_hcm_json_file(sComponentName):
-    logging.info('Searching for hcm.json file...')
-    sHcmName = sComponentName + '/hcm.json'
-    try:
-        with open(sHcmName) as json_file:
-            return json.load(json_file)
-    except IOError:
-        logging.warning('Did not find hcm.json for component ' + sComponentName + '.')
-        return None
-    except ValueError:
-        logging.warning('Error in JSON file ' + sComponentName + '/hcm.json')
-        return None
-
 
 def create_default_hcm_dictionary(sName, sVersion, sUrl):
     logging.info('Creating default hcm.json file...')
@@ -96,13 +83,8 @@ def add_file_to_manifest(dHcmConfig, sFileName):
         return False
     if '.svn' in sFileName:
         return False
-    dHcmConfig['source']['manifest'][sFileName] = calculate_md5sum(sFileName)
+    dHcmConfig['source']['manifest'][sFileName] = utils.calculate_md5sum(sFileName)
     return True
-
-
-def calculate_md5sum(sFileName):
-    lOutput = subprocess.check_output(['md5sum', sFileName], stderr=subprocess.STDOUT).decode('ascii').split('\n')
-    return lOutput[0].split()[0]
 
 
 def update_version(dHcmConfig, sVersion):
@@ -172,7 +154,7 @@ def publish(oCommandLineArguments):
 
         sUrl = extract_url(oCommandLineArguments.url)
 
-        dHcmConfig = read_hcm_json_file(oCommandLineArguments.component)
+        dHcmConfig = utils.read_hcm_json_file(oCommandLineArguments.component)
         if not dHcmConfig:
             dHcmConfig = create_default_hcm_dictionary(oCommandLineArguments.component, oCommandLineArguments.version, sUrl)
 

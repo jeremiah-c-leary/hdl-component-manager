@@ -6,22 +6,23 @@ HCM can be invoked by issuing **hcm** at the command line prompt:
 .. code-block:: bash
 
     $ hcm
-    usage: hcm [-h] {create,install,list,publish,show} ...
+    usage: hcm [-h] {create,install,list,publish,show,validate} ...
     
     Provides configuration management for HDL components.
     
     positional arguments:
-      {create,install,list,publish,show}
+      {create,install,list,publish,show,validate}
         create              Creates a component repo
         install             Adds a component from the component repo
         list                Lists components and their versions
         publish             Adds components to the component repo
         show                Displays information about installed components
+        validate            Verifies manifest of installed component
     
     optional arguments:
       -h, --help            show this help message and exit
 
-HCM has four subcommands:  create, install, list, and publish.
+HCM has six subcommands:  create, install, list, publish, show, and validate.
 
 create
 ------
@@ -121,6 +122,23 @@ The arguments for the subcommand can be listed using the *-h* options:
     optional arguments:
       -h, --help  show this help message and exit
       --manifest  Displays manifest for all files in component
+
+validate
+--------
+
+Use the **validate** subcommand to compare the component manifest against what is currently installed.
+The arguments for the subcommand can be listed using the *-h* options:
+
+.. code-block:: bash
+
+    $ hcm validate -h
+    usage: hcm validate [-h] component
+    
+    positional arguments:
+      component   Component to display information
+    
+    optional arguments:
+      -h, --help  show this help message and exit
 
 Environment Variables
 ---------------------

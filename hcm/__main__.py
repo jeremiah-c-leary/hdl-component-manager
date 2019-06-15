@@ -26,12 +26,14 @@ def parse_command_line_arguments():
     list_parser = subparsers.add_parser('list', help='Lists components and their versions')
     publish_parser = subparsers.add_parser('publish', help='Adds components to the component repo')
     show_parser = subparsers.add_parser('show', help='Displays information about installed components')
+    validate_parser = subparsers.add_parser('validate', help='Verifies manifest of installed component')
 
     build_create_parser(create_parser)
     build_install_parser(install_parser)
     build_publish_parser(publish_parser)
     build_list_parser(list_parser)
     build_show_parser(show_parser)
+    build_validate_parser(validate_parser)
 
     print_help_if_no_command_line_options_given(top_parser)
 
@@ -40,6 +42,11 @@ def parse_command_line_arguments():
     check_for_correctly_formed_version_argument(oArgs)
 
     return oArgs
+
+
+def build_validate_parser(oParser):
+    oParser.add_argument('component', help='Component to display information')
+    oParser.set_defaults(which='validate')
 
 
 def build_show_parser(oParser):
@@ -122,6 +129,8 @@ def main():
         subcommand.sub_list(commandLineArguments)
     if commandLineArguments.which == 'show':
         subcommand.show(commandLineArguments)
+    if commandLineArguments.which == 'validate':
+        subcommand.validate(commandLineArguments.component)
 
     sys.exit(0)
 

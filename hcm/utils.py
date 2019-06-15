@@ -3,6 +3,8 @@ import os
 import re
 import yaml
 import logging
+import subprocess
+import json
 
 from hcm import svn
 
@@ -73,3 +75,23 @@ def read_dependencies(sDirectory):
     except:
         logging.error('Error in dependency file: ' + sFileName)
         exit()
+
+
+def calculate_md5sum(sFileName):
+    lOutput = subprocess.check_output(['md5sum', sFileName], stderr=subprocess.STDOUT).decode('ascii').split('\n')
+    return lOutput[0].split()[0]
+
+
+def read_hcm_json_file(sComponentName):
+    logging.info('Searching for hcm.json file...')
+    sHcmName = sComponentName + '/hcm.json'
+    try:
+        with open(sHcmName) as json_file:
+            return json.load(json_file)
+    except IOError:
+        logging.warning('Did not find hcm.json for component ' + sComponentName + '.')
+        return None
+    except ValueError:
+        logging.warning('Error in JSON file ' + sComponentName + '/hcm.json')
+        return None
+

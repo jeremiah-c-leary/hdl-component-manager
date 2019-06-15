@@ -29,23 +29,6 @@ class testExtractUrl(unittest.TestCase):
       self.assertRaises(SystemExit, extract_url, None)
 
 
-class testReadHcmJsonFile(unittest.TestCase):
-
-  def setUp(self):
-      logging.disable(logging.CRITICAL)
-
-  def tearDown(self):
-      logging.disable(logging.NOTSET)
-
-  def test_reading_json_file(self):
-      with open(sTestLocation + 'rook/hcm.json') as json_file:
-          dRookExpected = json.load(json_file)
-
-      self.assertEqual(read_hcm_json_file(sTestLocation + 'knight'), None)
-      self.assertEqual(read_hcm_json_file(sTestLocation + 'rook'), dRookExpected)
-      self.assertEqual(read_hcm_json_file(sTestLocation + 'errored_rook'), None)
-
-
 class testCreateDefaultHcmDictionary(unittest.TestCase):
 
   def setUp(self):
