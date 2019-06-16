@@ -158,11 +158,18 @@ def update_externals(sUrlPath, sComponent):
     logging.info('Updating externals')
     lExternals = svn.get_externals('.').split('\n')[:-1]
     lFile = []
+    fExternalFound = False
     for sExternal in lExternals:
+        if sExternal == '':
+            continue
         if sExternal.endswith(sComponent):
             lFile.append(sUrlPath + ' ' + sComponent)
+            fExternalFound = True
         else:
             lFile.append(sExternal)
+
+    if not fExternalFound:
+        lFile.append(sUrlPath + ' ' + sComponent)
 
     with open('.hcm_externals.txt', 'w') as outfile:
         for sLine in lFile:

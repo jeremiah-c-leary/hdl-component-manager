@@ -125,7 +125,3 @@ class testInstallSubcommand(unittest.TestCase):
       self.assertTrue(is_component_externalled('castle', True))
       self.assertFalse(is_component_externalled('rook', False))
       self.assertFalse(is_component_externalled('queen', False))
-
-#  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
-#  def test_update_externals(self, mocked_function):
-#      self.assertTrue(update_externals('http://svn/external_repo/pawn/10.1.0', 'pawn'), False)

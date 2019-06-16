@@ -102,7 +102,7 @@ class testSvnMethods(unittest.TestCase):
       sExpected += "http://svn/external_repo/blocks/pawn/3.0.0 pawn\n"
 
       self.assertEqual(svn.get_externals('.'), sExpected)
-      self.assertEqual(svn.get_externals('fail'), None)
+      self.assertEqual(svn.get_externals('fail'), '')
 
 
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)

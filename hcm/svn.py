@@ -78,7 +78,7 @@ def get_externals(sDirectory):
     try:
         return issue_command(['svn', 'propget', 'svn:externals', sDirectory])
     except subprocess.CalledProcessError:
-        return None
+        return ''
 
 
 def directory_has_committed_modifications(sDirectory):
