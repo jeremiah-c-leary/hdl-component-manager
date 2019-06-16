@@ -12,7 +12,7 @@ After viewing the component repository, we decide to pull in version 3.0.0 of th
 
 .. code-block:: bash
 
-   $ hcm install rook 3.0.0
+   $ hcm install rook --version 3.0.0
    INFO:Installing component rook version 3.0.0
    INFO:Validating all files for component rook are committed.
    INFO:Removing local component directory
@@ -24,7 +24,7 @@ It will search each path for a matching component name and version.
 Example:  Installing the latest version of a component
 ------------------------------------------------------
 
-If the version argument is left blank, then HCM will install the latest version of the component.
+If the version argument is not use, then HCM will install the latest version of the component.
 
 .. code-block:: bash
 
@@ -42,7 +42,7 @@ If this is not the case, then HCM will not install over the existing directory.
 
 .. code-block:: bash
 
-   $ ../../bin/hcm install rook 3.0.0
+   $ ../../bin/hcm install rook --version 3.0.0
    INFO:Installing component rook version 3.0.0
    INFO:Validating all files for component rook are committed.
    ERROR:The following files must be committed or removed:
@@ -52,7 +52,7 @@ This behavior can be overridden by using the **--force** command line option.
 
 .. code-block:: bash
 
-   $ hcm install rook 3.0.0 --force
+   $ hcm install rook --version 3.0.0 --force
    INFO:Installing component rook version 3.0.0
    INFO:Removing local component directory
    INFO:Installation complete
@@ -64,7 +64,7 @@ When installing from an external repo, HCM must use the **svn export** command.
 
 .. code-block:: bash
 
-   $ hcm install pawn 1.0.0 --url http://svn/external_repo/blocks
+   $ hcm install pawn --version 1.0.0 --url http://svn/external_repo/blocks
    INFO:Installing component pawn version 1.0.0
    INFO:Validating all files for component pawn are committed.
    INFO:Removing local component directory
@@ -103,7 +103,7 @@ An external is a essentially a pointer to directory in a repository.
 
 .. code-block:: bash
 
-   $ hcm install pawn 3.0.0 --external
+   $ hcm install pawn --version 3.0.0 --external
    INFO:Installing component pawn version 3.0.0
    INFO:Validating all files for component pawn are committed.
    INFO:Removing local component directory
