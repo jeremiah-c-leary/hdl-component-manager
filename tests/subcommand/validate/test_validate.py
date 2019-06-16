@@ -1,9 +1,6 @@
 
 import unittest
-from unittest import mock
 import logging
-import json
-import copy
 
 from hcm.subcommand.validate import *
 

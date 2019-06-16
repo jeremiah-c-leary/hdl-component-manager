@@ -418,6 +418,5 @@ def parse_svn_info_command(sDirectory):
         sReturn += '\n'
     else:
         raise subprocess.CalledProcessError(0, 'svn info')
-        
 
     return sReturn

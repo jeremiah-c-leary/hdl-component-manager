@@ -1,6 +1,5 @@
 
 import logging
-import subprocess
 import os
 
 from hcm import utils
@@ -31,7 +30,7 @@ def generate_manifest(sDirectory):
             add_file_to_manifest(dManifest, sFileName)
     return dManifest
 
-    
+
 def add_file_to_manifest(dManifest, sFileName):
     if 'hcm.json' in sFileName:
         return False
