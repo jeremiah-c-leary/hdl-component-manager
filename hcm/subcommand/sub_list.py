@@ -32,6 +32,9 @@ def sub_list(oCommandLineArguments):
             except ValueError:
                 logging.error('Invalid JSON formatted file: ' + sHcmName)
                 exit()
+            if not utils.is_hcm_json_file_valid(dConfig):
+                logging.error(sHcmName + ' is missing information')
+                exit()
             dVersions['components'][sDirectory] = {}
             copy_url(dVersions, dConfig, sDirectory)
             copy_version(dVersions, dConfig, sDirectory)

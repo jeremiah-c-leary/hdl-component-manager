@@ -26,7 +26,10 @@ def get_component_path(dHcmConfig):
 
 
 def get_url(dHcmConfig):
-    return dHcmConfig['publish']['url']
+    try:
+        return dHcmConfig['publish']['url']
+    except KeyError as e:
+        raise e
 
 
 def get_source_url(dHcmConfig):
@@ -95,3 +98,35 @@ def read_hcm_json_file(sComponentName):
         logging.warning('Error in JSON file ' + sComponentName + '/hcm.json')
         return None
 
+
+def is_hcm_json_file_valid(dHcmJsonFile):
+    fReturn = True
+    if not 'publish' in dHcmJsonFile:
+        logging.warning('hcm.json file is missing the \'publish\' key')
+        fReturn = False
+    else:
+        if not 'url' in dHcmJsonFile['publish']:
+            logging.warning('hcm.json file is missing the \'publish url\' key')
+            fReturn = False
+
+    if not 'name' in dHcmJsonFile:
+        logging.warning('hcm.json file is missing the \'name\' key')
+        fReturn = False
+
+    if not 'version' in dHcmJsonFile:
+        logging.warning('hcm.json file is missing the \'version\' key')
+        fReturn = False
+
+    if not 'source' in dHcmJsonFile:
+        logging.warning('hcm.json file is missing the \'source\' key')
+        fReturn = False
+    else:
+        if not 'url' in dHcmJsonFile['source']:
+            logging.warning('hcm.json file is missing the \'source url\' key')
+            fReturn = False
+        if not 'manifest' in dHcmJsonFile['source']:
+            logging.warning('hcm.json file is missing the \'source manifest\' key')
+            fReturn = False
+
+
+    return fReturn

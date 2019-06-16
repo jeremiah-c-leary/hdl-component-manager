@@ -103,3 +103,50 @@ class testReadHcmJsonFile(unittest.TestCase):
       self.assertEqual(utils.read_hcm_json_file(sTestLocation + 'rook'), dRookExpected)
       self.assertEqual(utils.read_hcm_json_file(sTestLocation + 'errored_rook'), None)
 
+
+class test_is_hcm_json_file_valid(unittest.TestCase):
+
+  def setUp(self):
+      self.dHcmJsonFile = {}
+      self.dHcmJsonFile['publish'] = {}
+      self.dHcmJsonFile['publish']['url'] = 'publish url'
+      self.dHcmJsonFile['name'] = 'name'
+      self.dHcmJsonFile['version'] = 'version'
+      self.dHcmJsonFile['source'] = {}
+      self.dHcmJsonFile['source']['manifest'] = []
+      self.dHcmJsonFile['source']['url'] = 'source url'
+      logging.disable(logging.CRITICAL)
+
+  def tearDown(self):
+        logging.disable(logging.NOTSET)
+
+  def test_valid_hcm_json_file(self):
+      self.assertTrue(utils.is_hcm_json_file_valid(self.dHcmJsonFile))
+
+  def test_is_hcm_json_file_missing_publish_key(self):
+      self.dHcmJsonFile.pop('publish')
+      self.assertFalse(utils.is_hcm_json_file_valid(self.dHcmJsonFile))
+
+  def test_is_hcm_json_file_missing_publish_url_key(self):
+      self.dHcmJsonFile['publish'].pop('url')
+      self.assertFalse(utils.is_hcm_json_file_valid(self.dHcmJsonFile))
+
+  def test_is_hcm_json_file_missing_name_key(self):
+      self.dHcmJsonFile.pop('name')
+      self.assertFalse(utils.is_hcm_json_file_valid(self.dHcmJsonFile))
+
+  def test_is_hcm_json_file_missing_version_key(self):
+      self.dHcmJsonFile.pop('version')
+      self.assertFalse(utils.is_hcm_json_file_valid(self.dHcmJsonFile))
+
+  def test_is_hcm_json_file_missing_source_key(self):
+      self.dHcmJsonFile.pop('source')
+      self.assertFalse(utils.is_hcm_json_file_valid(self.dHcmJsonFile))
+
+  def test_is_hcm_json_file_missing_source_url_key(self):
+      self.dHcmJsonFile['source'].pop('url')
+      self.assertFalse(utils.is_hcm_json_file_valid(self.dHcmJsonFile))
+
+  def test_is_hcm_json_file_missing_source_manifest_key(self):
+      self.dHcmJsonFile['source'].pop('manifest')
+      self.assertFalse(utils.is_hcm_json_file_valid(self.dHcmJsonFile))
