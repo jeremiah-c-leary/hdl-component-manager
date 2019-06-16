@@ -1,6 +1,7 @@
 
 import subprocess
 import logging
+import os
 
 
 def issue_command(lCommand):
@@ -139,3 +140,61 @@ def get_component_published_versions(sUrl):
 def get_svn_log_stopped_on_copy(sUrl):
     lReturn = issue_command(['svn', 'log', '--stop-on-copy', sUrl]).split('\n')[:-1]
     return lReturn
+
+
+def remove_external(sComponent):
+    lExternals = get_externals('.').split('\n')[:-1]
+    lNewExternals = []
+    for sExternal in lExternals:
+        if sExternal == '':
+            continue
+        if sExternal.endswith(sComponent):
+            continue
+        else:
+            lNewExternals.append(sExternal)
+    if lNewExternals == []:
+        delete_svn_externals_property()
+    else:
+        update_externals(lNewExternals)
+
+
+def update_externals(lExternals):
+    with open('.hcm_externals.txt', 'w') as outfile:
+        for sLine in lExternals:
+            if sLine is lExternals[-1]:
+                outfile.write(sLine)
+            else:
+                outfile.write(sLine + '\n')
+    issue_command(['svn', 'propset', 'svn:externals', '-F' '.hcm_externals.txt', '.'])
+    os.remove('.hcm_externals.txt')
+
+
+def is_component_externalled(sComponent, fExternal=False):
+    if fExternal:
+        return True
+
+    try:
+        lExternals = get_externals('.').split('\n')[:-1]
+        for sExternal in lExternals:
+            if sExternal.endswith(sComponent):
+                return True
+    except AttributeError:
+        return False
+
+    return False
+
+
+def update_current_directory():
+    issue_command(['svn', 'update', '.'])
+
+
+def delete_svn_externals_property():
+    issue_command(['svn', 'propdel', 'svn:externals'])
+
+
+def is_directory_under_svn_control(sDirectory):
+    try:
+        issue_command(['svn', 'info', sDirectory])
+        return True
+    except subprocess.CalledProcessError:
+        return False

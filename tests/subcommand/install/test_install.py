@@ -117,11 +117,3 @@ class testInstallSubcommand(unittest.TestCase):
       install(command_line_args(None, 'bishop', '1.0.0', None))
       self.assertTrue(os.path.isdir('bishop'))
 
-  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
-  def test_is_component_externaled(self, mocked_function):
-      self.assertTrue(is_component_externalled('pawn', False))
-      self.assertTrue(is_component_externalled('unknown', True))
-      self.assertTrue(is_component_externalled('pawn', True))
-      self.assertTrue(is_component_externalled('castle', True))
-      self.assertFalse(is_component_externalled('rook', False))
-      self.assertFalse(is_component_externalled('queen', False))

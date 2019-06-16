@@ -63,7 +63,7 @@ def install_component(oCommandLineArguments):
 
     sFinalUrlPath = validate_urls(lUrl, sComponent, sVersion)
 
-    fExternalled = is_component_externalled(sComponent, fExternal)
+    fExternalled = svn.is_component_externalled(sComponent, fExternal)
 
     if not fForce:
         svn.is_directory_status_clean(sComponent)
@@ -73,7 +73,7 @@ def install_component(oCommandLineArguments):
     sRootUrl = svn.extract_root_url_from_directory('.')
     if fExternalled:
         update_externals(sFinalUrlPath, sComponent)
-        svn.issue_command(['svn', 'update', '.'])
+        svn.update_current_directory()
     elif sFinalUrlPath.startswith(sRootUrl):
         svn.copy(sFinalUrlPath, sComponent)
     else:
@@ -137,21 +137,6 @@ def validate_urls(lUrl, sComponent, sVersion):
         exit()
 
     return sFinalUrlPath
-
-
-def is_component_externalled(sComponent, fExternal):
-    if fExternal:
-        return True
-
-    try:
-        lExternals = svn.get_externals('.').split('\n')[:-1]
-        for sExternal in lExternals:
-            if sExternal.endswith(sComponent):
-                return True
-    except AttributeError:
-        return False
-
-    return False
 
 
 def update_externals(sUrlPath, sComponent):

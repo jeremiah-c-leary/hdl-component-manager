@@ -118,3 +118,12 @@ class testSvnMethods(unittest.TestCase):
       self.assertTrue(svn.does_directory_have_uncommitted_files('castle'))
       self.assertFalse(svn.does_directory_have_uncommitted_files('queen'))
       self.assertFalse(svn.does_directory_have_uncommitted_files('bishop'))
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  def test_is_component_externaled(self, mocked_function):
+      self.assertTrue(svn.is_component_externalled('pawn', False))
+      self.assertTrue(svn.is_component_externalled('unknown', True))
+      self.assertTrue(svn.is_component_externalled('pawn', True))
+      self.assertTrue(svn.is_component_externalled('castle', True))
+      self.assertFalse(svn.is_component_externalled('rook', False))
+      self.assertFalse(svn.is_component_externalled('queen', False))

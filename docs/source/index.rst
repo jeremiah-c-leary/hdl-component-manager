@@ -15,6 +15,7 @@ hdl-component-manager
    usage.rst
    create_subcommand.rst
    install_subcommand.rst
+   uninstall_subcommand.rst
    list_subcommand.rst
    publish_subcommand.rst
    show_subcommand.rst

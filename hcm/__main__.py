@@ -23,6 +23,7 @@ def parse_command_line_arguments():
 
     create_parser = subparsers.add_parser('create', help='Creates a component repo')
     install_parser = subparsers.add_parser('install', help='Adds a component from the component repo')
+    uninstall_parser = subparsers.add_parser('uninstall', help='Removes installed components')
     list_parser = subparsers.add_parser('list', help='Lists components and their versions')
     publish_parser = subparsers.add_parser('publish', help='Adds components to the component repo')
     show_parser = subparsers.add_parser('show', help='Displays information about installed components')
@@ -30,6 +31,7 @@ def parse_command_line_arguments():
 
     build_create_parser(create_parser)
     build_install_parser(install_parser)
+    build_uninstall_parser(uninstall_parser)
     build_publish_parser(publish_parser)
     build_list_parser(list_parser)
     build_show_parser(show_parser)
@@ -70,6 +72,11 @@ def build_install_parser(oParser):
     oParser.add_argument('--dependencies', default=False, action='store_true', help='Install dependencies')
     oParser.add_argument('--upgrade', default=False, action='store_true', help='Upgrade dependencies to latest version')
     oParser.set_defaults(which='install')
+
+
+def build_uninstall_parser(oParser):
+    oParser.add_argument('component', help='Installed Component name to install')
+    oParser.set_defaults(which='uninstall')
 
 
 def build_list_parser(oParser):
@@ -126,6 +133,8 @@ def main():
         subcommand.publish(commandLineArguments)
     if commandLineArguments.which == 'install':
         subcommand.install(commandLineArguments)
+    if commandLineArguments.which == 'uninstall':
+        subcommand.uninstall(commandLineArguments)
     if commandLineArguments.which == 'list':
         subcommand.sub_list(commandLineArguments)
     if commandLineArguments.which == 'show':

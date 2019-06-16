@@ -64,6 +64,8 @@ def parse_externals_into_components():
             lExternals.append(lLine[-1])
     except AttributeError:
         pass
+    except IndexError:
+        pass
 
     return lExternals
 

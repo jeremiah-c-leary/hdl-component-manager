@@ -8,6 +8,7 @@ This section details how HCM performs it's tasks.
 .. include:: hcm_configuration_file.rst
 .. include:: publishing.rst
 .. include:: installing.rst
+.. include:: uninstalling.rst
 .. include:: dependencies.rst
 .. include:: dependencies_file.rst
 .. include:: listing.rst

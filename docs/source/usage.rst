@@ -6,14 +6,15 @@ HCM can be invoked by issuing **hcm** at the command line prompt:
 .. code-block:: bash
 
     $ hcm
-    usage: hcm [-h] {create,install,list,publish,show,validate} ...
+    usage: hcm [-h] {create,install,uninstall,list,publish,show,validate} ...
     
     Provides configuration management for HDL components.
     
     positional arguments:
-      {create,install,list,publish,show,validate}
+      {create,install,uninstall,list,publish,show,validate}
         create              Creates a component repo
         install             Adds a component from the component repo
+        uninstall           Removes installed components
         list                Lists components and their versions
         publish             Adds components to the component repo
         show                Displays information about installed components
@@ -22,7 +23,7 @@ HCM can be invoked by issuing **hcm** at the command line prompt:
     optional arguments:
       -h, --help            show this help message and exit
 
-HCM has six subcommands:  create, install, list, publish, show, and validate.
+HCM has seven subcommands:  create, install, uninstall, list, publish, show, and validate.
 
 create
 ------
@@ -65,6 +66,23 @@ The arguments for the subcommand can be listed using the *-h* option:
       --external         Install as an external
       --dependencies     Install dependencies
       --upgrade          Upgrade dependencies to latest version
+
+uninstall
+---------
+
+Use the **uninstall** subcommand to remove installed components.
+The arguments for the subcommand can be listed using the *-h* option:
+
+.. code-block:: bash
+
+    $ hcm uninstall -h
+    usage: hcm uninstall [-h] component
+    
+    positional arguments:
+      component   Installed Component name to install
+    
+    optional arguments:
+      -h, --help  show this help message and exit
 
 list
 ----
