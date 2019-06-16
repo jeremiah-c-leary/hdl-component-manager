@@ -101,32 +101,31 @@ def read_hcm_json_file(sComponentName):
 
 def is_hcm_json_file_valid(dHcmJsonFile):
     fReturn = True
-    if not 'publish' in dHcmJsonFile:
+    if 'publish' not in dHcmJsonFile:
         logging.warning('hcm.json file is missing the \'publish\' key')
         fReturn = False
     else:
-        if not 'url' in dHcmJsonFile['publish']:
+        if 'url' not in dHcmJsonFile['publish']:
             logging.warning('hcm.json file is missing the \'publish url\' key')
             fReturn = False
 
-    if not 'name' in dHcmJsonFile:
+    if 'name' not in dHcmJsonFile:
         logging.warning('hcm.json file is missing the \'name\' key')
         fReturn = False
 
-    if not 'version' in dHcmJsonFile:
+    if 'version' not in dHcmJsonFile:
         logging.warning('hcm.json file is missing the \'version\' key')
         fReturn = False
 
-    if not 'source' in dHcmJsonFile:
+    if 'source' not in dHcmJsonFile:
         logging.warning('hcm.json file is missing the \'source\' key')
         fReturn = False
     else:
-        if not 'url' in dHcmJsonFile['source']:
+        if 'url' not in dHcmJsonFile['source']:
             logging.warning('hcm.json file is missing the \'source url\' key')
             fReturn = False
-        if not 'manifest' in dHcmJsonFile['source']:
+        if 'manifest' not in dHcmJsonFile['source']:
             logging.warning('hcm.json file is missing the \'source manifest\' key')
             fReturn = False
-
 
     return fReturn
