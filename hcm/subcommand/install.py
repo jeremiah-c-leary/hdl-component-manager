@@ -65,6 +65,11 @@ def install_component(oCommandLineArguments):
 
     fExternalled = svn.is_component_externalled(sComponent, fExternal)
 
+    if svn.is_directory_under_svn_control(sComponent) and fExternal and not svn.is_component_externalled(sComponent, False):
+        logging.error('Can not install external over a committed directory.')
+        logging.error('SVN delete component and commit first, then you can install an external.')
+        exit()
+
     if not fForce:
         svn.is_directory_status_clean(sComponent)
 
