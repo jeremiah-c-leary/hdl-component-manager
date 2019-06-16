@@ -29,7 +29,6 @@ def extract_url(sUrl):
     return sHcmUrlPaths
 
 
-
 def create_default_hcm_dictionary(sName, sVersion, sUrl):
     logging.info('Creating default hcm.json file...')
     dReturn = {}
