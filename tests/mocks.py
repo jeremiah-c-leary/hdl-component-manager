@@ -57,10 +57,30 @@ def parse_svn_command(lList):
             return parse_svn_copy_command(lList[1:], dSvnRepos)
         if lList[0] == 'propget' and lList[1] == 'svn:externals':
             return parse_svn_externals_command(lList[2])
+        if lList[0] == 'log':
+            return parse_svn_log_command(lList[1:])
 
 
     except subprocess.CalledProcessError as e:
         raise e
+
+
+def parse_svn_log_command(lArgs):
+
+    sOutput = '------------------------------------------------------------------------\n'
+    sOutput += 'r10 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line\n'
+    sOutput += '\n'
+    sOutput += 'initial release\n'
+    sOutput += '------------------------------------------------------------------------\n'
+    if lArgs[0] == '--stop-on-copy':
+        return sOutput
+    sOutput += 'r8 | jeremiah | 2019-05-19 18:42:49 -0500 (Sun, 19 May 2019) | 2 lines\n'
+    sOutput += '\n'
+    sOutput += 'Adding rook.\n'
+    sOutput += '\n'
+    sOutput += '------------------------------------------------------------------------\n'
+
+    return sOutput
 
 
 def parse_svn_externals_command(sDirectory):

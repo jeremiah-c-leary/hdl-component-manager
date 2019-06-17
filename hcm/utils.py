@@ -26,10 +26,7 @@ def get_component_path(dHcmConfig):
 
 
 def get_url(dHcmConfig):
-    try:
-        return dHcmConfig['publish']['url']
-    except KeyError as e:
-        raise e
+    return dHcmConfig['publish']['url']
 
 
 def get_source_url(dHcmConfig):

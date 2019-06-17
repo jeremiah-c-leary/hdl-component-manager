@@ -127,3 +127,22 @@ class testSvnMethods(unittest.TestCase):
       self.assertTrue(svn.is_component_externalled('castle', True))
       self.assertFalse(svn.is_component_externalled('rook', False))
       self.assertFalse(svn.is_component_externalled('queen', False))
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  def test_get_component_published_versions(self, mocked_function):
+      lExpected = ['1.0.0', '1.1.0']
+      self.assertEqual(svn.get_component_published_versions('http://svn/external_repo/comps/king'), lExpected)
+      lExpected = []
+      self.assertEqual(svn.get_component_published_versions('http://svn/my_repo/pawn'), lExpected)
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  def test_get_svn_log_stopped_on_copy(self, mocked_function):
+      lExpected = []
+      lExpected.append('------------------------------------------------------------------------')
+      lExpected.append('r10 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line')
+      lExpected.append('')
+      lExpected.append('initial release')
+      lExpected.append('------------------------------------------------------------------------')
+
+      self.assertEqual(svn.get_svn_log_stopped_on_copy('http://svn/my_repo/comps/rook'), lExpected)
+
