@@ -17,6 +17,7 @@ def validate(sComponent):
 
         if dHcmJsonFile['source']['manifest'] != dManifest:
             logging.error('Installed component does not match manifest.')
+            exit(1)
         else:
             logging.info('Installed component matches manifest.')
 
