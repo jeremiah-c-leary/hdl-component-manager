@@ -43,5 +43,4 @@ class testUpdateManifest(unittest.TestCase):
 
   def test_validate(self):
       self.assertRaises(SystemExit, validate, sTestLocation + 'bad_rook')
-      self.assertEqual(validate(sTestLocation + 'rook'), None)      
-      
+      self.assertEqual(validate(sTestLocation + 'rook'), None)

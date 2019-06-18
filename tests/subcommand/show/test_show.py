@@ -61,7 +61,7 @@ class testUpdateManifest(unittest.TestCase):
 
   @mock.patch('sys.stdout')
   def test_print_manifest(self, mockStdout):
-     
+
       self.assertEqual(print_manifest(self.oCommandLineArguments, self.dHcmJsonFile), None)
       self.oCommandLineArguments.component = 'rook'
       self.oCommandLineArguments.manifest = True
