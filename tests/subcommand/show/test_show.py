@@ -227,3 +227,7 @@ class testUpdateManifest(unittest.TestCase):
           mock.call('------------     ------------------------------------------------------------------------'),
           mock.call('\n')
       ])
+
+  def test_show_with_invalid_directory(self):
+
+      self.assertRaises(SystemExit, show, self.oCommandLineArguments)
