@@ -90,20 +90,24 @@ def directory_has_committed_modifications(sDirectory):
     if sHcmRevision is None:
         return False
 
-    return is_there_a_file_with_a_later_revision_than_hcm_json(lOutput, sHcmRevision)
+    return is_there_a_file_with_a_later_revision_than_hcm_json(lOutput, sHcmRevision, sDirectory)
 
 
-def is_there_a_file_with_a_later_revision_than_hcm_json(lOutput, sHcmRevision):
-    sRevision = what_is_the_latest_file_revision(lOutput)
+def is_there_a_file_with_a_later_revision_than_hcm_json(lOutput, sHcmRevision, sDirectory):
+    sRevision = what_is_the_latest_file_revision(lOutput, sDirectory)
     if str(sRevision) != str(sHcmRevision):
         return True
 
     return False
 
 
-def what_is_the_latest_file_revision(lOutput):
+def what_is_the_latest_file_revision(lOutput, sDirectory):
     iMaxRevision = 0
+    fDirectoryFound = False
     for sLine in lOutput:
+        if 'Last Changed Rev:' in sLine and not fDirectoryFound:
+            fDirectoryFound = True
+            continue
         if 'Last Changed Rev:' in sLine:
             lLine = sLine.split()
             iMaxRevision = max(iMaxRevision, int(lLine[-1]))

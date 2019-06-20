@@ -373,7 +373,7 @@ def parse_svn_info_command(sDirectory):
         sReturn += 'Node Kind: directory\n'
         sReturn += 'Schedule: normal\n'
         sReturn += 'Last Changed Author: jeremiah\n'
-        sReturn += 'Last Changed Rev: 5\n'
+        sReturn += 'Last Changed Rev: 6\n'
         sReturn += 'Last Changed Date: 2019-05-29 21:45:44 -0500 (Wed, 29 May 2019)\n'
         sReturn += '\n'
         sReturn += 'Path: pawn/hcm.json\n'
