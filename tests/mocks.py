@@ -281,7 +281,7 @@ def parse_svn_info_command(sDirectory):
         sReturn += 'Relative URL: ^/trunk/project_chess/components/rook/rtl/rook.vhd\n'
         sReturn += 'Repository Root: http://svn/my_repo\n'
         sReturn += 'Repository UUID: 321bcf6c-b4d1-4a84-b4b7-55c366bdaac7\n'
-        sReturn += 'Revision: 40\n'
+        sReturn += 'Revision: 39\n'
         sReturn += 'Node Kind: file\n'
         sReturn += 'Schedule: normal\n'
         sReturn += 'Last Changed Author: jeremiah\n'

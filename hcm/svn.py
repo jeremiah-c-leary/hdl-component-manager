@@ -104,7 +104,7 @@ def is_there_a_file_with_a_later_revision_than_hcm_json(lOutput, sHcmRevision):
 def what_is_the_latest_file_revision(lOutput):
     iMaxRevision = 0
     for sLine in lOutput:
-        if 'Revision' in sLine:
+        if 'Last Changed Rev:' in sLine:
             lLine = sLine.split()
             iMaxRevision = max(iMaxRevision, int(lLine[-1]))
     return iMaxRevision
@@ -115,7 +115,7 @@ def extract_hcm_json_revision(lOutput):
     for sLine in lOutput:
         if 'hcm.json' in sLine and not fHcmDetected:
             fHcmDetected = True
-        if 'Revision' in sLine and fHcmDetected:
+        if 'Last Changed Rev:' in sLine and fHcmDetected:
             lLine = sLine.split()
             sHcmRevision = lLine[-1]
             return sHcmRevision
