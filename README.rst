@@ -171,6 +171,7 @@ The arguments for the subcommand can be listed using the *-h* option:
     
     optional arguments:
       -h, --help  show this help message and exit
+
 list
 ~~~~
 
