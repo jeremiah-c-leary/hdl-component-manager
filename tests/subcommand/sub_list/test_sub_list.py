@@ -48,7 +48,7 @@ class testListSubcommand(unittest.TestCase):
       self.dVersions['config'] = {}
       self.dVersions['config']['max_comp_len'] = 20
       self.dVersions['config']['max_ver_len'] = 10
-      self.dVersions['config']['max_upgrade_len'] = 7 
+      self.dVersions['config']['max_upgrade_len'] = 7
       self.dVersions['config']['max_url_len'] = 9
 
       self.dConfig = {}
@@ -111,7 +111,7 @@ class testListSubcommand(unittest.TestCase):
 
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   def test_update_status_field(self, mocked_function):
-     
+
       self.assertEqual(update_status_field(self.dVersions, 'rook'), ' M ')
       self.assertEqual(update_status_field(self.dVersions, 'queen'), '   ')
       self.assertEqual(update_status_field(self.dVersions, 'pawn'), 'E U')
@@ -147,7 +147,7 @@ class testListSubcommand(unittest.TestCase):
       dExpected['components']['rook']['url'] = 'publish_url'
 
       copy_url(self.dVersions, self.dConfig, 'rook')
-      self.assertEqual(self.dVersions, dExpected, 'rook')      
+      self.assertEqual(self.dVersions, dExpected, 'rook')
 
   def test_copy_version(self):
       dExpected = copy.deepcopy(self.dVersions)
