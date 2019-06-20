@@ -59,7 +59,7 @@ def sub_list(oCommandLineArguments):
 def parse_externals_into_components():
     lExternals = []
     try:
-        for sLine in svn.get_externals('.').split('\n')[:-2]:
+        for sLine in svn.get_externals('.').split('\n')[:-1]:
             lLine = sLine.split()
             lExternals.append(lLine[-1])
     except AttributeError:
@@ -100,7 +100,7 @@ def get_directories():
 
 
 def print_versions(dVersions):
-    lKeys = dVersions['components'].keys()
+    lKeys = list(dVersions['components'].keys())
     lKeys.sort()
 
     dConfig = dVersions['config']

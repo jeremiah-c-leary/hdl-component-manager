@@ -1,0 +1,14 @@
+{
+    "source": {
+        "manifest": {
+            "tests/subcommand/validate/queen/file1.txt": "98475036dc73d318982805bf4b16e8b2", 
+            "tests/subcommand/validate/queen/rtl/queen.vhd": "6774bc056485054ecdbc3085284952c9"
+        }, 
+        "url": "http://svn/my_repo/trunk/project_chess/components/queen@41"
+    },
+    "name": "queen", 
+    "version": "2.1.0",
+    "publish": {
+        "url": "http://svn/my_repo/components"
+    }
+}
