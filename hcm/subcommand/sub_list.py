@@ -26,15 +26,7 @@ def sub_list(oCommandLineArguments):
         sHcmName = sDirectory + '/hcm.json'
 
         if os.path.isfile(sHcmName):
-            try:
-                with open(sHcmName) as json_file:
-                    dConfig = json.load(json_file)
-            except ValueError:
-                logging.error('Invalid JSON formatted file: ' + sHcmName)
-                exit()
-            if not utils.is_hcm_json_file_valid(dConfig):
-                logging.error(sHcmName + ' is missing information')
-                exit()
+            dConfig = read_hcm_json_file(sHcmName)
             dVersions['components'][sDirectory] = {}
             copy_url(dVersions, dConfig, sDirectory)
             copy_version(dVersions, dConfig, sDirectory)
@@ -54,6 +46,19 @@ def sub_list(oCommandLineArguments):
             update_external(dVersions, sDirectory, lExternals)
 
     print_versions(dVersions)
+
+
+def read_hcm_json_file(sHcmName):
+    try:
+        with open(sHcmName) as json_file:
+            dConfig = json.load(json_file)
+    except ValueError:
+        logging.error('Invalid JSON formatted file: ' + sHcmName)
+        exit()
+    if not utils.is_hcm_json_file_valid(dConfig):
+        logging.error(sHcmName + ' is missing information')
+        exit()
+    return dConfig
 
 
 def parse_externals_into_components():
