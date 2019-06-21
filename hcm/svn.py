@@ -2,6 +2,7 @@
 import subprocess
 import logging
 import os
+import re
 
 
 def issue_command(lCommand):
@@ -205,3 +206,12 @@ def is_directory_under_svn_control(sDirectory):
         return True
     except subprocess.CalledProcessError:
         return False
+
+
+def number_of_revisions(lLog):
+    iReturn = 0
+    for sLog in lLog:
+        if re.match('^r[0-9]+ ', sLog):
+            iReturn += 1
+    return iReturn
+    

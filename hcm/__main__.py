@@ -55,6 +55,7 @@ def build_show_parser(oParser):
     oParser.add_argument('component', help='Component to display information')
     oParser.add_argument('--manifest', default=False, action='store_true', help='Displays manifest for all files in component')
     oParser.add_argument('--upgrades', default=False, action='store_true', help='Lists upgrade versions and their log entries')
+#    oParser.add_argument('--modifications', default=False, action='store_true', help='Lists committed modifications for component')
     oParser.set_defaults(which='show')
 
 

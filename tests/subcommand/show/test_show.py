@@ -21,6 +21,8 @@ class command_line_args():
         self.upgrade = False
         self.manifest = False
         self.upgrades = False
+        self.modifications = False
+
 
 class testUpdateManifest(unittest.TestCase):
 
@@ -231,3 +233,51 @@ class testUpdateManifest(unittest.TestCase):
   def test_show_with_invalid_directory(self):
 
       self.assertRaises(SystemExit, show, self.oCommandLineArguments)
+
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  @mock.patch('sys.stdout')
+  def test_print_modifications(self, mockStdout, mockedSubprocess):
+
+      self.oCommandLineArguments.component = 'rook'
+      self.oCommandLineArguments.modifications = True
+
+      print_modifications(self.oCommandLineArguments)
+      mockStdout.write.assert_has_calls([
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('Committed Modifications'),
+          mock.call('\n'),
+          mock.call('======================='),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n'),
+          mock.call('r11 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line'),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('initial release'),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n')
+      ])
+
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  @mock.patch('sys.stdout')
+  def test_print_no_modifications(self, mockStdout, mockedSubprocess):
+
+      self.oCommandLineArguments.component = 'queen'
+      self.oCommandLineArguments.modifications = True
+
+      print_modifications(self.oCommandLineArguments)
+      mockStdout.write.assert_has_calls([
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('Committed Modifications'),
+          mock.call('\n'),
+          mock.call('======================='),
+          mock.call('\n'),
+          mock.call('No Committed Modifications')
+      ])
+

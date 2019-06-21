@@ -146,3 +146,26 @@ class testSvnMethods(unittest.TestCase):
 
       self.assertEqual(svn.get_svn_log_stopped_on_copy('http://svn/my_repo/comps/rook'), lExpected)
 
+  def test_number_of_revisions(self):
+      lExpected = []
+      lExpected.append('------------------------------------------------------------------------')
+      lExpected.append('r10 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line')
+      lExpected.append('')
+      lExpected.append('initial release')
+      lExpected.append('------------------------------------------------------------------------')
+
+      self.assertEqual(svn.number_of_revisions(lExpected), 1)
+
+      lExpected.append('r10 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line')
+      lExpected.append('')
+      lExpected.append('initial release')
+      lExpected.append('------------------------------------------------------------------------')
+
+      self.assertEqual(svn.number_of_revisions(lExpected), 2)
+
+      lExpected.append('r10 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line')
+      lExpected.append('')
+      lExpected.append('initial release')
+      lExpected.append('------------------------------------------------------------------------')
+
+      self.assertEqual(svn.number_of_revisions(lExpected), 3)

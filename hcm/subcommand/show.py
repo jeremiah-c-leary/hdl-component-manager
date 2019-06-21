@@ -41,6 +41,8 @@ def show(oCommandLineArguments):
 
     print_manifest(oCommandLineArguments, dConfig)
 
+#    print_modifications(oCommandLineArguments)
+
 
 def build_row(iColumn1Length, iColumn2Length):
     sSpacer = '     '
@@ -101,3 +103,24 @@ def print_upgrades(oCommandLineArguments, dConfig):
         lOutput = svn.get_svn_log_stopped_on_copy(utils.get_component_path(dConfig) + '/' + sVersion)
         for sLine in lOutput:
             print(sLine)
+
+
+def print_modifications(oCommandLineArguments):
+    if not oCommandLineArguments.modifications:
+        return
+
+    print('')
+    print('Committed Modifications')
+    print('=======================')
+    lVersions = svn.get_svn_log_stopped_on_copy(oCommandLineArguments.component)
+    iNumberRevisions = svn.number_of_revisions(lVersions)
+
+    if iNumberRevisions == 1:
+        print('No Committed Modifications')
+        return
+
+    iRevisions = 0
+    for sVersion in lVersions:
+        if iRevisions == iNumberRevisions:
+            break
+        print(sVersion)
