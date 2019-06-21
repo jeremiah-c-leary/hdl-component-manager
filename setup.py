@@ -9,7 +9,7 @@ def readme():
 
 setup(
   name='hcm',
-  version='0.8',
+  version='0.9',
   description='HDL Component Manager',
   long_description=readme(),
   classifiers=[
