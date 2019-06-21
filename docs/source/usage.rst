@@ -128,15 +128,16 @@ The arguments for the subcommand can be listed using the *-h* options:
 .. code-block:: bash
 
     $ hcm show -h
-    usage: hcm show [-h] [--manifest] [--upgrades] component
+    usage: hcm show [-h] [--manifest] [--upgrades] [--modifications] component
     
     positional arguments:
-      component   Component to display information
+      component        Component to display information
     
     optional arguments:
-      -h, --help  show this help message and exit
-      --manifest  Displays manifest for all files in component
-      --upgrades  Lists upgrade versions and their log entries
+      -h, --help       show this help message and exit
+      --manifest       Displays manifest for all files in component
+      --upgrades       Lists upgrade versions and their log entries
+      --modifications  Lists committed modifications for component
 
 validate
 --------

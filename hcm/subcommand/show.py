@@ -1,6 +1,7 @@
 
 import json
 import logging
+import re
 
 from hcm import utils
 from hcm import svn
@@ -41,7 +42,7 @@ def show(oCommandLineArguments):
 
     print_manifest(oCommandLineArguments, dConfig)
 
-#    print_modifications(oCommandLineArguments)
+    print_modifications(oCommandLineArguments)
 
 
 def build_row(iColumn1Length, iColumn2Length):
@@ -121,6 +122,8 @@ def print_modifications(oCommandLineArguments):
 
     iRevisions = 0
     for sVersion in lVersions:
+        if re.match('^r[0-9]+ ', sVersion):
+            iRevisions += 1
         if iRevisions == iNumberRevisions:
             break
         print(sVersion)

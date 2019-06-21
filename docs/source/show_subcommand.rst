@@ -111,3 +111,34 @@ All available upgrades and their log entries can be listed.
    
    ------------------------------------------------------------------------
 
+Example:  Viewing modifications
+--------------------------
+
+Modifications made to a component after installation can be viewed.
+The **--modifications** argument will display the log entries for every change since the last install.
+
+.. code-block:: bash
+
+   $ hcm show rook --modifications
+   ------------     ------------------------------------------------------------------------
+   Component        rook                                                                    
+   Version          4.0.0                                                                   
+   URL              http://svn/my_repo/comps                                 
+   Source           http://svn/my_repo/trunk/project_chess/components/rook@41
+   Dependencies     king, queen                                                             
+   ------------     ------------------------------------------------------------------------
+   
+   Committed Modifications
+   =======================
+   ------------------------------------------------------------------------
+   r63 | jeremiah | 2019-06-21 06:13:40 -0500 (Fri, 21 Jun 2019) | 2 lines
+   
+   Minor change to rook entity.
+   
+   ------------------------------------------------------------------------
+   r62 | jeremiah | 2019-06-21 06:05:24 -0500 (Fri, 21 Jun 2019) | 2 lines
+   
+   Adding architecture.
+   
+   ------------------------------------------------------------------------
+
