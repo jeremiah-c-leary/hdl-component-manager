@@ -27,7 +27,6 @@ def show(oCommandLineArguments):
     iColumn2Max = max(iColumn2Max, len(utils.get_url(dConfig)))
     iColumn2Max = max(iColumn2Max, len(utils.get_source_url(dConfig)))
 
-
     sRow = build_row(iColumn1Max, iColumn2Max)
 
     print(build_divider(sRow, iColumn1Max, iColumn2Max))
@@ -113,6 +112,7 @@ def print_modifications(oCommandLineArguments):
     print('')
     print('Committed Modifications')
     print('=======================')
+
     lVersions = svn.get_svn_log_stopped_on_copy(oCommandLineArguments.component)
     iNumberRevisions = svn.number_of_revisions(lVersions)
 
@@ -122,8 +122,13 @@ def print_modifications(oCommandLineArguments):
 
     iRevisions = 0
     for sVersion in lVersions:
-        if re.match('^r[0-9]+ ', sVersion):
-            iRevisions += 1
+        increment_revision(iRevisions, sVersion)
         if iRevisions == iNumberRevisions:
             break
         print(sVersion)
+
+
+def increment_revision(iRevision, sVersion):
+    if re.match('^r[0-9]+ ', sVersion):
+        iRevision += 1
+

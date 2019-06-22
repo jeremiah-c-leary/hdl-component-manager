@@ -72,7 +72,7 @@ def read_dependencies(sDirectory):
         with open(sFileName) as yaml_file:
             tempConfiguration = yaml.full_load(yaml_file)
         return tempConfiguration
-    except:
+    except yaml.parser.ParserError:
         logging.error('Error in dependency file: ' + sFileName)
         exit()
 
@@ -98,6 +98,14 @@ def read_hcm_json_file(sComponentName):
 
 def is_hcm_json_file_valid(dHcmJsonFile):
     fReturn = True
+    fReturn = check_publish_dictionary(fReturn, dHcmJsonFile)
+    fReturn = check_name(fReturn, dHcmJsonFile)
+    fReturn = check_version(fReturn, dHcmJsonFile)
+    fReturn = check_source_dictionary(fReturn, dHcmJsonFile)
+    return fReturn
+
+
+def check_publish_dictionary(fReturn, dHcmJsonFile):
     if 'publish' not in dHcmJsonFile:
         logging.warning('hcm.json file is missing the \'publish\' key')
         fReturn = False
@@ -105,15 +113,24 @@ def is_hcm_json_file_valid(dHcmJsonFile):
         if 'url' not in dHcmJsonFile['publish']:
             logging.warning('hcm.json file is missing the \'publish url\' key')
             fReturn = False
+    return fReturn
 
+
+def check_name(fReturn, dHcmJsonFile):
     if 'name' not in dHcmJsonFile:
         logging.warning('hcm.json file is missing the \'name\' key')
         fReturn = False
+    return fReturn
 
+
+def check_version(fReturn, dHcmJsonFile):
     if 'version' not in dHcmJsonFile:
         logging.warning('hcm.json file is missing the \'version\' key')
         fReturn = False
+    return fReturn
 
+
+def check_source_dictionary(fReturn, dHcmJsonFile):
     if 'source' not in dHcmJsonFile:
         logging.warning('hcm.json file is missing the \'source\' key')
         fReturn = False
@@ -124,5 +141,4 @@ def is_hcm_json_file_valid(dHcmJsonFile):
         if 'manifest' not in dHcmJsonFile['source']:
             logging.warning('hcm.json file is missing the \'source manifest\' key')
             fReturn = False
-
     return fReturn

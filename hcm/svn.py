@@ -214,4 +214,3 @@ def number_of_revisions(lLog):
         if re.match('^r[0-9]+ ', sLog):
             iReturn += 1
     return iReturn
-    
