@@ -35,7 +35,7 @@ These are the commands
 +------------+-------------------------------------------------------------------------+------------------------------------------------+
 | Task       |  Project A                                                              | Project B                                      |
 +------------+-------------------------------------------------------------------------+------------------------------------------------+
-| PA         |  hcm publish rook 1.0.0 --url $REPO_URL/components -F release_notes.txt |                                                |
+| PA         |  hcm publish rook 1.0.0 --url $REPO_URL/components -f release_notes.txt |                                                |
 | Publishes  |                                                                         |                                                |
 | rook       |  hcm install rook 1.0.0 --force                                         |                                                |
 |            |                                                                         |                                                |
@@ -49,7 +49,7 @@ These are the commands
 | bug        |                                                                         |                                                |
 |            |                                                                         | svn ci rook -m "Fixed bug."                    |
 +------------+-------------------------------------------------------------------------+------------------------------------------------+
-| PB         |                                                                         | hcm publish rook 1.1.0 -F release_notes.txt    |
+| PB         |                                                                         | hcm publish rook 1.1.0 -f release_notes.txt    |
 | publishes  |                                                                         |                                                |
 | rook       |                                                                         | hcm install rook 1.1.0                         |
 |            |                                                                         |                                                |

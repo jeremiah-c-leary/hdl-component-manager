@@ -19,3 +19,4 @@ Each scenario is assuming the repository structure shown below:
 .. include:: scenario_1.rst
 .. include:: scenario_2.rst
 .. include:: scenario_3.rst
+.. include:: scenario_4.rst

@@ -40,7 +40,7 @@ These are the commands
 | changes    |                                                    |
 |            | svn ci rook -m "Added header."                     |
 +------------+----------------------------------------------------+
-| PA         |  hcm publish rook 1.0.1 -F release_notes.txt       |
+| PA         |  hcm publish rook 1.0.1 -f release_notes.txt       |
 | Publishes  |                                                    |
 | rook       |  hcm install rook 1.0.1 --force                    |
 |            |                                                    |

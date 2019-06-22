@@ -45,7 +45,7 @@ These are the commands
 | changes    |                                                    |
 |            | svn ci rook -m "Fixing bug with movement."         |
 +------------+----------------------------------------------------+
-| PA         |  hcm publish rook 1.1.0 -F release_notes.txt       |
+| PA         |  hcm publish rook 1.1.0 -f release_notes.txt       |
 | Publishes  |                                                    |
 | rook       |  hcm install rook 1.1.0 --force                    |
 |            |                                                    |

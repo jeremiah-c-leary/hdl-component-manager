@@ -112,7 +112,7 @@ All available upgrades and their log entries can be listed.
    ------------------------------------------------------------------------
 
 Example:  Viewing modifications
---------------------------
+-------------------------------
 
 Modifications made to a component after installation can be viewed.
 The **--modifications** argument will display the log entries for every change since the last install.

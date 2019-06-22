@@ -12,7 +12,7 @@ Normal Uninstall
 
 This is the workflow for a normal uninstall:
 
-.. image:: img/uninstall.svg
+.. image:: img/uninstall.png
 
 #.  SVN delete component
 
@@ -25,7 +25,7 @@ Uninstalling an external requires modifying the svn:externals property of the pa
 
 This is the workflow for an external uninstall:
 
-.. image:: img/uninstall_external.svg
+.. image:: img/uninstall_external.png
 
 #.  Read externals from svn:externals property on current directory
 #.  Remove component from svn:externals property
