@@ -104,7 +104,7 @@ class testListSubcommand(unittest.TestCase):
       self.assertEqual(update_committed_modifications_status_flag(self.dVersions, 'pawn'), ' ')
 
   def test_update_external_status_flag(self):
-     
+
       self.assertEqual(update_external_status_flag(self.dVersions, 'rook'), ' ')
       self.assertEqual(update_external_status_flag(self.dVersions, 'queen'), ' ')
       self.assertEqual(update_external_status_flag(self.dVersions, 'pawn'), 'E')
