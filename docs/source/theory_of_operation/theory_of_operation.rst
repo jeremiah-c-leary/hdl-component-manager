@@ -13,4 +13,7 @@ This section details how HCM performs it's tasks.
 .. include:: dependencies_file.rst
 .. include:: listing.rst
 .. include:: detecting_modifications.rst
+.. include:: staging.rst
+.. include:: merging_staged_updates.rst
+.. include:: releasing_staged_component.rst
 

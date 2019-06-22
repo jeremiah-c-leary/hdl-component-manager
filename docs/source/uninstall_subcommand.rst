@@ -16,6 +16,7 @@ We have decided we no longer need the component bishop.
 The component must be committed for the change to be permanent:
 
 .. code-block:: bash
+
    $ svn commit -m "Removed bishop component"
 
 Example:  Uninstalling an externalled component
