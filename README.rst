@@ -136,6 +136,9 @@ install
 ~~~~~~~
 
 Use the **install** subcommand to add or upgrade a component from a repository.
+
+.. image:: docs/img/hcm_install_subcommand.gif
+
 The arguments for the subcommand can be listed using the *-h* option:
 
 .. code-block:: bash
