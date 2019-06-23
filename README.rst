@@ -25,6 +25,8 @@ Manage HDL code as components so they can shared as IP.
    :target: https://codeclimate.com/github/jeremiah-c-leary/hdl-component-manager/maintainability
    :alt: Maintainability
 
+.. image:: docs/img/hcm_overview.gif
+
 Table of Contents
 -----------------
 
