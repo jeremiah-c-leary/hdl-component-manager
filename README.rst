@@ -119,6 +119,9 @@ create
 ~~~~~~
 
 Use the **create** subcommand to create a component directory in the repository.
+
+.. image:: docs/img/hcm_create_subcommand.gif
+
 The arguments for the subcommand can be listed using the *-h* option:
 
 .. code-block:: bash
@@ -164,6 +167,9 @@ uninstall
 ---------
 
 Use the **uninstall** subcommand to remove installed components.
+
+.. image:: docs/img/hcm_uninstall_subcommand.gif
+
 The arguments for the subcommand can be listed using the *-h* option:
 
 .. code-block:: bash
@@ -181,6 +187,9 @@ list
 ~~~~
 
 Use the **list** subcommand to check the versions of components you have installed.
+
+.. image:: docs/img/hcm_list_subcommand.gif
+
 The arguments for the subcommand can be listed using the *-h* option:
 
 .. code-block:: bash
@@ -196,12 +205,15 @@ publish
 ~~~~~~~
 
 Use the **publish** subcommand to push a version of a component to a repository.
+
+.. image:: docs/img/hcm_publish_subcommand.gif
+
 The arguments for the subcommand can be listed using the *-h* option:
 
 .. code-block:: bash
 
     $ hcm publish -h
-    usage: hcm publish [-h] -m M [--url URL] component version
+    usage: hcm publish [-h] (-m M | -f F) [--url URL] component version
     
     positional arguments:
       component   Component name to publish
@@ -210,12 +222,16 @@ The arguments for the subcommand can be listed using the *-h* option:
     optional arguments:
       -h, --help  show this help message and exit
       -m M        Commit message
+      -f F        File to use as commit message
       --url URL   Base URL of the component repository
 
 show
 ~~~~
 
 Use the **show** subcommand to display information about an installed component.
+
+.. image:: docs/img/hcm_show_subcommand.gif
+
 The arguments for the subcommand can be listed using the *-h* options:
 
 .. code-block:: bash
@@ -234,6 +250,9 @@ validate
 --------
 
 Use the **validate** subcommand to compare the component manifest against what is currently installed.
+
+.. image:: docs/img/hcm_validate_subcommand.gif
+
 The arguments for the subcommand can be listed using the *-h* options:
 
 .. code-block:: bash
