@@ -27,6 +27,7 @@ The following diagram shows the steps in this scenario:
 #. Project A installs version 1.0.1
 #. Project A makes and commits changes locally
 #. Project A publishes version 1.1.0 of the updated rook component to the component directory.
+#. Project A installs published version
 
 These are the commands
 
@@ -50,5 +51,9 @@ These are the commands
 | rook       |  hcm install rook 1.1.0 --force                    |
 |            |                                                    |
 |            |  svn ci rook -m "Installing rook version 1.1.0"    |
++------------+----------------------------------------------------+
+| PA         | hcm install rook                                   |
+| installs   |                                                    |
+| rook       | svn ci rook -m "Installing rook version 1.1.0"     |
 +------------+----------------------------------------------------+
 
