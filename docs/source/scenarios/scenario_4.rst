@@ -32,7 +32,6 @@ The following diagram shows the steps in this scenario:
 #. Project A merges the changes from the backup to the installed version manually
 #. Project A commits changes locally
 #. Project A publishes version 1.2.0 of the updated component to the component directory.
-#. Project A installs version 1.2.0 and commits
 
 These are the commands
 
@@ -72,9 +71,5 @@ These are the commands
 | publishes  |                                                    |
 | merged     |                                                    |
 | component  |                                                    |
-+------------+----------------------------------------------------+
-| PA         | hcm install rook                                   |
-| installs   |                                                    |
-| component  | svn ci rook -m "Installing version 1.2.0 of rook"  |
 +------------+----------------------------------------------------+
 
