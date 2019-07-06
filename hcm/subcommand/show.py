@@ -41,7 +41,8 @@ def show(oCommandLineArguments):
 
     print_manifest(oCommandLineArguments, dConfig)
 
-    print_modifications(oCommandLineArguments)
+    print_uncommitted_modifications(oCommandLineArguments)
+    print_committed_modifications(oCommandLineArguments)
 
 
 def build_row(iColumn1Length, iColumn2Length):
@@ -105,7 +106,7 @@ def print_upgrades(oCommandLineArguments, dConfig):
             print(sLine)
 
 
-def print_modifications(oCommandLineArguments):
+def print_committed_modifications(oCommandLineArguments):
     if not oCommandLineArguments.modifications:
         return
 
@@ -132,3 +133,19 @@ def increment_revision(iRevision, sVersion):
     if re.match('^r[0-9]+ ', sVersion):
         iRevision += 1
 
+def print_uncommitted_modifications(oCommandLineArguments):
+    if not oCommandLineArguments.modifications:
+        return
+
+    print('')
+    print('Uncommitted Modifications')
+    print('=========================')
+
+    lStatus= svn.get_svn_status_of_directory(oCommandLineArguments.component)
+
+    if lStatus == []:
+        print('No Uncommitted Modifications')
+        return
+
+    for sStatus in lStatus:
+        print(sStatus)

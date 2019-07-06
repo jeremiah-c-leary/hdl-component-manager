@@ -116,6 +116,7 @@ Example:  Viewing modifications
 
 Modifications made to a component after installation can be viewed.
 The **--modifications** argument will display the log entries for every change since the last install.
+Both committed and uncommitted modifications will be shown.
 
 .. code-block:: bash
 
@@ -127,6 +128,12 @@ The **--modifications** argument will display the log entries for every change s
    Source           http://svn/my_repo/trunk/project_chess/components/rook@41
    Dependencies     king, queen                                                             
    ------------     ------------------------------------------------------------------------
+   
+   Uncommitted Modifications
+   =========================
+   A  +    rook
+   ?       rook/rtl/movement.vhd
+   M  +    rook/rtl/rook-rtl.vhd
    
    Committed Modifications
    =======================
@@ -141,4 +148,25 @@ The **--modifications** argument will display the log entries for every change s
    Adding architecture.
    
    ------------------------------------------------------------------------
+
+HCM will also indicate if no modifications were detected.
+
+.. code-block:: bash
+
+   $ hcm show rook --modifications
+   ------------     ------------------------------------------------------------------------
+   Component        rook                                                                    
+   Version          4.0.0                                                                   
+   URL              http://svn/my_repo/comps                                 
+   Source           http://svn/my_repo/trunk/project_chess/components/rook@41
+   Dependencies     king, queen                                                             
+   ------------     ------------------------------------------------------------------------
+   
+   Uncommitted Modifications
+   =========================
+   No Uncommitted Modifications
+   
+   Committed Modifications
+   =======================
+   No Committed Modifications
 

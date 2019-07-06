@@ -237,12 +237,12 @@ class testUpdateManifest(unittest.TestCase):
 
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   @mock.patch('sys.stdout')
-  def test_print_modifications(self, mockStdout, mockedSubprocess):
+  def test_print_committed_modifications(self, mockStdout, mockedSubprocess):
 
       self.oCommandLineArguments.component = 'rook'
       self.oCommandLineArguments.modifications = True
 
-      print_modifications(self.oCommandLineArguments)
+      print_committed_modifications(self.oCommandLineArguments)
       mockStdout.write.assert_has_calls([
           mock.call(''),
           mock.call('\n'),
@@ -265,12 +265,12 @@ class testUpdateManifest(unittest.TestCase):
 
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   @mock.patch('sys.stdout')
-  def test_print_no_modifications(self, mockStdout, mockedSubprocess):
+  def test_print_no_committed_modifications(self, mockStdout, mockedSubprocess):
 
       self.oCommandLineArguments.component = 'queen'
       self.oCommandLineArguments.modifications = True
 
-      print_modifications(self.oCommandLineArguments)
+      print_committed_modifications(self.oCommandLineArguments)
       mockStdout.write.assert_has_calls([
           mock.call(''),
           mock.call('\n'),
@@ -279,5 +279,48 @@ class testUpdateManifest(unittest.TestCase):
           mock.call('======================='),
           mock.call('\n'),
           mock.call('No Committed Modifications')
+      ])
+
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  @mock.patch('sys.stdout')
+  def test_print_uncommitted_modifications(self, mockStdout, mockedSubprocess):
+
+      self.oCommandLineArguments.component = 'castle'
+      self.oCommandLineArguments.modifications = True
+
+      print_uncommitted_modifications(self.oCommandLineArguments)
+      mockStdout.write.assert_has_calls([
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('Uncommitted Modifications'),
+          mock.call('\n'),
+          mock.call('========================='),
+          mock.call('\n'),
+          mock.call('A  +    castle'),
+          mock.call('\n'),
+          mock.call('?       castle/rtl/movement.vhd'),
+          mock.call('\n'),
+          mock.call('M  +    castle/rtl/castle-rtl.vhd'),
+          mock.call('\n')
+      ])
+
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  @mock.patch('sys.stdout')
+  def test_print_no_uncommitted_modifications(self, mockStdout, mockedSubprocess):
+
+      self.oCommandLineArguments.component = 'queen'
+      self.oCommandLineArguments.modifications = True
+
+      print_uncommitted_modifications(self.oCommandLineArguments)
+      mockStdout.write.assert_has_calls([
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('Uncommitted Modifications'),
+          mock.call('\n'),
+          mock.call('========================='),
+          mock.call('\n'),
+          mock.call('No Uncommitted Modifications')
       ])
 

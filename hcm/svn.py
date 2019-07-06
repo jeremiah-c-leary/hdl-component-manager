@@ -134,6 +134,11 @@ def does_directory_have_uncommitted_files(sDirectory):
     return False
 
 
+def get_svn_status_of_directory(sDirectory):
+    lOutput = issue_command(['svn', 'status', sDirectory]).split('\n')[:-1]
+    return lOutput
+
+
 def get_component_published_versions(sUrl):
     lReturn = []
     try:

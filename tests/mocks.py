@@ -179,12 +179,16 @@ def parse_svn_delete_command(lArgs):
 
 def parse_svn_status_command(sDirectory):
     if sDirectory == 'rook' or sDirectory == 'queen' or sDirectory == 'bishop':
-        return ''
+        sReturn = ''
+    elif sDirectory == 'castle':
+        sReturn = 'A  +    castle\n'
+        sReturn += '?       castle/rtl/movement.vhd\n'
+        sReturn += 'M  +    castle/rtl/castle-rtl.vhd\n'
     else:
         sReturn = '?   ' + sDirectory + '.vhd\n'
         sReturn += 'A   file.txt\n'
         sReturn += 'K   otherfile.xls\n'
-        return sReturn
+    return sReturn
 
 
 def parse_svn_add_command(sFileName):

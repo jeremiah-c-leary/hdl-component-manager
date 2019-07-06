@@ -169,3 +169,13 @@ class testSvnMethods(unittest.TestCase):
       lExpected.append('------------------------------------------------------------------------')
 
       self.assertEqual(svn.number_of_revisions(lExpected), 3)
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  def test_get_svn_status(self, mocked_function):
+      lExpected = []
+      lExpected.append('A  +    castle')
+      lExpected.append('?       castle/rtl/movement.vhd')
+      lExpected.append('M  +    castle/rtl/castle-rtl.vhd')
+
+      self.assertEqual(svn.get_svn_status_of_directory('castle'), lExpected)
+
