@@ -59,9 +59,12 @@ def validate_version(sVersion):
 
 
 def get_latest_version(sUrl):
-    lOutput = svn.issue_command(['svn', 'list', sUrl]).split('\n')[:-1]
-    sUpgradeVersion = lOutput[-1][:-1]
-    return sUpgradeVersion
+    try:
+        lOutput = svn.issue_command(['svn', 'list', sUrl]).split('\n')[:-1]
+        sUpgradeVersion = lOutput[-1][:-1]
+        return sUpgradeVersion
+    except IndexError:
+        return 'None'
 
 
 def read_dependencies(sDirectory):

@@ -25,6 +25,7 @@ def parse_svn_command(lList):
     dSvnRepos['http://svn/my_repo'].append('components/queen/3.0.0')
 
     dSvnRepos['http://svn/external_repo'] = []
+    dSvnRepos['http://svn/external_repo'].append('comps')
     dSvnRepos['http://svn/external_repo'].append('comps/king')
     dSvnRepos['http://svn/external_repo'].append('comps/king/1.0.0')
     dSvnRepos['http://svn/external_repo'].append('comps/king/1.1.0')
@@ -199,6 +200,7 @@ def parse_svn_list_command(sUrl, dSvnRepos):
     fFoundUrl = False
     fFoundDirectory = False
     sOutput = ''
+    iNumberOfLevels = sUrl.count('/') + 1
     for sKey in dSvnRepos.keys():
         if sUrl.startswith(sKey):
             fFoundUrl = True
@@ -208,7 +210,8 @@ def parse_svn_list_command(sUrl, dSvnRepos):
 #                break
         for sUrlKey in dSvnRepos[sKey]:
             sUrlPath = sKey + '/' + sUrlKey
-            if sUrlPath.startswith(sUrl + '/'):
+#            print(str(iNumberOfLevels) + ' | ' + str(sUrlPath.count('/')) + ' | ' + sUrlPath)
+            if sUrlPath.startswith(sUrl + '/') and iNumberOfLevels == sUrlPath.count('/'):
                 sOutput += sUrlPath.split('/')[-1] + '/\n'
 
     if not fFoundUrl:

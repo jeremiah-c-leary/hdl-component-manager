@@ -21,6 +21,7 @@ def parse_command_line_arguments():
 
     subparsers = top_parser.add_subparsers()
 
+    browse_parser = subparsers.add_parser('browse', help='List components available for installation.')
     create_parser = subparsers.add_parser('create', help='Creates a component repo')
     install_parser = subparsers.add_parser('install', help='Adds a component from the component repo')
     uninstall_parser = subparsers.add_parser('uninstall', help='Removes installed components')
@@ -29,6 +30,7 @@ def parse_command_line_arguments():
     show_parser = subparsers.add_parser('show', help='Displays information about installed components')
     validate_parser = subparsers.add_parser('validate', help='Verifies manifest of installed component')
 
+    build_browse_parser(browse_parser)
     build_create_parser(create_parser)
     build_install_parser(install_parser)
     build_uninstall_parser(uninstall_parser)
@@ -85,6 +87,10 @@ def build_list_parser(oParser):
     oParser.set_defaults(which='list')
 
 
+def build_browse_parser(oParser):
+    oParser.set_defaults(which='browse')
+
+
 def build_publish_parser(oParser):
     oParser.add_argument('component', help='Component name to publish')
     oParser.add_argument('version', help='Major.Minor.Patch version to publish')
@@ -128,6 +134,8 @@ def main():
 
     commandLineArguments = parse_command_line_arguments()
 
+    if commandLineArguments.which == 'browse':
+        subcommand.browse(commandLineArguments)
     if commandLineArguments.which == 'create':
         subcommand.create(commandLineArguments.url)
     if commandLineArguments.which == 'publish':

@@ -179,3 +179,11 @@ class testSvnMethods(unittest.TestCase):
 
       self.assertEqual(svn.get_svn_status_of_directory('castle'), lExpected)
 
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  def test_get_components_from_url(self, mocked_function):
+      lExpected = []
+      lExpected.append('rook')
+      lExpected.append('queen')
+
+      self.assertEqual(svn.get_components_from_url('http://svn/my_repo/components'), lExpected)
+

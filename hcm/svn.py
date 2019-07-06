@@ -219,3 +219,14 @@ def number_of_revisions(lLog):
         if re.match('^r[0-9]+ ', sLog):
             iReturn += 1
     return iReturn
+
+
+def get_components_from_url(sUrl):
+    try:
+        lComponents = issue_command(['svn', 'list', sUrl]).split('\n')[:-1]
+        lReturn = []
+        for sComponent in lComponents:
+            lReturn.append(sComponent[:-1])
+        return lReturn
+    except subprocess.CalledProcessError:
+        return None 
