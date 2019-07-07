@@ -35,7 +35,7 @@ class testBrowseSubcommand(unittest.TestCase):
   @mock.patch.dict('os.environ', {'HCM_URL_PATHS':'http://svn/my_repo/components,http://svn/external_repo/comps'})
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   def test_get_components(self, mocked_function):
-      lExpected = [['bishop', 'http://svn/external_repo/comps'], ['king', 'http://svn/external_repo/comps'], ['queen', 'http://svn/external_repo/comps'], ['queen', 'http://svn/my_repo/components'], ['rook', 'http://svn/my_repo/components']]
+      lExpected = [['bishop', 'http://svn/external_repo/comps'], ['king', 'http://svn/external_repo/comps'], ['pawwn', 'http://svn/my_repo/components'], ['queen', 'http://svn/external_repo/comps'], ['queen', 'http://svn/my_repo/components'], ['rook', 'http://svn/my_repo/components']]
       self.assertEqual(lExpected, get_components())
 
   def test_get_maximum_component_length(self):
@@ -60,7 +60,7 @@ class testBrowseSubcommand(unittest.TestCase):
   @mock.patch.dict('os.environ', {'HCM_URL_PATHS':'http://svn/my_repo/components,http://svn/external_repo/comps'})
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   @mock.patch('sys.stdout')
-  def test_get_components(self, mockStdout, mocked_function):
+  def test_print_components(self, mockStdout, mocked_function):
       lComponents = get_components()
       print_components(lComponents)
       mockStdout.write.assert_has_calls([
@@ -73,6 +73,8 @@ class testBrowseSubcommand(unittest.TestCase):
           mock.call('bishop        2.1.0        http://svn/external_repo/comps'),
           mock.call('\n'),
           mock.call('king          1.1.0        http://svn/external_repo/comps'),
+          mock.call('\n'),
+          mock.call('pawwn         None         http://svn/my_repo/components '),
           mock.call('\n'),
           mock.call('queen         3.0.0        http://svn/external_repo/comps'),
           mock.call('\n'),
@@ -98,6 +100,8 @@ class testBrowseSubcommand(unittest.TestCase):
           mock.call('bishop        2.1.0        http://svn/external_repo/comps'),
           mock.call('\n'),
           mock.call('king          1.1.0        http://svn/external_repo/comps'),
+          mock.call('\n'),
+          mock.call('pawwn         None         http://svn/my_repo/components '),
           mock.call('\n'),
           mock.call('queen         3.0.0        http://svn/external_repo/comps'),
           mock.call('\n'),

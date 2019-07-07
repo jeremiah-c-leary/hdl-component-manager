@@ -5,6 +5,7 @@ from unittest import mock
 import json
 
 from hcm import utils
+from tests.mocks import mocked_subprocess_check_output
 
 sTestLocation = 'tests/subcommand/publish/'
 
@@ -85,6 +86,12 @@ class testUtilsMethods(unittest.TestCase):
         dExpected['third'] = '3'
 
         self.assertEqual(utils.get_manifest(self.dHcmConfig), dExpected)
+
+    @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+    def test_get_latest_version(self, mocked_function):
+        self.assertEqual('2.0.0', utils.get_latest_version('http://svn/my_repo/components/rook'))
+        self.assertEqual('3.0.0', utils.get_latest_version('http://svn/my_repo/components/queen'))
+        self.assertEqual('None', utils.get_latest_version('http://svn/my_repo/components/pawwn'))
 
 
 class testReadHcmJsonFile(unittest.TestCase):

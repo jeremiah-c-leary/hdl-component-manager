@@ -23,6 +23,7 @@ def parse_svn_command(lList):
     dSvnRepos['http://svn/my_repo'].append('components/queen/1.0.0')
     dSvnRepos['http://svn/my_repo'].append('components/queen/2.0.0')
     dSvnRepos['http://svn/my_repo'].append('components/queen/3.0.0')
+    dSvnRepos['http://svn/my_repo'].append('components/pawwn')
 
     dSvnRepos['http://svn/external_repo'] = []
     dSvnRepos['http://svn/external_repo'].append('comps')

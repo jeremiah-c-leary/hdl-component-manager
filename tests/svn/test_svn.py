@@ -184,6 +184,7 @@ class testSvnMethods(unittest.TestCase):
       lExpected = []
       lExpected.append('rook')
       lExpected.append('queen')
+      lExpected.append('pawwn')
 
       self.assertEqual(svn.get_components_from_url('http://svn/my_repo/components'), lExpected)
 
