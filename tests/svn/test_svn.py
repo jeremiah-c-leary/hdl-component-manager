@@ -186,5 +186,5 @@ class testSvnMethods(unittest.TestCase):
       lExpected.append('queen')
       lExpected.append('pawwn')
 
+      self.assertIsNone(svn.get_components_from_url('http://svn/my_repos/comps'))
       self.assertEqual(svn.get_components_from_url('http://svn/my_repo/components'), lExpected)
-
