@@ -8,9 +8,9 @@ This is an example dependency file for the **rook** component:
 .. code-block:: yaml
 
    requires:
-     - queen
-     - king
-     - castle 
+     queen:
+     king:
+     castle: 
 
 When **rook** is installed, HCM will also install **queen**, **king**, and **castle** if they are not already installed.
 
