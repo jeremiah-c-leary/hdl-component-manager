@@ -6,12 +6,15 @@ HCM can be invoked by issuing **hcm** at the command line prompt:
 .. code-block:: bash
 
     $ hcm
-    usage: hcm [-h] {create,install,uninstall,list,publish,show,validate} ...
+    usage: hcm [-h]
+               {browse,create,install,uninstall,list,publish,show,validate,version}
+               ...
     
     Provides configuration management for HDL components.
     
     positional arguments:
-      {create,install,uninstall,list,publish,show,validate}
+      {browse,create,install,uninstall,list,publish,show,validate,version}
+        browse              List components available for installation.
         create              Creates a component repo
         install             Adds a component from the component repo
         uninstall           Removes installed components
@@ -19,6 +22,7 @@ HCM can be invoked by issuing **hcm** at the command line prompt:
         publish             Adds components to the component repo
         show                Displays information about installed components
         validate            Verifies manifest of installed component
+        version             Displays HCM version information.
     
     optional arguments:
       -h, --help            show this help message and exit
