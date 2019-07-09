@@ -2,6 +2,8 @@ from setuptools import setup
 from setuptools import find_packages
 
 
+from hcm import version
+
 def readme():
     with open('README.rst') as f:
         return f.read()
@@ -9,7 +11,7 @@ def readme():
 
 setup(
   name='hcm',
-  version='0.10',
+  version=str(version.version),
   description='HDL Component Manager',
   long_description=readme(),
   classifiers=[

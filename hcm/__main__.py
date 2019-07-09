@@ -6,6 +6,7 @@ import logging
 
 from . import subcommand
 from . import utils
+from . import version
 
 
 def parse_command_line_arguments():
@@ -29,6 +30,7 @@ def parse_command_line_arguments():
     publish_parser = subparsers.add_parser('publish', help='Adds components to the component repo')
     show_parser = subparsers.add_parser('show', help='Displays information about installed components')
     validate_parser = subparsers.add_parser('validate', help='Verifies manifest of installed component')
+    version_parser = subparsers.add_parser('version', help='Displays HCM version information.')
 
     build_browse_parser(browse_parser)
     build_create_parser(create_parser)
@@ -38,6 +40,7 @@ def parse_command_line_arguments():
     build_list_parser(list_parser)
     build_show_parser(show_parser)
     build_validate_parser(validate_parser)
+    build_version_parser(version_parser)
 
     print_help_if_no_command_line_options_given(top_parser)
 
@@ -46,6 +49,9 @@ def parse_command_line_arguments():
     check_for_correctly_formed_version_argument(oArgs)
 
     return oArgs
+
+def build_version_parser(oParser):
+    oParser.set_defaults(which='version')
 
 
 def build_validate_parser(oParser):
@@ -150,6 +156,9 @@ def main():
         subcommand.show(commandLineArguments)
     if commandLineArguments.which == 'validate':
         subcommand.validate(commandLineArguments.component)
+    if commandLineArguments.which == 'version':
+        version.print_version()
+
 
     sys.exit(0)
 
