@@ -110,3 +110,9 @@ class testBrowseSubcommand(unittest.TestCase):
           mock.call('rook          2.0.0        http://svn/my_repo/components '),
           mock.call('\n')
       ])
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  @mock.patch('sys.stdout')
+  def test_browse(self, mockStdout, mocked_function):
+      oCommandLineArguments = command_line_args()
+      self.assertRaises(SystemExit, browse, oCommandLineArguments)

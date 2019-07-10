@@ -1,3 +1,5 @@
+import logging
+
 from hcm import svn
 from hcm import utils
 
@@ -10,6 +12,10 @@ def browse(oCommandLineArguments):
 
 def get_components():
     lUrls = utils.get_url_from_environment_variable()
+    if lUrls is None:
+        logging.error('Unknown path to component repository.')
+        logging.error('Please set the HCM_URL_PATHS environment variable.')
+        exit(1)
     lReturn = []
     for sUrl in lUrls:
         lComponents = svn.get_components_from_url(sUrl)
