@@ -12,6 +12,7 @@ This section details how HCM performs it's tasks.
 .. include:: dependencies.rst
 .. include:: dependencies_file.rst
 .. include:: browsing.rst
+.. include:: downloading.rst
 .. include:: listing.rst
 .. include:: detecting_modifications.rst
 .. include:: staging.rst

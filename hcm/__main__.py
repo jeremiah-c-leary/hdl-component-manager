@@ -24,6 +24,7 @@ def parse_command_line_arguments():
 
     browse_parser = subparsers.add_parser('browse', help='List components available for installation.')
     create_parser = subparsers.add_parser('create', help='Creates a component repo')
+    download_parser = subparsers.add_parser('download', help='Downloads components without installing them.')
     install_parser = subparsers.add_parser('install', help='Adds a component from the component repo')
     uninstall_parser = subparsers.add_parser('uninstall', help='Removes installed components')
     list_parser = subparsers.add_parser('list', help='Lists components and their versions')
@@ -34,6 +35,7 @@ def parse_command_line_arguments():
 
     build_browse_parser(browse_parser)
     build_create_parser(create_parser)
+    build_download_parser(download_parser)
     build_install_parser(install_parser)
     build_uninstall_parser(uninstall_parser)
     build_publish_parser(publish_parser)
@@ -70,6 +72,12 @@ def build_show_parser(oParser):
 def build_create_parser(oParser):
     oParser.add_argument('url', help='location to create the base component directory')
     oParser.set_defaults(which='create')
+
+
+def build_download_parser(oParser):
+    oParser.add_argument('component', help='Component name to publish')
+    oParser.add_argument('version', help='Major.Minor.Patch version to publish')
+    oParser.set_defaults(which='download')
 
 
 def build_install_parser(oParser):
@@ -144,6 +152,8 @@ def main():
         subcommand.browse(commandLineArguments)
     if commandLineArguments.which == 'create':
         subcommand.create(commandLineArguments.url)
+    if commandLineArguments.which == 'download':
+        subcommand.download(commandLineArguments)
     if commandLineArguments.which == 'publish':
         subcommand.publish(commandLineArguments)
     if commandLineArguments.which == 'install':

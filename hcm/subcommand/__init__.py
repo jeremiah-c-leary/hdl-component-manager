@@ -1,5 +1,6 @@
 from .browse import browse
 from .create import create
+from .download import download
 from .publish import publish
 from .install import install
 from .uninstall import uninstall

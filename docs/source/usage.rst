@@ -7,15 +7,16 @@ HCM can be invoked by issuing **hcm** at the command line prompt:
 
     $ hcm
     usage: hcm [-h]
-               {browse,create,install,uninstall,list,publish,show,validate,version}
+               {browse,create,download,install,uninstall,list,publish,show,validate,version}
                ...
     
     Provides configuration management for HDL components.
     
     positional arguments:
-      {browse,create,install,uninstall,list,publish,show,validate,version}
+      {browse,create,download,install,uninstall,list,publish,show,validate,version}
         browse              List components available for installation.
         create              Creates a component repo
+        download            Downloads components without installing them.
         install             Adds a component from the component repo
         uninstall           Removes installed components
         list                Lists components and their versions
@@ -27,7 +28,12 @@ HCM can be invoked by issuing **hcm** at the command line prompt:
     optional arguments:
       -h, --help            show this help message and exit
 
-HCM has seven subcommands:  create, install, uninstall, list, publish, show, and validate.
+HCM has ten subcommands:  browse, create, download, install, uninstall, list, publish, show, validate, and version.
+
+browse
+------
+
+Use the **browse** subcommand to list components available for installation.
 
 create
 ------
@@ -159,6 +165,11 @@ The arguments for the subcommand can be listed using the *-h* options:
     
     optional arguments:
       -h, --help  show this help message and exit
+
+version
+-------
+
+Use the **version** subcommand to display version information for HCM.
 
 Environment Variables
 ---------------------
