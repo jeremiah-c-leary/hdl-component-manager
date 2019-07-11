@@ -209,13 +209,13 @@ class testList(unittest.TestCase):
       mockStdout.write.assert_has_calls([
           mock.call(''),
           mock.call('\n'),
-          mock.call('Component       Version      Upgrade      Status     URL                          '),
+          mock.call('Component     Version      Upgrade      Status     URL                          '),
           mock.call('\n'),
-          mock.call('-----------     --------     --------     ------     -----------------------------'),
+          mock.call('---------     --------     --------     ------     -----------------------------'),
           mock.call('\n'),
-          mock.call('queen           2.1.0        3.0.0                   http://svn/my_repo/components'),
+          mock.call('queen         2.1.0        3.0.0                   http://svn/my_repo/components'),
           mock.call('\n'),
-          mock.call('rook            2.0.0        None          M         http://svn/my_repo/components'),
+          mock.call('rook          2.0.0        None          M         http://svn/my_repo/components'),
           mock.call('\n')
       ])
 

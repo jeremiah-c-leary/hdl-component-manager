@@ -22,6 +22,10 @@ def sub_list(oCommandLineArguments):
     lExternals = parse_externals_into_components()
 
     for sDirectory in lDirectories:
+
+        if not svn.is_directory_under_svn_control(sDirectory):
+            continue
+
         update_column_width(dVersions, 'max_comp_len', len(sDirectory))
         sHcmName = sDirectory + '/hcm.json'
 
