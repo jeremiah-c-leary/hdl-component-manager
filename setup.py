@@ -15,7 +15,7 @@ setup(
   description='HDL Component Manager',
   long_description=readme(),
   classifiers=[
-      'Development Status :: 2 - Pre-Alpha',
+      'Development Status :: 4 - Beta',
       'Environment :: Console',
       'Programming Language :: Python :: 3',
       'Intended Audience :: End Users/Desktop',
