@@ -229,4 +229,4 @@ def get_components_from_url(sUrl):
             lReturn.append(sComponent[:-1])
         return lReturn
     except subprocess.CalledProcessError:
-        return None 
+        return None

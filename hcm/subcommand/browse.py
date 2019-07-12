@@ -56,7 +56,7 @@ def get_maximum_url_length(lComponents):
     iReturn = 0
     for lComp in lComponents:
         iReturn = max(iReturn, len(lComp[1]))
-    return iReturn 
+    return iReturn
 
 
 def print_components(lComponents):

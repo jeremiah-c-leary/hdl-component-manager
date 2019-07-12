@@ -1,7 +1,5 @@
 
 import logging
-import os
-import shutil
 
 import hcm.svn as svn
 import hcm.utils as utils

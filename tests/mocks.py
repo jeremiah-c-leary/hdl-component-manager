@@ -103,7 +103,7 @@ def parse_svn_log_command(lArgs):
         sOutput += 'Adding rook.\n'
         sOutput += '\n'
         sOutput += '------------------------------------------------------------------------\n'
-    
+
         return sOutput
     elif 'queen' in lArgs:
         sOutput = '------------------------------------------------------------------------\n'

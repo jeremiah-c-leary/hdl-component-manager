@@ -98,7 +98,7 @@ class testListSubcommand(unittest.TestCase):
 
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   def test_update_committed_modifications_status_flag(self, mocked_function):
-     
+
       self.assertEqual(update_committed_modifications_status_flag(self.dVersions, 'rook'), 'M')
       self.assertEqual(update_committed_modifications_status_flag(self.dVersions, 'queen'), ' ')
       self.assertEqual(update_committed_modifications_status_flag(self.dVersions, 'pawn'), ' ')
