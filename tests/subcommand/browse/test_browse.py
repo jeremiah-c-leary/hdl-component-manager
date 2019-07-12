@@ -113,6 +113,62 @@ class testBrowseSubcommand(unittest.TestCase):
 
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   @mock.patch('sys.stdout')
-  def test_browse(self, mockStdout, mocked_function):
+  def test_browse_w_out_environment_variable(self, mockStdout, mocked_function):
       oCommandLineArguments = command_line_args()
       self.assertRaises(SystemExit, browse, oCommandLineArguments)
+
+
+  @mock.patch.dict('os.environ', {'HCM_URL_PATHS':'http://svn/my_repo/components,http://svn/external_repo/comps'})
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  @mock.patch('sys.stdout')
+  def test_browse_w_component(self, mockStdout, mocked_function):
+      oCommandLineArguments = command_line_args(component='rook')
+      browse(oCommandLineArguments)
+      mockStdout.write.assert_has_calls([
+          mock.call('rook versions available:'),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('Version: 2.0.0'),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n'),
+          mock.call('r10 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line'),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('initial release'),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('Version: 1.1.0'),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n'),
+          mock.call('r10 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line'),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('initial release'),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('Version: 1.0.0'),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n'),
+          mock.call('r10 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line'),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('initial release'),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n')
+      ])

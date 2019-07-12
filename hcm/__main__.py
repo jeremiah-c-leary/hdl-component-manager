@@ -52,6 +52,7 @@ def parse_command_line_arguments():
 
     return oArgs
 
+
 def build_version_parser(oParser):
     oParser.set_defaults(which='version')
 
@@ -102,6 +103,7 @@ def build_list_parser(oParser):
 
 
 def build_browse_parser(oParser):
+    oParser.add_argument('component', default=None, nargs='?', help='Component to browse')
     oParser.set_defaults(which='browse')
 
 

@@ -6,8 +6,28 @@ from hcm import utils
 
 def browse(oCommandLineArguments):
 
-    lComponents = get_components()
-    print_components(lComponents)
+    if oCommandLineArguments.component is None:
+        lComponents = get_components()
+        print_components(lComponents)
+    else:
+        print(oCommandLineArguments.component + ' versions available:')
+        print('')
+        lUrls = utils.get_url_from_environment_variable()
+        if lUrls is None:
+            logging.error('Unknown path to component repository.')
+            logging.error('Please set the HCM_URL_PATHS environment variable.')
+            exit(1)
+        for sUrl in lUrls:
+            sComponentUrl = sUrl + '/' + oCommandLineArguments.component
+            if svn.does_directory_exist(sComponentUrl):
+                lVersions = svn.get_component_published_versions(sComponentUrl)
+                lVersions.reverse()
+                for sVersion in lVersions:
+                    sVersionUrl = sComponentUrl + '/' + sVersion
+                    print('Version: ' + sVersion)
+                    lOutput = svn.issue_command(['svn', 'log', '-l 1', sVersionUrl]).split('\n')
+                    for sLine in lOutput:
+                        print(sLine)
 
 
 def get_components():

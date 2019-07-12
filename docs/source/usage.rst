@@ -34,6 +34,18 @@ browse
 ------
 
 Use the **browse** subcommand to list components available for installation.
+The arguments for the subcommand can be listed using the *-h* option:
+
+.. code-block:: bash
+
+    $ hcm browse -h
+    usage: hcm browse [-h] [component]
+    
+    positional arguments:
+      component   Component to browse
+    
+    optional arguments:
+      -h, --help  show this help message and exit
 
 create
 ------

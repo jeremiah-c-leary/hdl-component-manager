@@ -70,13 +70,14 @@ def parse_svn_command(lList):
 def parse_svn_log_command(lArgs):
     if 'http://svn/my_repo/comps/rook' in lArgs or \
        'http://svn/my_repo/components/rook/2.0.0' in lArgs or \
-       'http://svn/my_repo/components/rook/1.1.0' in lArgs:
+       'http://svn/my_repo/components/rook/1.1.0' in lArgs or \
+       'http://svn/my_repo/components/rook/1.0.0' in lArgs:
         sOutput = '------------------------------------------------------------------------\n'
         sOutput += 'r10 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line\n'
         sOutput += '\n'
         sOutput += 'initial release\n'
         sOutput += '------------------------------------------------------------------------\n'
-        if lArgs[0] == '--stop-on-copy':
+        if lArgs[0] == '--stop-on-copy' or lArgs[0] == '-l 1':
             return sOutput
         sOutput += 'r8 | jeremiah | 2019-05-19 18:42:49 -0500 (Sun, 19 May 2019) | 2 lines\n'
         sOutput += '\n'
