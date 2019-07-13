@@ -58,10 +58,10 @@ def read_hcm_json_file(sHcmName):
             dConfig = json.load(json_file)
     except ValueError:
         logging.error('Invalid JSON formatted file: ' + sHcmName)
-        exit()
+        exit(1)
     if not utils.is_hcm_json_file_valid(dConfig):
         logging.error(sHcmName + ' is missing information')
-        exit()
+        exit(1)
     return dConfig
 
 

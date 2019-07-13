@@ -482,6 +482,8 @@ def parse_svn_info_command(sDirectory):
         sReturn += 'Last Changed Rev: 7\n'
         sReturn += 'Last Changed Date: 2019-05-19 18:03:12 -0500 (Sun, 19 May 2019)\n'
         sReturn += '\n'
+    elif sDirectory == 'unknown':
+        sReturn = 'This is just for testing the list subcommand with the --all option.\n'
     else:
         raise subprocess.CalledProcessError(0, 'svn info')
 

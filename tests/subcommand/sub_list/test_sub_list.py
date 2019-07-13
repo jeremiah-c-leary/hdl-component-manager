@@ -191,6 +191,23 @@ class testGetDirectories(unittest.TestCase):
       self.assertEqual(get_directories(), lExpected)
 
 
+class testReadHcmJsonFile(unittest.TestCase):
+
+  def setUp(self):
+      os.chdir('tests/subcommand/sub_list')
+      logging.disable(logging.CRITICAL)
+
+  def tearDown(self):
+      os.chdir('../../../')
+      logging.disable(logging.NOTSET)
+
+  def test_read_badly_formatted_hcm_json_file(self):
+      self.assertRaises(SystemExit, read_hcm_json_file, '../publish/errored_rook/hcm.json')
+
+  def test_hcm_json_file_w_missing_info(self):
+      self.assertRaises(SystemExit, read_hcm_json_file, 'hcm_w_missing_info.json')
+
+
 class testList(unittest.TestCase):
 
   def setUp(self):
@@ -219,3 +236,24 @@ class testList(unittest.TestCase):
           mock.call('\n')
       ])
 
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  @mock.patch('sys.stdout')
+  def test_print_versions_w_all(self, mockStdout, mockedSubprocess):
+      oCommandLineArguments = command_line_args()
+      oCommandLineArguments.all = True
+
+      sub_list(oCommandLineArguments)
+      mockStdout.write.assert_has_calls([
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('Component     Version      Upgrade      Status     URL                          '),
+          mock.call('\n'),
+          mock.call('---------     --------     --------     ------     -----------------------------'),
+          mock.call('\n'),
+          mock.call('queen         2.1.0        3.0.0                   http://svn/my_repo/components'),
+          mock.call('\n'),
+          mock.call('rook          2.0.0        None          M         http://svn/my_repo/components'),
+          mock.call('\n'),
+          mock.call('unknown       -----        -----          U        -----                        '),
+          mock.call('\n')
+      ])

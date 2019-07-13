@@ -14,5 +14,6 @@ class testUtilsMethods(unittest.TestCase):
     def tearDown(self):
         logging.disable(logging.NOTSET)
 
-    def test_print_version(self):
+    @mock.patch('sys.stdout')
+    def test_print_version(self, mockStdout):
         self.assertRaises(SystemExit, version.print_version)
