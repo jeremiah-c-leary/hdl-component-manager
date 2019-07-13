@@ -187,7 +187,7 @@ class testGetDirectories(unittest.TestCase):
       os.chdir('..')
 
   def test_get_directories(self):
-      lExpected = ['__pycache__','subcommand', 'svn', 'utils']
+      lExpected = ['__pycache__','subcommand', 'svn', 'utils', 'version']
       self.assertEqual(get_directories(), lExpected)
 
 
