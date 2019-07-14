@@ -59,9 +59,9 @@ def install_component(oCommandLineArguments):
     else:
         logging.info('Installing component ' + sComponent + ' version ' + sVersion)
 
-    lUrl = determine_url(sUrl)
+    lUrl = utils.determine_url(sUrl)
 
-    sFinalUrlPath = validate_urls(lUrl, sComponent, sVersion)
+    sFinalUrlPath = utils.validate_urls(lUrl, sComponent, sVersion)
 
     fExternalled = svn.is_component_externalled(sComponent, fExternal)
 
@@ -92,56 +92,6 @@ def remove_local_component_directory(sComponent, fForce, fExternalled):
                 shutil.rmtree(sComponent, ignore_errors=True)
             else:
                 svn.delete(sComponent, fForce)
-
-
-def build_url_path(sUrl, sComponent, sVersion):
-    sReturn = sUrl + '/' + sComponent + '/'
-    if sVersion is None:
-        try:
-            return sReturn + utils.get_latest_version(sUrl + '/' + sComponent)
-        except:
-            return None
-    else:
-        return sReturn + sVersion
-
-
-def determine_url(sUrl):
-    if sUrl:
-        return [sUrl]
-
-    lUrl = utils.get_url_from_environment_variable()
-
-    if lUrl is None:
-        logging.error('URL path to components has not been specified.')
-        logging.error('Use the --url option or set the HCM_URL_PATHS environment variable.')
-        exit()
-
-    return lUrl
-
-
-def validate_urls(lUrl, sComponent, sVersion):
-    fUrlPathFound = False
-    fMultipleFound = False
-
-    for sUrl in lUrl:
-        sUrlPath = build_url_path(sUrl, sComponent, sVersion)
-        if svn.does_directory_exist(sUrlPath):
-            fMultipleFound = fUrlPathFound
-            fUrlPathFound = True
-            sFinalUrlPath = sUrlPath
-
-    if not fUrlPathFound:
-        logging.error('Component ' + sComponent + ' could not be found in the following URLs:')
-        for sUrl in lUrl:
-            print(sUrl)
-        exit()
-
-    if fMultipleFound:
-        logging.warning('Component ' + sComponent + ' was found in multiple locations.')
-        logging.info('Specify url using the --url command line argument.')
-        exit()
-
-    return sFinalUrlPath
 
 
 def update_externals(sUrlPath, sComponent):

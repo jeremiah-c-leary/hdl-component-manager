@@ -157,3 +157,60 @@ def check_hcm_source_key(fReturn, dHcmJsonFile, sKey):
         logging.warning('hcm.json file is missing the \'source ' + sKey + '\' key')
         fReturn = False
     return fReturn
+
+
+def validate_urls(lUrl, sComponent, sVersion):
+    fUrlPathFound = False
+    fMultipleFound = False
+
+    for sUrl in lUrl:
+        sUrlPath = build_url_path(sUrl, sComponent, sVersion)
+        if svn.does_directory_exist(sUrlPath):
+            fMultipleFound = fUrlPathFound
+            fUrlPathFound = True
+            sFinalUrlPath = sUrlPath
+
+    report_if_url_path_exists(fUrlPathFound, sComponent, lUrl)
+    report_if_multiple_url_paths_exist(fMultipleFound, sComponent)
+
+    return sFinalUrlPath
+
+
+def report_if_url_path_exists(fUrlPathFound, sComponent, lUrl):
+    if not fUrlPathFound:
+        logging.error('Component ' + sComponent + ' could not be found in the following URLs:')
+        for sUrl in lUrl:
+            print(sUrl)
+        exit()
+
+
+def report_if_multiple_url_paths_exist(fMultipleFound, sComponent):
+    if fMultipleFound:
+        logging.warning('Component ' + sComponent + ' was found in multiple locations.')
+        logging.info('Specify url using the --url command line argument.')
+        exit()
+
+
+def build_url_path(sUrl, sComponent, sVersion):
+    sReturn = sUrl + '/' + sComponent + '/'
+    if sVersion is None:
+        try:
+            return sReturn + get_latest_version(sUrl + '/' + sComponent)
+        except:
+            return None
+    else:
+        return sReturn + sVersion
+
+
+def determine_url(sUrl=None):
+    if sUrl:
+        return [sUrl]
+
+    lUrl = get_url_from_environment_variable()
+
+    if lUrl is None:
+        logging.error('URL path to components has not been specified.')
+        logging.error('Use the --url option or set the HCM_URL_PATHS environment variable.')
+        exit()
+
+    return lUrl
