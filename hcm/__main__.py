@@ -48,8 +48,6 @@ def parse_command_line_arguments():
 
     oArgs = top_parser.parse_args()
 
-    check_for_correctly_formed_version_argument(oArgs)
-
     return oArgs
 
 
@@ -130,9 +128,9 @@ def check_for_correctly_formed_version_argument(oArgs):
     '''
     Will exit if a malformed version is given in the --URL argument.
     '''
-    if oArgs.which == 'install':
-        if oArgs.version is None:
-            return
+    if oArgs.which == 'install' and oArgs.version is None:
+        return
+
     try:
         if not utils.validate_version(oArgs.version):
             logging.error('Version ' + oArgs.version + ' does not match Major.Minor.Patch format.')
@@ -150,30 +148,30 @@ def main():
 
     commandLineArguments = parse_command_line_arguments()
 
+    check_for_correctly_formed_version_argument(commandLineArguments)
+
     if commandLineArguments.which == 'browse':
         subcommand.browse(commandLineArguments)
-    if commandLineArguments.which == 'create':
+    elif commandLineArguments.which == 'create':
         subcommand.create(commandLineArguments.url)
-    if commandLineArguments.which == 'download':
+    elif commandLineArguments.which == 'download':
         subcommand.download(commandLineArguments)
-    if commandLineArguments.which == 'publish':
+    elif commandLineArguments.which == 'publish':
         subcommand.publish(commandLineArguments)
-    if commandLineArguments.which == 'install':
+    elif commandLineArguments.which == 'install':
         subcommand.install(commandLineArguments)
-    if commandLineArguments.which == 'uninstall':
+    elif commandLineArguments.which == 'uninstall':
         subcommand.uninstall(commandLineArguments)
-    if commandLineArguments.which == 'list':
+    elif commandLineArguments.which == 'list':
         subcommand.sub_list(commandLineArguments)
-    if commandLineArguments.which == 'show':
+    elif commandLineArguments.which == 'show':
         subcommand.show(commandLineArguments)
-    if commandLineArguments.which == 'validate':
+    elif commandLineArguments.which == 'validate':
         subcommand.validate(commandLineArguments.component)
-    if commandLineArguments.which == 'version':
+    elif commandLineArguments.which == 'version':
         version.print_version()
 
-
     sys.exit(0)
-
 
 if __name__ == '__main__':
     main()

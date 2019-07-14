@@ -120,17 +120,11 @@ def check_publish_dictionary(fReturn, dHcmJsonFile):
 
 
 def check_name(fReturn, dHcmJsonFile):
-    if 'name' not in dHcmJsonFile:
-        logging.warning('hcm.json file is missing the \'name\' key')
-        fReturn = False
-    return fReturn
+    return check_hcm_key(fReturn, dHcmJsonFile, 'name')
 
 
 def check_version(fReturn, dHcmJsonFile):
-    if 'version' not in dHcmJsonFile:
-        logging.warning('hcm.json file is missing the \'version\' key')
-        fReturn = False
-    return fReturn
+    return check_hcm_key(fReturn, dHcmJsonFile, 'version')
 
 
 def check_source_dictionary(fReturn, dHcmJsonFile):
@@ -138,10 +132,28 @@ def check_source_dictionary(fReturn, dHcmJsonFile):
         logging.warning('hcm.json file is missing the \'source\' key')
         fReturn = False
     else:
-        if 'url' not in dHcmJsonFile['source']:
-            logging.warning('hcm.json file is missing the \'source url\' key')
-            fReturn = False
-        if 'manifest' not in dHcmJsonFile['source']:
-            logging.warning('hcm.json file is missing the \'source manifest\' key')
-            fReturn = False
+        fReturn = check_source_url(fReturn, dHcmJsonFile)
+        fReturn = check_source_manifest(fReturn, dHcmJsonFile)
+    return fReturn
+
+
+def check_source_url(fReturn, dHcmJsonFile):
+    return check_hcm_source_key(fReturn, dHcmJsonFile, 'url')
+
+
+def check_source_manifest(fReturn, dHcmJsonFile):
+    return check_hcm_source_key(fReturn, dHcmJsonFile, 'manifest')
+
+
+def check_hcm_key(fReturn, dHcmJsonFile, sKey):
+    if sKey not in dHcmJsonFile:
+        logging.warning('hcm.json file is missing the \'' + sKey + '\' key')
+        fReturn = False
+    return fReturn
+
+
+def check_hcm_source_key(fReturn, dHcmJsonFile, sKey):
+    if sKey not in dHcmJsonFile['source']:
+        logging.warning('hcm.json file is missing the \'source ' + sKey + '\' key')
+        fReturn = False
     return fReturn
