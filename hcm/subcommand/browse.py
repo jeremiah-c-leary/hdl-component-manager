@@ -67,7 +67,6 @@ def print_components(lComponents):
     print(sRow.format('Component', 'Version', 'URL'))
     print(build_divider(sRow, iComponentLength, len('00.00.00'), iUrlLength))
 
-
     for lComp in lComponents:
         sVersion = utils.get_latest_version(lComp[1] + '/' + lComp[0])
         print(sRow.format(lComp[0], sVersion, lComp[1]))
