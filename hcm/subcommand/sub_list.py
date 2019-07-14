@@ -27,29 +27,38 @@ def sub_list(oCommandLineArguments):
             continue
 
         update_column_width(dVersions, 'max_comp_len', len(sDirectory))
-        sHcmName = sDirectory + '/hcm.json'
 
-        if os.path.isfile(sHcmName):
-            dConfig = read_hcm_json_file(sHcmName)
-            dVersions['components'][sDirectory] = {}
-            copy_url(dVersions, dConfig, sDirectory)
-            copy_version(dVersions, dConfig, sDirectory)
-            update_column_width(dVersions, 'max_ver_len', len(utils.get_version(dConfig)))
-            update_column_width(dVersions, 'max_url_len', len(utils.get_url(dConfig)))
-            sUpgrade = str(get_upgrade(utils.get_component_path(dConfig), utils.get_version(dConfig)))
-            dVersions['components'][sDirectory]['upgrade'] = sUpgrade
-            update_column_width(dVersions, 'max_upgrade_len', len(sUpgrade))
-
-            update_external(dVersions, sDirectory, lExternals)
-
-        elif oCommandLineArguments.all:
-            dVersions['components'][sDirectory] = {}
-            dVersions['components'][sDirectory]['url'] = '-----'
-            dVersions['components'][sDirectory]['version'] = '-----'
-            dVersions['components'][sDirectory]['upgrade'] = '-----'
-            update_external(dVersions, sDirectory, lExternals)
+        add_hcm_controlled_component(dVersions, sDirectory, lExternals)
+        add_non_hcm_controlled_component(dVersions, sDirectory, lExternals, oCommandLineArguments)
 
     print_versions(dVersions)
+
+
+def add_hcm_controlled_component(dVersions, sDirectory, lExternals):
+    sHcmName = sDirectory + '/hcm.json'
+    if os.path.isfile(sHcmName):
+        dConfig = read_hcm_json_file(sHcmName)
+        dVersions['components'][sDirectory] = {}
+        copy_url(dVersions, dConfig, sDirectory)
+        copy_version(dVersions, dConfig, sDirectory)
+        update_column_width(dVersions, 'max_ver_len', len(utils.get_version(dConfig)))
+        update_column_width(dVersions, 'max_url_len', len(utils.get_url(dConfig)))
+        sUpgrade = str(get_upgrade(utils.get_component_path(dConfig), utils.get_version(dConfig)))
+        dVersions['components'][sDirectory]['upgrade'] = sUpgrade
+        update_column_width(dVersions, 'max_upgrade_len', len(sUpgrade))
+
+        update_external(dVersions, sDirectory, lExternals)
+
+
+def add_non_hcm_controlled_component(dVersions, sDirectory, lExternals, oCommandLineArguments):
+    sHcmName = sDirectory + '/hcm.json'
+    if oCommandLineArguments.all and not os.path.isfile(sHcmName):
+        dVersions['components'][sDirectory] = {}
+        dVersions['components'][sDirectory]['url'] = '-----'
+        dVersions['components'][sDirectory]['version'] = '-----'
+        dVersions['components'][sDirectory]['upgrade'] = '-----'
+
+        update_external(dVersions, sDirectory, lExternals)
 
 
 def read_hcm_json_file(sHcmName):
