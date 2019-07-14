@@ -4,6 +4,9 @@ import logging
 import os
 import re
 
+from .what_is_the_latest_file_revision import what_is_the_latest_file_revision
+from .extract_hcm_json_revision import extract_hcm_json_revision
+
 
 def issue_command(lCommand):
     try:
@@ -100,31 +103,6 @@ def is_there_a_file_with_a_later_revision_than_hcm_json(lOutput, sHcmRevision, s
         return True
 
     return False
-
-
-def what_is_the_latest_file_revision(lOutput, sDirectory):
-    iMaxRevision = 0
-    fDirectoryFound = False
-    for sLine in lOutput:
-        if 'Last Changed Rev:' in sLine and not fDirectoryFound:
-            fDirectoryFound = True
-            continue
-        if 'Last Changed Rev:' in sLine:
-            lLine = sLine.split()
-            iMaxRevision = max(iMaxRevision, int(lLine[-1]))
-    return iMaxRevision
-
-
-def extract_hcm_json_revision(lOutput):
-    fHcmDetected = False
-    for sLine in lOutput:
-        if 'hcm.json' in sLine and not fHcmDetected:
-            fHcmDetected = True
-        if 'Last Changed Rev:' in sLine and fHcmDetected:
-            lLine = sLine.split()
-            sHcmRevision = lLine[-1]
-            return sHcmRevision
-    return None
 
 
 def does_directory_have_uncommitted_files(sDirectory):
