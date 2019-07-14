@@ -112,7 +112,7 @@ class testBrowseSubcommand(unittest.TestCase):
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   @mock.patch('sys.stdout')
   def test_browse_w_out_environment_variable(self, mockStdout, mocked_function):
-      oCommandLineArguments = command_line_args()
+      oCommandLineArguments = command_line_args(component='rook')
       self.assertRaises(SystemExit, browse, oCommandLineArguments)
 
 

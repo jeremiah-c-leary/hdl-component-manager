@@ -6,6 +6,12 @@ from hcm import utils
 
 def browse(oCommandLineArguments):
 
+    lUrls = utils.get_url_from_environment_variable()
+    if lUrls is None:
+        logging.error('Unknown path to component repository.')
+        logging.error('Please set the HCM_URL_PATHS environment variable.')
+        exit(1)
+
     if oCommandLineArguments.component is None:
         lComponents = get_components()
         print_components(lComponents)
@@ -13,10 +19,6 @@ def browse(oCommandLineArguments):
         print(oCommandLineArguments.component + ' versions available:')
         print('')
         lUrls = utils.get_url_from_environment_variable()
-        if lUrls is None:
-            logging.error('Unknown path to component repository.')
-            logging.error('Please set the HCM_URL_PATHS environment variable.')
-            exit(1)
         for sUrl in lUrls:
             sComponentUrl = sUrl + '/' + oCommandLineArguments.component
             if svn.does_directory_exist(sComponentUrl):
@@ -32,10 +34,6 @@ def browse(oCommandLineArguments):
 
 def get_components():
     lUrls = utils.get_url_from_environment_variable()
-    if lUrls is None:
-        logging.error('Unknown path to component repository.')
-        logging.error('Please set the HCM_URL_PATHS environment variable.')
-        exit(1)
     lReturn = []
     for sUrl in lUrls:
         lComponents = svn.get_components_from_url(sUrl)
