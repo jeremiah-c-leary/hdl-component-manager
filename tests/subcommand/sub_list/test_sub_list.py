@@ -58,7 +58,7 @@ class testListSubcommand(unittest.TestCase):
       self.dConfig['publish']['url'] = 'publish_url'
       self.dConfig['source'] = {}
       self.dConfig['source']['url'] = 'source_url'
-      
+
 
   def tearDown(self):
       logging.disable(logging.NOTSET)

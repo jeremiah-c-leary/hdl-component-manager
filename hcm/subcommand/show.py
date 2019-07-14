@@ -133,6 +133,7 @@ def increment_revision(iRevision, sVersion):
     if re.match('^r[0-9]+ ', sVersion):
         iRevision += 1
 
+
 def print_uncommitted_modifications(oCommandLineArguments):
     if not oCommandLineArguments.modifications:
         return
@@ -141,7 +142,7 @@ def print_uncommitted_modifications(oCommandLineArguments):
     print('Uncommitted Modifications')
     print('=========================')
 
-    lStatus= svn.get_svn_status_of_directory(oCommandLineArguments.component)
+    lStatus = svn.get_svn_status_of_directory(oCommandLineArguments.component)
 
     if lStatus == []:
         print('No Uncommitted Modifications')

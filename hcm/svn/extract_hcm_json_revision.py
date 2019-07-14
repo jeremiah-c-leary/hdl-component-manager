@@ -1,10 +1,4 @@
 
-import subprocess
-import logging
-import os
-import re
-
-
 def extract_hcm_json_revision(lOutput):
     fHcmDetected = False
     for sLine in lOutput:

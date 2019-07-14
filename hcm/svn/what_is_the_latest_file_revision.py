@@ -1,10 +1,4 @@
 
-import subprocess
-import logging
-import os
-import re
-
-
 def what_is_the_latest_file_revision(lOutput, sDirectory):
     iMaxRevision = 0
     fDirectoryFound = False
