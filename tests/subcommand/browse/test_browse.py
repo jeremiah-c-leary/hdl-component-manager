@@ -34,7 +34,7 @@ class testBrowseSubcommand(unittest.TestCase):
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   def test_get_components(self, mocked_function):
       lExpected = [['bishop', 'http://svn/external_repo/comps'], ['king', 'http://svn/external_repo/comps'], ['pawwn', 'http://svn/my_repo/components'], ['queen', 'http://svn/external_repo/comps'], ['queen', 'http://svn/my_repo/components'], ['rook', 'http://svn/my_repo/components']]
-      self.assertEqual(lExpected, get_components())
+      self.assertEqual(lExpected, get_components(utils.get_url_from_environment_variable()))
 
   def test_get_maximum_component_length(self):
       lTest = [['one', 'aaa'], ['two', 'bbb'], ['three', 'ccc']]
@@ -59,7 +59,7 @@ class testBrowseSubcommand(unittest.TestCase):
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   @mock.patch('sys.stdout')
   def test_print_components(self, mockStdout, mocked_function):
-      lComponents = get_components()
+      lComponents = get_components(utils.get_url_from_environment_variable())
       print_components(lComponents)
       mockStdout.write.assert_has_calls([
           mock.call(''),

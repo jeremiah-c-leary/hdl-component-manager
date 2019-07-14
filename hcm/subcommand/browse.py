@@ -6,34 +6,48 @@ from hcm import utils
 
 def browse(oCommandLineArguments):
 
-    lUrls = utils.get_url_from_environment_variable()
-    if lUrls is None:
-        logging.error('Unknown path to component repository.')
-        logging.error('Please set the HCM_URL_PATHS environment variable.')
-        exit(1)
+    check_if_hcm_url_paths_is_set()
 
+    lUrls = utils.get_url_from_environment_variable()
+
+    print_components_from_available_repositories(lUrls, oCommandLineArguments)
+
+    if oCommandLineArguments.component is not None:
+        print_component_information(lUrls, oCommandLineArguments)
+
+
+def print_components_from_available_repositories(lUrls, oCommandLineArguments):
     if oCommandLineArguments.component is None:
-        lComponents = get_components()
+        lComponents = get_components(lUrls)
         print_components(lComponents)
-    else:
-        print(oCommandLineArguments.component + ' versions available:')
-        print('')
-        lUrls = utils.get_url_from_environment_variable()
-        for sUrl in lUrls:
-            sComponentUrl = sUrl + '/' + oCommandLineArguments.component
-            if svn.does_directory_exist(sComponentUrl):
-                lVersions = svn.get_component_published_versions(sComponentUrl)
-                lVersions.reverse()
-                for sVersion in lVersions:
-                    sVersionUrl = sComponentUrl + '/' + sVersion
-                    print('Version: ' + sVersion)
-                    lOutput = svn.issue_command(['svn', 'log', '-l 1', sVersionUrl]).split('\n')
-                    for sLine in lOutput:
-                        print(sLine)
 
 
-def get_components():
-    lUrls = utils.get_url_from_environment_variable()
+def print_component_information(lUrls, oCommandLineArguments):
+    print(oCommandLineArguments.component + ' versions available:')
+    print('')
+    for sUrl in lUrls:
+        sComponentUrl = sUrl + '/' + oCommandLineArguments.component
+        if not svn.does_directory_exist(sComponentUrl):
+            continue
+        lVersions = svn.get_component_published_versions(sComponentUrl)
+        lVersions.reverse()
+        print_component_version_history(sComponentUrl, lVersions)
+
+
+def print_component_version_history(sComponentUrl, lVersions):
+        for sVersion in lVersions:
+            print_version_log_entry(sComponentUrl, sVersion)
+
+
+def print_version_log_entry(sComponentUrl, sVersion):
+    sVersionUrl = sComponentUrl + '/' + sVersion
+    print('Version: ' + sVersion)
+    lOutput = svn.issue_command(['svn', 'log', '-l 1', sVersionUrl]).split('\n')
+    for sLine in lOutput:
+        print(sLine)
+
+
+def get_components(lUrls):
     lReturn = []
     for sUrl in lUrls:
         lComponents = svn.get_components_from_url(sUrl)
@@ -47,7 +61,7 @@ def get_maximum_component_length(lComponents):
     iReturn = len('Component')
     for lComp in lComponents:
         iReturn = max(iReturn, len(lComp[0]))
-    return iReturn 
+    return iReturn
 
 
 def get_maximum_url_length(lComponents):
@@ -85,3 +99,11 @@ def build_divider(sRow, iComponentLength, iVersionLength, iUrlLength):
     sVersion = '-' * iVersionLength
     sUrl = '-' * iUrlLength
     return sRow.format(sComponent, sVersion, sUrl)
+
+
+def check_if_hcm_url_paths_is_set():
+    lUrls = utils.get_url_from_environment_variable()
+    if lUrls is None:
+        logging.error('Unknown path to component repository.')
+        logging.error('Please set the HCM_URL_PATHS environment variable.')
+        exit(1)
