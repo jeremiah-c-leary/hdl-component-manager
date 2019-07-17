@@ -143,6 +143,12 @@ def does_component_directory_exist(sComponent):
     return True
 
 
+def update_publish_url_in_hcm_json_file(sUrl, dHcmConfig):
+    if sUrl is not None:
+        dHcmConfig['publish']['url'] = sUrl
+    return dHcmConfig
+
+
 def publish(oCommandLineArguments):
 
         logging.info('Publishing component ' + oCommandLineArguments.component + ' as version ' + oCommandLineArguments.version)
@@ -151,11 +157,12 @@ def publish(oCommandLineArguments):
 
         svn.is_directory_status_clean(oCommandLineArguments.component)
 
-        sUrl = extract_url(oCommandLineArguments.url)
-
         dHcmConfig = utils.read_hcm_json_file(oCommandLineArguments.component)
         if not dHcmConfig:
+            sUrl = extract_url(oCommandLineArguments.url)
             dHcmConfig = create_default_hcm_dictionary(oCommandLineArguments.component, oCommandLineArguments.version, sUrl)
+        else:
+            dHcmConfig = update_publish_url_in_hcm_json_file(oCommandLineArguments.url, dHcmConfig)
 
         create_component_directory(utils.get_component_path(dHcmConfig))
         update_version(dHcmConfig, oCommandLineArguments.version)
