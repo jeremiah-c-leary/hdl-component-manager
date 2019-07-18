@@ -1,4 +1,4 @@
-version = 0.11
+version = 0.12
 
 
 def print_version():
