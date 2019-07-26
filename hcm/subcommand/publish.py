@@ -149,6 +149,13 @@ def update_publish_url_in_hcm_json_file(sUrl, dHcmConfig):
     return dHcmConfig
 
 
+def commit_hcm_json_file(sComponent, sVersion):
+    logging.info('Committing ' + sComponent + '/hcm.json file')
+    if not svn.commit_hcm_json_file(sComponent, sVersion):
+        logging.error('Could not commit ' + dHcmConfig['name'] + '/hcm.json file')
+        exit(1)
+
+
 def publish(oCommandLineArguments):
 
         logging.info('Publishing component ' + oCommandLineArguments.component + ' as version ' + oCommandLineArguments.version)
@@ -173,4 +180,7 @@ def publish(oCommandLineArguments):
 
         write_configuration_file(dHcmConfig)
         add_hcm_config_file_to_component_directory(dHcmConfig)
+
+        commit_hcm_json_file(dHcmConfig['name'], dHcmConfig['version'])
+
         copy_component_to_component_directory(dHcmConfig, oCommandLineArguments)

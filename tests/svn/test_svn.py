@@ -188,3 +188,9 @@ class testSvnMethods(unittest.TestCase):
 
       self.assertIsNone(svn.get_components_from_url('http://svn/my_repos/comps'))
       self.assertEqual(svn.get_components_from_url('http://svn/my_repo/components'), lExpected)
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  def test_commit_hcm_json_file(self, mocked_function):
+
+      self.assertTrue(svn.commit_hcm_json_file('rook', '1.2.3'))
+      self.assertFalse(svn.commit_hcm_json_file('pawn', '1.0.0'))

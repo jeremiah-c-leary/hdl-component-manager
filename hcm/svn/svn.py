@@ -208,3 +208,13 @@ def get_components_from_url(sUrl):
         return lReturn
     except subprocess.CalledProcessError:
         return None
+
+
+def commit_hcm_json_file(sDirectory, sVersion):
+    sHcmJsonFile = sDirectory + '/hcm.json'
+    sCommitComment = 'Publishing ' + sDirectory + ' version ' + sVersion
+    try:
+        issue_command(['svn', 'commit', sHcmJsonFile, '-m', sCommitComment]).split('\n')[:-1]
+        return True
+    except subprocess.CalledProcessError:
+        return False

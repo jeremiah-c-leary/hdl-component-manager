@@ -23,3 +23,4 @@ from .svn import delete_svn_externals_property
 from .svn import is_directory_under_svn_control
 from .svn import number_of_revisions
 from .svn import get_components_from_url
+from .svn import commit_hcm_json_file

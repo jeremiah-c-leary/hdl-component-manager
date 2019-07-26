@@ -48,12 +48,6 @@ These are the commands
 +------------+----------------------------------------------------+
 | PA         |  hcm publish rook 1.1.0 -f release_notes.txt       |
 | Publishes  |                                                    |
-| rook       |  hcm install rook 1.1.0 --force                    |
-|            |                                                    |
-|            |  svn ci rook -m "Installing rook version 1.1.0"    |
-+------------+----------------------------------------------------+
-| PA         | hcm install rook                                   |
-| installs   |                                                    |
-| rook       | svn ci rook -m "Installing rook version 1.1.0"     |
+| rook       |                                                    |
 +------------+----------------------------------------------------+
 

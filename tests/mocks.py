@@ -61,6 +61,8 @@ def parse_svn_command(lList):
             return parse_svn_externals_command(lList[2])
         if lList[0] == 'log':
             return parse_svn_log_command(lList[1:])
+        if lList[0] == 'commit':
+            return parse_commit_command(lList[1])
 
 
     except subprocess.CalledProcessError as e:
@@ -488,3 +490,11 @@ def parse_svn_info_command(sDirectory):
         raise subprocess.CalledProcessError(0, 'svn info')
 
     return sReturn
+
+
+def parse_commit_command(sDirectory):
+
+    if sDirectory == 'rook/hcm.json':
+        return 'Some text that says commit passed'
+    else:
+        raise subprocess.CalledProcessError(0, 'svn commit')

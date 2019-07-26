@@ -8,7 +8,7 @@ In the diagram above, you can see all the publish actions take place between a r
 
 To publish manually you would follow these steps:
 
-.. image:: img/publish.svg
+.. image:: img/publish.png
 
 1.  Ensure requested component directory exists
 
@@ -26,9 +26,8 @@ To publish manually you would follow these steps:
 
 5.  Add hcm.json file to the component directory
 
-6.  svn copy the local component directory to the published directory under the correct version
+6.  Commit hcm.json file to working copy
+
+7.  svn copy the local component directory to the published directory under the correct version
 
 HCM will validate step 2 has been completed before performing steps 3 through 6.
-
-.. NOTE:: The hcm.json file has either been created or modified.
-   HCM does not commit the file to the local component directory.

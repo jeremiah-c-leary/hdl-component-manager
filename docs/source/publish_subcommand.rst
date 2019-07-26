@@ -38,12 +38,11 @@ Using the *--url* command line argument will override **HCM_URL_PATHS**.
    INFO:Creating manifest...
    INFO:Writing configuration file bishop/hcm.json
    INFO:Adding configuration file to component directory
+   INFO:Committing bishop/hcm.json file
    INFO:Component published
 
-HCM will create a configuration file named **hcm.json**.
+HCM will create a configuration file named **hcm.json** and commit it to the working copy.
 This file contains information related to the component.
-
-After publishing the component, use the **install** subcommand to switch the local component to the published version.
 
 Example:  Publishing an update to a component
 ---------------------------------------------
@@ -65,11 +64,10 @@ HCM will use the information in the **hcm.json** file to determine where the com
    INFO:Creating manifest...
    INFO:Writing configuration file bishop/hcm.json
    INFO:Adding configuration file to component directory
+   INFO:Committing bishop/hcm.json file
    INFO:Component published
 
-HCM will update the **hcm.json** file with the new version before it is committed to the component directory.
-
-After publishing the component, use the **install** subcommand to switch the local component to the published version.
+HCM will update the **hcm.json** file with the new version and commit it to the working copy before it is committed to the component directory.
 
 Example:  Using a file for the commit message
 ---------------------------------------------
@@ -90,5 +88,6 @@ This is used instead of the *-m* command line option
    INFO:Creating manifest...
    INFO:Writing configuration file bishop/hcm.json
    INFO:Adding configuration file to component directory
+   INFO:Committing bishop/hcm.json file
    INFO:Component published
 
