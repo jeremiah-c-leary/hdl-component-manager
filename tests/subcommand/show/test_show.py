@@ -21,6 +21,7 @@ class command_line_args():
         self.upgrade = False
         self.manifest = False
         self.upgrades = False
+        self.updates = False
         self.modifications = False
 
 
