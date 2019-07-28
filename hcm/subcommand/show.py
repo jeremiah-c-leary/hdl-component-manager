@@ -37,6 +37,7 @@ def show(oCommandLineArguments):
     print(sRow.format('Dependencies', sDependencies))
     print(build_divider(sRow, iColumn1Max, iColumn2Max))
 
+    print_updates(oCommandLineArguments, dConfig)
     print_upgrades(oCommandLineArguments, dConfig)
 
     print_manifest(oCommandLineArguments, dConfig)
@@ -95,6 +96,31 @@ def print_upgrades(oCommandLineArguments, dConfig):
         return
 
     lVersions.reverse()
+
+    iIndex = lVersions.index(utils.get_version(dConfig))
+
+    for sVersion in lVersions[:iIndex]:
+        print('')
+        print('Version: ' + sVersion)
+        lOutput = svn.get_svn_log_stopped_on_copy(utils.get_component_path(dConfig) + '/' + sVersion)
+        for sLine in lOutput:
+            print(sLine)
+
+
+def print_updates(oCommandLineArguments, dConfig):
+    if not oCommandLineArguments.updates:
+        return
+
+    print('')
+    print('Available Updates')
+    print('=================')
+    lVersions = svn.get_component_published_versions(utils.get_component_path(dConfig))
+
+    lVersions = utils.sort_component_versions_by_revision_number(lVersions, dConfig)
+
+    if utils.get_version(dConfig) == lVersions[0]:
+        print('No Updates')
+        return
 
     iIndex = lVersions.index(utils.get_version(dConfig))
 

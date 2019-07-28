@@ -324,3 +324,168 @@ class testUpdateManifest(unittest.TestCase):
           mock.call('No Uncommitted Modifications')
       ])
 
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  @mock.patch('sys.stdout')
+  def test_print_updates_w_version_2_1_0(self, mockStdout, mockedSubprocess):
+
+      self.dHcmJsonFile['version'] = '2.1.0'
+      self.oCommandLineArguments.updates = True
+      self.dHcmJsonFile['publish']['url'] = 'http://svn/external_repo/comps'
+      self.dHcmJsonFile['name'] = 'bishop'
+
+      print_updates(self.oCommandLineArguments, self.dHcmJsonFile)
+
+      mockStdout.write.assert_has_calls([
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('Available Updates'),
+          mock.call('\n'),
+          mock.call('================='),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('Version: 1.1.0'),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n'),
+          mock.call('r10 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line'),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('version 1.1.0'),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n')
+      ])
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  @mock.patch('sys.stdout')
+  def test_print_updates_w_version_1_1_0(self, mockStdout, mockedSubprocess):
+
+      self.dHcmJsonFile['version'] = '1.1.0'
+      self.oCommandLineArguments.updates = True
+      self.dHcmJsonFile['publish']['url'] = 'http://svn/external_repo/comps'
+      self.dHcmJsonFile['name'] = 'bishop'
+
+      print_updates(self.oCommandLineArguments, self.dHcmJsonFile)
+
+      mockStdout.write.assert_has_calls([
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('Available Updates'),
+          mock.call('\n'),
+          mock.call('================='),
+          mock.call('\n'),
+          mock.call('No Updates'),
+          mock.call('\n')
+      ])
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  @mock.patch('sys.stdout')
+  def test_print_updates_w_version_2_0_0(self, mockStdout, mockedSubprocess):
+
+      self.dHcmJsonFile['version'] = '2.0.0'
+      self.oCommandLineArguments.updates = True
+      self.dHcmJsonFile['publish']['url'] = 'http://svn/external_repo/comps'
+      self.dHcmJsonFile['name'] = 'bishop'
+
+      print_updates(self.oCommandLineArguments, self.dHcmJsonFile)
+
+      mockStdout.write.assert_has_calls([
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('Available Updates'),
+          mock.call('\n'),
+          mock.call('================='),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('Version: 1.1.0'),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n'),
+          mock.call('r10 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line'),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('version 1.1.0'),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('Version: 2.1.0'),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n'),
+          mock.call('r8 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line'),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('version 2.1.0'),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n')
+      ])
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  @mock.patch('sys.stdout')
+  def test_print_updates_w_version_1_0_0(self, mockStdout, mockedSubprocess):
+
+      self.dHcmJsonFile['version'] = '1.0.0'
+      self.oCommandLineArguments.updates = True
+      self.dHcmJsonFile['publish']['url'] = 'http://svn/external_repo/comps'
+      self.dHcmJsonFile['name'] = 'bishop'
+
+      print_updates(self.oCommandLineArguments, self.dHcmJsonFile)
+
+      mockStdout.write.assert_has_calls([
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('Available Updates'),
+          mock.call('\n'),
+          mock.call('================='),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('Version: 1.1.0'),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n'),
+          mock.call('r10 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line'),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('version 1.1.0'),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('Version: 2.1.0'),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n'),
+          mock.call('r8 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line'),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('version 2.1.0'),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('Version: 2.0.0'),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n'),
+          mock.call('r7 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line'),
+          mock.call('\n'),
+          mock.call(''),
+          mock.call('\n'),
+          mock.call('version 2.0.0'),
+          mock.call('\n'),
+          mock.call('------------------------------------------------------------------------'),
+          mock.call('\n')
+      ])

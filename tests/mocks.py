@@ -32,13 +32,13 @@ def parse_svn_command(lList):
     dSvnRepos['http://svn/external_repo'].append('comps/king/1.1.0')
     dSvnRepos['http://svn/external_repo'].append('comps/bishop')
     dSvnRepos['http://svn/external_repo'].append('comps/bishop/1.0.0')
+    dSvnRepos['http://svn/external_repo'].append('comps/bishop/1.1.0')
     dSvnRepos['http://svn/external_repo'].append('comps/bishop/2.0.0')
     dSvnRepos['http://svn/external_repo'].append('comps/bishop/2.1.0')
     dSvnRepos['http://svn/external_repo'].append('comps/queen')
     dSvnRepos['http://svn/external_repo'].append('comps/queen/1.0.0')
     dSvnRepos['http://svn/external_repo'].append('comps/queen/2.0.0')
     dSvnRepos['http://svn/external_repo'].append('comps/queen/3.0.0')
-
 
     try:
         if lList[0] == 'mkdir':
@@ -120,8 +120,35 @@ def parse_svn_log_command(lArgs):
         sOutput += 'Adding rook.\n'
         sOutput += '\n'
         sOutput += '------------------------------------------------------------------------\n'
-
         return sOutput
+    elif 'http://svn/external_repo/comps/bishop/2.1.0' in lArgs:
+            sOutput = '------------------------------------------------------------------------\n'
+            sOutput += 'r8 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line\n'
+            sOutput += '\n'
+            sOutput += 'version 2.1.0\n'
+            sOutput += '------------------------------------------------------------------------\n'
+            return sOutput
+    elif 'http://svn/external_repo/comps/bishop/2.0.0' in lArgs:
+            sOutput = '------------------------------------------------------------------------\n'
+            sOutput += 'r7 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line\n'
+            sOutput += '\n'
+            sOutput += 'version 2.0.0\n'
+            sOutput += '------------------------------------------------------------------------\n'
+            return sOutput
+    elif 'http://svn/external_repo/comps/bishop/1.1.0' in lArgs:
+            sOutput = '------------------------------------------------------------------------\n'
+            sOutput += 'r10 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line\n'
+            sOutput += '\n'
+            sOutput += 'version 1.1.0\n'
+            sOutput += '------------------------------------------------------------------------\n'
+            return sOutput
+    elif 'http://svn/external_repo/comps/bishop/1.0.0' in lArgs:
+            sOutput = '------------------------------------------------------------------------\n'
+            sOutput += 'r5 | jeremiah | 2019-05-20 21:39:51 -0500 (Mon, 20 May 2019) | 1 line\n'
+            sOutput += '\n'
+            sOutput += 'version 1.0.0\n'
+            sOutput += '------------------------------------------------------------------------\n'
+            return sOutput
 
 
 

@@ -214,3 +214,26 @@ def determine_url(sUrl=None):
         exit()
 
     return lUrl
+
+
+def sort_component_versions_by_revision_number(lVersions, dConfig):
+
+    dRevision_to_version_map = {}
+    lRevisions = []
+    lReturn = []
+
+    for sVersion in lVersions:
+        lOutput = svn.get_svn_log_stopped_on_copy(get_component_path(dConfig) + '/' + sVersion)
+        for sOutput in lOutput:
+            if re.match('^r[0-9]+ \| ', sOutput):
+                sRevision = int(sOutput.split()[0][1:])
+                lRevisions.append(sRevision)
+                dRevision_to_version_map[sRevision] = sVersion
+
+    lRevisions.sort()
+    lRevisions.reverse()
+
+    for sRevision in lRevisions:
+        lReturn.append(dRevision_to_version_map[sRevision])
+
+    return lReturn

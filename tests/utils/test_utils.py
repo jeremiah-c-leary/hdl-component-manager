@@ -157,3 +157,26 @@ class test_is_hcm_json_file_valid(unittest.TestCase):
   def test_is_hcm_json_file_missing_source_manifest_key(self):
       self.dHcmJsonFile['source'].pop('manifest')
       self.assertFalse(utils.is_hcm_json_file_valid(self.dHcmJsonFile))
+
+
+class test_sorting_component_versions(unittest.TestCase):
+
+  def setUp(self):
+      self.dHcmJsonFile = {}
+      self.dHcmJsonFile['publish'] = {}
+      self.dHcmJsonFile['publish']['url'] = 'http://svn/external_repo/comps'
+      self.dHcmJsonFile['name'] = 'bishop'
+      self.dHcmJsonFile['version'] = '2.1.0'
+      self.dHcmJsonFile['source'] = {}
+      self.dHcmJsonFile['source']['manifest'] = []
+      self.dHcmJsonFile['source']['url'] = 'source url'
+      logging.disable(logging.CRITICAL)
+
+  def tearDown(self):
+        logging.disable(logging.NOTSET)
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  def test_sorting_bishop_component_versions(self, mocked_function):
+      lExpected = ['1.1.0', '2.1.0', '2.0.0', '1.0.0']
+      lVersions = ['1.0.0', '1.1.0', '2.0.0', '2.1.0']
+      self.assertEqual(utils.sort_component_versions_by_revision_number(lVersions, self.dHcmJsonFile), lExpected)
