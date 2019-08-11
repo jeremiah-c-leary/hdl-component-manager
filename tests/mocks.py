@@ -513,6 +513,8 @@ def parse_svn_info_command(sDirectory):
         sReturn += '\n'
     elif sDirectory == 'unknown':
         sReturn = 'This is just for testing the list subcommand with the --all option.\n'
+    elif sDirectory == 'invalid_component':
+        sReturn = 'This is just for testing the list subcommand with the --all option with an invalid hcm.json file.\n'
     else:
         raise subprocess.CalledProcessError(0, 'svn info')
 

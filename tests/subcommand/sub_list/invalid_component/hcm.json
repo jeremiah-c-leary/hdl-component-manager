@@ -1,0 +1,14 @@
+{
+    "source": {
+        "manifest": {
+            "tests/subcommand/validate/rook/file1.txt": "98475036dc73d318982805bf4b16e8b2", 
+            "tests/subcommand/validate/rook/rtl/rook.vhd": "6774bc056485054ecdbc3085284952c9"
+        }, 
+        "url": "http://svn/my_repo/trunk/project_chess/components/rook@41"
+    },
+    "name": "rook", 
+    "version": "2.0.0",
+    "publish": {
+        "url": "http://svn/my_repo/comps"
+    }
+}

@@ -65,6 +65,8 @@ def get_latest_version(sUrl):
         return sUpgradeVersion
     except IndexError:
         return 'None'
+    except subprocess.CalledProcessError:
+        return 'None'
 
 
 def read_dependencies(sDirectory):
