@@ -48,37 +48,36 @@ def add_hcm_controlled_component(dVersions, sDirectory, lExternals):
             sUpgrade = str(get_upgrade(utils.get_component_path(dConfig), utils.get_version(dConfig)))
             dVersions['components'][sDirectory]['upgrade'] = sUpgrade
             update_column_width(dVersions, 'max_upgrade_len', len(sUpgrade))
-    
+
             update_external(dVersions, sDirectory, lExternals)
         else:
             dVersions['components'][sDirectory] = {}
             dVersions['components'][sDirectory]['url'] = 'Invalid'
             dVersions['components'][sDirectory]['version'] = 'None'
             dVersions['components'][sDirectory]['upgrade'] = 'None'
-    
+
             update_external(dVersions, sDirectory, lExternals)
-        
+
 
 def add_non_hcm_controlled_component(dVersions, sDirectory, lExternals, oCommandLineArguments):
     sHcmName = sDirectory + '/hcm.json'
     if oCommandLineArguments.all and not os.path.isfile(sHcmName):
-        dVersions['components'][sDirectory] = {}
-        dVersions['components'][sDirectory]['url'] = '-----'
-        dVersions['components'][sDirectory]['version'] = '-----'
-        dVersions['components'][sDirectory]['upgrade'] = '-----'
-
+        add_blank_entry(dVersions, sDirectory)
         update_external(dVersions, sDirectory, lExternals)
 
 
 def add_non_svn_controlled_directory(dVersions, sDirectory, lExternals, oCommandLineArguments):
     if oCommandLineArguments.all:
-        dVersions['components'][sDirectory] = {}
-        dVersions['components'][sDirectory]['url'] = '-----'
-        dVersions['components'][sDirectory]['version'] = '-----'
-        dVersions['components'][sDirectory]['upgrade'] = '-----'
-
+        add_blank_entry(dVersions, sDirectory)
         update_external(dVersions, sDirectory, lExternals)
 
+
+def add_blank_entry(dVersions, sDirectory):
+    dVersions['components'][sDirectory] = {}
+    dVersions['components'][sDirectory]['url'] = '-----'
+    dVersions['components'][sDirectory]['version'] = '-----'
+    dVersions['components'][sDirectory]['upgrade'] = '-----'
+    
 
 def read_hcm_json_file(sHcmName):
     try:

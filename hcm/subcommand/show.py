@@ -97,14 +97,7 @@ def print_upgrades(oCommandLineArguments, dConfig):
 
     lVersions.reverse()
 
-    iIndex = lVersions.index(utils.get_version(dConfig))
-
-    for sVersion in lVersions[:iIndex]:
-        print('')
-        print('Version: ' + sVersion)
-        lOutput = svn.get_svn_log_stopped_on_copy(utils.get_component_path(dConfig) + '/' + sVersion)
-        for sLine in lOutput:
-            print(sLine)
+    print_versions(lVersions, dConfig)
 
 
 def print_updates(oCommandLineArguments, dConfig):
@@ -122,6 +115,10 @@ def print_updates(oCommandLineArguments, dConfig):
         print('No Updates')
         return
 
+    print_versions(lVersions, dConfig)
+
+
+def print_versions(lVersions, dConfig):
     iIndex = lVersions.index(utils.get_version(dConfig))
 
     for sVersion in lVersions[:iIndex]:
