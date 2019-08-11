@@ -113,7 +113,7 @@ HCM can be invoked by issuing **hcm** at the command line prompt:
         publish             Adds components to the component repo
         show                Displays information about installed components
         validate            Verifies manifest of installed component
-        version             Displays HCM version information.
+        version             Displays HCM version information
     
     optional arguments:
       -h, --help            show this help message and exit
@@ -293,15 +293,15 @@ Use the **validate** subcommand to compare the component manifest against what i
 The arguments for the subcommand can be listed using the *-h* options:
 
 .. code-block:: bash
-
     $ hcm validate -h
-    usage: hcm validate [-h] component
+    usage: hcm validate [-h] [--report] component
     
     positional arguments:
       component   Component to display information
     
     optional arguments:
       -h, --help  show this help message and exit
+      --report    Reports differences
 
 Environment Variables
 ~~~~~~~~~~~~~~~~~~~~~

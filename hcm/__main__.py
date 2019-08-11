@@ -31,7 +31,7 @@ def parse_command_line_arguments():
     publish_parser = subparsers.add_parser('publish', help='Adds components to the component repo')
     show_parser = subparsers.add_parser('show', help='Displays information about installed components')
     validate_parser = subparsers.add_parser('validate', help='Verifies manifest of installed component')
-    version_parser = subparsers.add_parser('version', help='Displays HCM version information.')
+    version_parser = subparsers.add_parser('version', help='Displays HCM version information')
 
     build_browse_parser(browse_parser)
     build_create_parser(create_parser)
@@ -57,6 +57,7 @@ def build_version_parser(oParser):
 
 def build_validate_parser(oParser):
     oParser.add_argument('component', help='Component to display information')
+    oParser.add_argument('--report', default=False, action='store_true', help='Reports differences')
     oParser.set_defaults(which='validate')
 
 
@@ -168,7 +169,7 @@ def main():
     elif commandLineArguments.which == 'show':
         subcommand.show(commandLineArguments)
     elif commandLineArguments.which == 'validate':
-        subcommand.validate(commandLineArguments.component)
+        subcommand.validate(commandLineArguments.component, commandLineArguments.report)
     elif commandLineArguments.which == 'version':
         version.print_version()
 

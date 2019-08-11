@@ -1,0 +1,14 @@
+{
+    "source": {
+        "manifest": {
+            "tests/subcommand/validate/rook_w_differing_md5sums/file1.txt": "98475036dc73d318982805bf4b16e8b2", 
+            "tests/subcommand/validate/rook_w_differing_md5sums/rtl/rook.vhd": "6774bc056485054ecdbc3085284952c0"
+        }, 
+        "url": "file:///home/jeremiah/svn/my_repo/trunk/project_chess/components/rook@41"
+    },
+    "name": "rook", 
+    "version": "4.0.0",
+    "publish": {
+        "url": "file:///home/jeremiah/svn/my_repo/comps"
+    }
+}
