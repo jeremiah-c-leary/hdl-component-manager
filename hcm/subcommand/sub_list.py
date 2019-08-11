@@ -24,6 +24,7 @@ def sub_list(oCommandLineArguments):
     for sDirectory in lDirectories:
 
         if not svn.is_directory_under_svn_control(sDirectory):
+            add_non_svn_controlled_directory(dVersions, sDirectory, lExternals, oCommandLineArguments)
             continue
 
         update_column_width(dVersions, 'max_comp_len', len(sDirectory))
@@ -58,10 +59,19 @@ def add_hcm_controlled_component(dVersions, sDirectory, lExternals):
             update_external(dVersions, sDirectory, lExternals)
         
 
-
 def add_non_hcm_controlled_component(dVersions, sDirectory, lExternals, oCommandLineArguments):
     sHcmName = sDirectory + '/hcm.json'
     if oCommandLineArguments.all and not os.path.isfile(sHcmName):
+        dVersions['components'][sDirectory] = {}
+        dVersions['components'][sDirectory]['url'] = '-----'
+        dVersions['components'][sDirectory]['version'] = '-----'
+        dVersions['components'][sDirectory]['upgrade'] = '-----'
+
+        update_external(dVersions, sDirectory, lExternals)
+
+
+def add_non_svn_controlled_directory(dVersions, sDirectory, lExternals, oCommandLineArguments):
+    if oCommandLineArguments.all:
         dVersions['components'][sDirectory] = {}
         dVersions['components'][sDirectory]['url'] = '-----'
         dVersions['components'][sDirectory]['version'] = '-----'
@@ -151,7 +161,7 @@ def update_status_field(dVersions, sComponent):
         sStatus = update_external_status_flag(dVersions, sComponent)
         sStatus += update_committed_modifications_status_flag(dVersions, sComponent)
         sStatus += update_uncommitted_modifications_status_flag(sComponent)
-
+        sStatus += update_svn_control_status_flag(dVersions, sComponent)
         return sStatus
 
 
@@ -173,8 +183,18 @@ def update_committed_modifications_status_flag(dVersions, sComponent):
 
 
 def update_uncommitted_modifications_status_flag(sComponent):
+    if not svn.is_directory_under_svn_control(sComponent):
+        return ' '
+
     if svn.does_directory_have_uncommitted_files(sComponent):
         return 'U'
+    else:
+        return ' '
+
+
+def update_svn_control_status_flag(dVersions, sComponent):
+    if not svn.is_directory_under_svn_control(sComponent):
+        return 'N'
     else:
         return ' '
 

@@ -94,7 +94,7 @@ class testListSubcommand(unittest.TestCase):
       self.assertEqual(update_uncommitted_modifications_status_flag('queen'), ' ')
       self.assertEqual(update_uncommitted_modifications_status_flag('bishop'), ' ')
       self.assertEqual(update_uncommitted_modifications_status_flag('pawn'), 'U')
-      self.assertEqual(update_uncommitted_modifications_status_flag('castle'), 'U')
+      self.assertEqual(update_uncommitted_modifications_status_flag('castle'), ' ')
 
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   def test_update_committed_modifications_status_flag(self, mocked_function):
@@ -112,9 +112,9 @@ class testListSubcommand(unittest.TestCase):
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   def test_update_status_field(self, mocked_function):
 
-      self.assertEqual(update_status_field(self.dVersions, 'rook'), ' M ')
-      self.assertEqual(update_status_field(self.dVersions, 'queen'), '   ')
-      self.assertEqual(update_status_field(self.dVersions, 'pawn'), 'E U')
+      self.assertEqual(update_status_field(self.dVersions, 'rook'), ' M  ')
+      self.assertEqual(update_status_field(self.dVersions, 'queen'), '    ')
+      self.assertEqual(update_status_field(self.dVersions, 'pawn'), 'E U ')
 
   @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
   @mock.patch('sys.stdout')
@@ -252,6 +252,8 @@ class testList(unittest.TestCase):
           mock.call('\n'),
           mock.call('-----------------     --------     --------     ------     -----------------------------'),
           mock.call('\n'),
+          mock.call('__pycache__           -----        -----           N       -----                        '),
+          mock.call('\n'),
           mock.call('invalid_component     None         None           U        Invalid                      '),
           mock.call('\n'),
           mock.call('queen                 2.1.0        3.0.0                   http://svn/my_repo/components'),
@@ -259,5 +261,7 @@ class testList(unittest.TestCase):
           mock.call('rook                  2.0.0        None          M         http://svn/my_repo/components'),
           mock.call('\n'),
           mock.call('unknown               -----        -----          U        -----                        '),
+          mock.call('\n'),
+          mock.call('unknown2              -----        -----           N       -----                        '),
           mock.call('\n')
       ])

@@ -16,6 +16,7 @@ Example:  listing installed components
    castle        1.0.0        None         E U        http://svn/external_repo/blocks
    pawn          1.0.0        3.1.0        E U        http://svn/external_repo/blocks
    rook          3.0.0        3.0.3         MU        http://svn/my_repo/comps       
+   new_comp      -----        -----           N       -----
 
 
 The upgrade column shows the latest published version available.
@@ -38,7 +39,9 @@ Use a repository browser to decide whether to upgrade a component.
 |               |                                                                              |
 |               | M = Component has commited modifications.                                    |
 |               |                                                                              |
-|               | U = Component has uncommitted modifications                                  |
+|               | U = Component has uncommitted modifications.                                 |
+|               |                                                                              |
+|               | N = Directory is not under SVN control.                                      |
 +---------------+------------------------------------------------------------------------------+
 | URL           | The base URL the component was installed from.                               |
 +---------------+------------------------------------------------------------------------------+
