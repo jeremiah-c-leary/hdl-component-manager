@@ -93,4 +93,3 @@ def is_file_missing(sFileName, lKeys, dHcmJsonFileManifest, dManifest):
     if sFileName in lKeys and dHcmJsonFileManifest[sFileName] != dManifest[sFileName]:
         return True
     return False
-

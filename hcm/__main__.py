@@ -22,27 +22,16 @@ def parse_command_line_arguments():
 
     subparsers = top_parser.add_subparsers()
 
-    browse_parser = subparsers.add_parser('browse', help='List components available for installation.')
-    create_parser = subparsers.add_parser('create', help='Creates a component repo')
-    download_parser = subparsers.add_parser('download', help='Downloads components without installing them.')
-    install_parser = subparsers.add_parser('install', help='Adds a component from the component repo')
-    uninstall_parser = subparsers.add_parser('uninstall', help='Removes installed components')
-    list_parser = subparsers.add_parser('list', help='Lists components and their versions')
-    publish_parser = subparsers.add_parser('publish', help='Adds components to the component repo')
-    show_parser = subparsers.add_parser('show', help='Displays information about installed components')
-    validate_parser = subparsers.add_parser('validate', help='Verifies manifest of installed component')
-    version_parser = subparsers.add_parser('version', help='Displays HCM version information')
-
-    build_browse_parser(browse_parser)
-    build_create_parser(create_parser)
-    build_download_parser(download_parser)
-    build_install_parser(install_parser)
-    build_uninstall_parser(uninstall_parser)
-    build_publish_parser(publish_parser)
-    build_list_parser(list_parser)
-    build_show_parser(show_parser)
-    build_validate_parser(validate_parser)
-    build_version_parser(version_parser)
+    build_browse_parser(subparsers)
+    build_create_parser(subparsers)
+    build_download_parser(subparsers)
+    build_install_parser(subparsers)
+    build_uninstall_parser(subparsers)
+    build_publish_parser(subparsers)
+    build_list_parser(subparsers)
+    build_show_parser(subparsers)
+    build_validate_parser(subparsers)
+    build_version_parser(subparsers)
 
     print_help_if_no_command_line_options_given(top_parser)
 
@@ -51,70 +40,90 @@ def parse_command_line_arguments():
     return oArgs
 
 
-def build_version_parser(oParser):
-    oParser.set_defaults(which='version')
+def build_version_parser(oSubparser):
+    version_parser = oSubparser.add_parser('version', help='Displays HCM version information')
+
+    version_parser.set_defaults(which='version')
 
 
-def build_validate_parser(oParser):
-    oParser.add_argument('component', help='Component to display information')
-    oParser.add_argument('--report', default=False, action='store_true', help='Reports differences')
-    oParser.set_defaults(which='validate')
+def build_validate_parser(oSubparser):
+    validate_parser = oSubparser.add_parser('validate', help='Verifies manifest of installed component')
+
+    validate_parser.add_argument('component', help='Component to display information')
+    validate_parser.add_argument('--report', default=False, action='store_true', help='Reports differences')
+    validate_parser.set_defaults(which='validate')
 
 
-def build_show_parser(oParser):
-    oParser.add_argument('component', help='Component to display information')
-    oParser.add_argument('--manifest', default=False, action='store_true', help='Displays manifest for all files in component')
-    oParser.add_argument('--upgrades', default=False, action='store_true', help='Lists upgrade versions and their log entries')
-    oParser.add_argument('--updates', default=False, action='store_true', help='Lists versions with newer publishes and their log entries')
-    oParser.add_argument('--modifications', default=False, action='store_true', help='Lists committed modifications for component')
-    oParser.set_defaults(which='show')
+def build_show_parser(oSubparser):
+    show_parser = oSubparser.add_parser('show', help='Displays information about installed components')
+
+    show_parser.add_argument('component', help='Component to display information')
+    show_parser.add_argument('--manifest', default=False, action='store_true', help='Displays manifest for all files in component')
+    show_parser.add_argument('--upgrades', default=False, action='store_true', help='Lists upgrade versions and their log entries')
+    show_parser.add_argument('--updates', default=False, action='store_true', help='Lists versions with newer publishes and their log entries')
+    show_parser.add_argument('--modifications', default=False, action='store_true', help='Lists committed modifications for component')
+    show_parser.set_defaults(which='show')
 
 
-def build_create_parser(oParser):
-    oParser.add_argument('url', help='location to create the base component directory')
-    oParser.set_defaults(which='create')
+def build_create_parser(oSubparser):
+    create_parser = oSubparser.add_parser('create', help='Creates a component repo')
+
+    create_parser.add_argument('url', help='location to create the base component directory')
+    create_parser.set_defaults(which='create')
 
 
-def build_download_parser(oParser):
-    oParser.add_argument('component', help='Component name to publish')
-    oParser.add_argument('version', help='Major.Minor.Patch version to publish')
-    oParser.set_defaults(which='download')
+def build_download_parser(oSubparser):
+    download_parser = oSubparser.add_parser('download', help='Downloads components without installing them.')
+
+    download_parser.add_argument('component', help='Component name to publish')
+    download_parser.add_argument('version', help='Major.Minor.Patch version to publish')
+    download_parser.set_defaults(which='download')
 
 
-def build_install_parser(oParser):
-    oParser.add_argument('component', help='Component name to install')
-    oParser.add_argument('--version', default=None, help='Major.Minor.Patch version of component to install.')
-    oParser.add_argument('--url', help='location of component directory in repo')
-    oParser.add_argument('--force', default=False, action='store_true', help='Install component ignoring any local changes')
-    oParser.add_argument('--external', default=False, action='store_true', help='Install as an external')
-    oParser.add_argument('--dependencies', default=False, action='store_true', help='Install dependencies')
-    oParser.add_argument('--upgrade', default=False, action='store_true', help='Upgrade dependencies to latest version')
-    oParser.set_defaults(which='install')
+def build_install_parser(oSubparser):
+    install_parser = oSubparser.add_parser('install', help='Adds a component from the component repo')
+
+    install_parser.add_argument('component', help='Component name to install')
+    install_parser.add_argument('--version', default=None, help='Major.Minor.Patch version of component to install.')
+    install_parser.add_argument('--url', help='location of component directory in repo')
+    install_parser.add_argument('--force', default=False, action='store_true', help='Install component ignoring any local changes')
+    install_parser.add_argument('--external', default=False, action='store_true', help='Install as an external')
+    install_parser.add_argument('--dependencies', default=False, action='store_true', help='Install dependencies')
+    install_parser.add_argument('--upgrade', default=False, action='store_true', help='Upgrade dependencies to latest version')
+    install_parser.set_defaults(which='install')
 
 
-def build_uninstall_parser(oParser):
-    oParser.add_argument('component', help='Installed Component name to install')
-    oParser.set_defaults(which='uninstall')
+def build_uninstall_parser(oSubparser):
+    uninstall_parser = oSubparser.add_parser('uninstall', help='Removes installed components')
+
+    uninstall_parser.add_argument('component', help='Installed Component name to install')
+    uninstall_parser.set_defaults(which='uninstall')
 
 
-def build_list_parser(oParser):
-    oParser.add_argument('--all', default=False, action='store_true', help='Includes directories that are not under HCM control')
-    oParser.set_defaults(which='list')
+def build_list_parser(oSubparser):
+    list_parser = oSubparser.add_parser('list', help='Lists components and their versions')
+
+    list_parser.add_argument('--all', default=False, action='store_true', help='Includes directories that are not under HCM control')
+    list_parser.set_defaults(which='list')
 
 
-def build_browse_parser(oParser):
-    oParser.add_argument('component', default=None, nargs='?', help='Component to browse')
-    oParser.set_defaults(which='browse')
+def build_browse_parser(oSubparser):
+    browse_parser = oSubparser.add_parser('browse', help='List components available for installation.')
+
+    browse_parser.add_argument('component', default=None, nargs='?', help='Component to browse')
+    browse_parser.set_defaults(which='browse')
 
 
-def build_publish_parser(oParser):
-    oParser.add_argument('component', help='Component name to publish')
-    oParser.add_argument('version', help='Major.Minor.Patch version to publish')
-    oGroup = oParser.add_mutually_exclusive_group(required=True)
+def build_publish_parser(oSubparser):
+    publish_parser = oSubparser.add_parser('publish', help='Adds components to the component repo')
+
+    publish_parser.add_argument('component', help='Component name to publish')
+    publish_parser.add_argument('version', help='Major.Minor.Patch version to publish')
+    oGroup = publish_parser.add_mutually_exclusive_group(required=True)
     oGroup.add_argument('-m', help='Commit message')
     oGroup.add_argument('-f', help='File to use as commit message')
-    oParser.add_argument('--url', help='Base URL of the component repository')
-    oParser.set_defaults(which='publish')
+    publish_parser.add_argument('--url', help='Base URL of the component repository')
+    publish_parser.set_defaults(which='publish')
 
 
 def print_help_if_no_command_line_options_given(oParser):

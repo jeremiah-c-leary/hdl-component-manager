@@ -77,7 +77,7 @@ def add_blank_entry(dVersions, sDirectory):
     dVersions['components'][sDirectory]['url'] = '-----'
     dVersions['components'][sDirectory]['version'] = '-----'
     dVersions['components'][sDirectory]['upgrade'] = '-----'
-    
+
 
 def read_hcm_json_file(sHcmName):
     try:
