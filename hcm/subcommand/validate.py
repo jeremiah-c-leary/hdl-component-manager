@@ -7,22 +7,22 @@ from hcm import utils
 
 def validate(sComponent, fReport):
 
-        logging.info('Validating component ' + sComponent)
+    logging.info('Validating component ' + sComponent)
 
-        dHcmJsonFile = utils.read_hcm_json_file(sComponent)
+    dHcmJsonFile = utils.read_hcm_json_file(sComponent)
 
-        dManifest = generate_manifest(sComponent)
+    dManifest = generate_manifest(sComponent)
 
-        logging.info('Comparing manifest against installed component.')
+    logging.info('Comparing manifest against installed component.')
 
-        if dHcmJsonFile['source']['manifest'] != dManifest:
-            logging.error('Installed component does not match manifest.')
-            if not fReport:
-                exit(1)
-            else:
-                report_differences(dHcmJsonFile, dManifest)
+    if utils.get_manifest(dHcmJsonFile) != dManifest:
+        logging.error('Installed component does not match manifest.')
+        if not fReport:
+            exit(1)
         else:
-            logging.info('Installed component matches manifest.')
+            report_differences(dHcmJsonFile, dManifest)
+    else:
+        logging.info('Installed component matches manifest.')
 
 
 def generate_manifest(sDirectory):
@@ -64,7 +64,7 @@ def report_differences(dHcmJsonFile, dManifest):
 def check_for_missing_files(dHcmJsonFile, dManifest):
     lReturn = []
     lKeys = dManifest.keys()
-    for sKey in dHcmJsonFile['source']['manifest'].keys():
+    for sKey in utils.get_manifest(dHcmJsonFile).keys():
         if sKey not in lKeys:
             lReturn.append(sKey)
     return lReturn
@@ -72,7 +72,7 @@ def check_for_missing_files(dHcmJsonFile, dManifest):
 
 def check_for_extra_files(dHcmJsonFile, dManifest):
     lReturn = []
-    lKeys = dHcmJsonFile['source']['manifest'].keys()
+    lKeys = utils.get_manifest(dHcmJsonFile).keys()
     for sKey in dManifest.keys():
         if sKey not in lKeys:
             lReturn.append(sKey)
@@ -82,9 +82,15 @@ def check_for_extra_files(dHcmJsonFile, dManifest):
 def check_for_changed_files(dHcmJsonFile, dManifest):
     lReturn = []
     lKeys = dManifest.keys()
-    for sKey in dHcmJsonFile['source']['manifest'].keys():
-        if sKey in lKeys:    
-            if dHcmJsonFile['source']['manifest'][sKey] != dManifest[sKey]:
-                lReturn.append(sKey)
+    dHcmJsonFileManifest = utils.get_manifest(dHcmJsonFile)
+    for sKey in dHcmJsonFileManifest.keys():
+        if is_file_missing(sKey, lKeys, dHcmJsonFileManifest, dManifest):
+            lReturn.append(sKey)
     return lReturn
+
+
+def is_file_missing(sFileName, lKeys, dHcmJsonFileManifest, dManifest):
+    if sFileName in lKeys and dHcmJsonFileManifest[sFileName] != dManifest[sFileName]:
+        return True
+    return False
 
