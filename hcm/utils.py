@@ -197,7 +197,10 @@ def build_url_path(sUrl, sComponent, sVersion):
     sReturn = sUrl + '/' + sComponent + '/'
     if sVersion is None:
         try:
-            return sReturn + get_latest_version(sUrl + '/' + sComponent)
+            sLatestVersion = get_latest_version(sUrl + '/' + sComponent)
+            if sLatestVersion == 'None':
+                return None
+            return sReturn + sLatestVersion
         except:
             return None
     else:

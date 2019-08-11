@@ -92,6 +92,7 @@ class testUtilsMethods(unittest.TestCase):
         self.assertEqual('2.0.0', utils.get_latest_version('http://svn/my_repo/components/rook'))
         self.assertEqual('3.0.0', utils.get_latest_version('http://svn/my_repo/components/queen'))
         self.assertEqual('None', utils.get_latest_version('http://svn/my_repo/components/pawwn'))
+        self.assertEqual('None', utils.get_latest_version('http://svn/my_repo/components/pawwwn'))
 
 
 class testReadHcmJsonFile(unittest.TestCase):
@@ -180,3 +181,11 @@ class test_sorting_component_versions(unittest.TestCase):
       lExpected = ['1.1.0', '2.1.0', '2.0.0', '1.0.0']
       lVersions = ['1.0.0', '1.1.0', '2.0.0', '2.1.0']
       self.assertEqual(utils.sort_component_versions_by_revision_number(lVersions, self.dHcmJsonFile), lExpected)
+
+  @mock.patch('subprocess.check_output', side_effect=mocked_subprocess_check_output)
+  def test_build_url_path(self, mocked_function):
+      self.assertEqual('http://svn/my_repo/components/rook/2.0.0', utils.build_url_path('http://svn/my_repo/components', 'rook', '2.0.0'))
+      self.assertEqual('http://svn/my_repo/components/rook/2.0.0', utils.build_url_path('http://svn/my_repo/components', 'rook', None))
+      self.assertEqual('http://svn/my_repo/components/queen/3.0.0', utils.build_url_path('http://svn/my_repo/components', 'queen', '3.0.0'))
+      self.assertEqual(None, utils.build_url_path('http://svn/my_repo/components', 'pawwn', None))
+      self.assertEqual(None, utils.build_url_path('http://svn/my_repo/components', 'pawwwn', None))
